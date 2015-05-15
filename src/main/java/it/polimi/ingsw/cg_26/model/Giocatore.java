@@ -1,4 +1,3 @@
-//serve metodo getter per la listaMosse?
 package it.polimi.ingsw.cg_26.model;
 
 import it.polimi.ingsw.cg_26.model.carte.CartaOggetto;
@@ -64,6 +63,10 @@ public abstract class Giocatore
 		//remove(oggetto) rimuove la prima occorrenza trovata dell'oggetto
 		//che gli passiamo e ritorna true
 		carteOggetto.remove(oggetto);	
+	}
+
+	public ArrayList<Settore> getListaMosse(){
+		return listaMosse;
 	}
 	
 	public boolean getInVita() {return inVita;}

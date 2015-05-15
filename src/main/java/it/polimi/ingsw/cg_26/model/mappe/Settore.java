@@ -33,5 +33,6 @@ public  class Settore
 	}
 	
 	//metodo per trovare i vicini
+	//getter trovaSettoriVicini
 
 }

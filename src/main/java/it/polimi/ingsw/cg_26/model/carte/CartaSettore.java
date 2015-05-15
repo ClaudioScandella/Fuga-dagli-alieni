@@ -1,6 +1,6 @@
 package it.polimi.ingsw.cg_26.model.carte;
 
-public class CartaSettore
+public class CartaSettore extends Carta
 {
 	private boolean conOggetto;
 	
@@ -11,7 +11,7 @@ public class CartaSettore
 	private String tipoCartaSettore;
 		
 	public CartaSettore(String tipoCartaSettore, boolean conOggetto){
-			this.tipoCartaSettore = tipoCartaSettore;
+			super(tipoCartaSettore);
 			this.conOggetto = conOggetto;
 		}
 		

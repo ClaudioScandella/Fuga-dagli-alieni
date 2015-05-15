@@ -1,6 +1,6 @@
 package it.polimi.ingsw.cg_26.model.carte;
 
-public class CartaScialuppa
+public class CartaScialuppa extends Carta
 {
 	//tipoCartaScialuppa può essere:
 	//"rossa", "verde"
@@ -8,7 +8,7 @@ public class CartaScialuppa
 			private String tipoCartaScialuppa;
 			
 			public CartaScialuppa(String tipoCartaScialuppa){
-				this.tipoCartaScialuppa = tipoCartaScialuppa;
+				super(tipoCartaScialuppa);
 			}
 			
 			public String getTipoCartaScialuppa(){

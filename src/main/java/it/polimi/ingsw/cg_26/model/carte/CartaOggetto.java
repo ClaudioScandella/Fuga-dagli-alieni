@@ -1,6 +1,6 @@
 package it.polimi.ingsw.cg_26.model.carte;
 
-public class CartaOggetto
+public class CartaOggetto extends Carta
 {
 	//tipoOggetto può essere:
 	//"attacco", "teletrasporto", "adrenalina"
@@ -9,7 +9,7 @@ public class CartaOggetto
 		private String tipoOggetto;
 		
 		public CartaOggetto(String tipoOggetto){
-			this.tipoOggetto = tipoOggetto;
+			super(tipoOggetto);
 		}
 		
 		public String getTipoOggetto(){
