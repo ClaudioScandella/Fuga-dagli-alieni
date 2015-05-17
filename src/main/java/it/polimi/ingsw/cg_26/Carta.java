@@ -7,6 +7,6 @@ public abstract class Carta
 	//setters
 	//getters
 	
-	
+	//commento inutile
 
 }
