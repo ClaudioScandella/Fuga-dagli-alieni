@@ -56,7 +56,7 @@ public class Partita {
 		return giocatori;
 	}
 	
-	public int getGito(){
+	public int getGiro(){
 		return giro;
 	}
 	
