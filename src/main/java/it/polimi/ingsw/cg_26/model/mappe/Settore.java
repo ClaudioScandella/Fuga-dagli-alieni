@@ -1,38 +1,56 @@
 package it.polimi.ingsw.cg_26.model.mappe;
 
-import java.util.ArrayList;
+import java.util.*;
 
-public  class Settore
+public abstract class Settore
 {
-	private int[] coordinate = new int[2];
-	ArrayList<Settore> settoriVicini = new ArrayList<Settore>(); 
+	private String nome;
+	//private String coordinata;
+	//private enum tipoDiSettore{VUOTO,PERICOLOSO,SICURO,PARTENZA_ALIENI,PARTENZA_UMANI,SCIALUPPA1,SCIALUPPA2,SCIALUPPA3,SCIALUPPA4}
+	//private List<Settore> settoriAdiacenti;
 	
-	public Settore(int x,int y){
-		coordinate[0] = x;
-		coordinate[1] = y;
+	
+	public Settore(String nome)
+	{
+		this.nome=nome;
 	}
 	
-	public int getCoordinataX(){
-		return coordinate[0];
+	public String getNome() {
+		// TODO Auto-generated method stub
+		return nome;
 	}
 	
-	public void setCoordinataX(int x){
-		coordinate[0] = x;
+	
+	
+	public ArrayList trovaSettoriAdiacenti(String nome)
+	{
+		//traduttore nome-->indice
+		return null;
 	}
 	
-	public int[] getCoordinate(){
-		return coordinate;
-	}
-	
-	public int getCoordinataY(){
-		return coordinate[1];
-	}
-	
-	public void setCoordinataY(int y){
-		coordinate[1] = y;
-	}
-	
-	//metodo per trovare i vicini
-	//getter trovaSettoriVicini
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Settore other = (Settore) obj;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		return true;
+	}
 }
