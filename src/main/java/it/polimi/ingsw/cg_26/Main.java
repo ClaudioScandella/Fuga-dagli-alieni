@@ -6,22 +6,20 @@ public class Main {
 
 	
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		//ProvaLetturaFile.main(args);
-		
-		
+	public static void main(String[] args)
+	{
 		final MappaGalilei mappa=new MappaGalilei();
-		
-		
-		/*
-		int a=45;
-		int b=a%23;
-		System.out.println(b);
-		//*/
-		
-		
-	
+		System.out.println(mappa.mossaValida(74,"F04"));
+//		MazzoScialuppa mazzoScialuppa=new MazzoScialuppa();
+//		mazzoScialuppa.mostraMazzo();
+//		mazzoScialuppa.mischia();
+//		mazzoScialuppa.mostraMazzo();
+//		MazzoOggetti mazzoOggetti=new MazzoOggetti();
+//		mazzoOggetti.mischia();
+//		mazzoOggetti.mostraMazzo();
+//		MazzoSettori mazzoSettori=new MazzoSettori();
+//		mazzoSettori.mischia();
+//		mazzoSettori.mostraMazzo();
 		
 		
 		

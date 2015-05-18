@@ -2,11 +2,19 @@ package it.polimi.ingsw.cg_26;
 
 public abstract class Carta
 {
-	private boolean inGioco;
+	private enum Tipo{SETTORE, SCIALUPPA, OGGETTO;}
+	private Tipo tipo;
 	
-	//setters
-	//getters
+	/*
+	public Carta(Tipo tipo)
+	{
+		this.tipo = tipo;
+	}
 	
-	//commento inutile
-
+	public Tipo getTipo()
+	{
+		return tipo;
+	}
+ 	*/
+	
 }

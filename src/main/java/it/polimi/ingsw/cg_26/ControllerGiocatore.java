@@ -7,7 +7,7 @@ public class ControllerGiocatore {
 		return 1;
 	}
 	
-	public void usaAbilit�()
+	public void usaAbilità()
 	{
 		
 	}
