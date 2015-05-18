@@ -7,7 +7,10 @@ import java.util.ArrayList;
 
 public abstract class Giocatore
 {
-	private int idGiocatore=0; 
+	private int idGiocatore=0;
+	
+	@SuppressWarnings("unused")
+	private int idPartita;
 	private String nomeUtente;
 	private String personaggio;
 	private Settore posizione; 
@@ -21,9 +24,9 @@ public abstract class Giocatore
 	//true possibile solo per umani
 	private boolean scialuppaRaggiunta = false;
 	
-	public Giocatore(String nomeUtente, String personaggio){
+	public Giocatore(String nomeUtente, int idPartita){
 		this.nomeUtente = nomeUtente;
-		this.personaggio = personaggio;
+		this.idPartita = idPartita;
 		idGiocatore ++; 
 	}
 	
@@ -39,6 +42,10 @@ public abstract class Giocatore
 	} 
 	
 	public String getPersonaggio(){ return personaggio;	}
+	
+	public void setPersonaggio(String personaggio){
+		this.personaggio = personaggio;
+	}
 	
 	//aggiunge una carta oggetto alla lista,
 	//però poi nel Controller, quando il giocatore pesca la carta,
@@ -88,4 +95,6 @@ public abstract class Giocatore
 	public void setScialuppaRaggiunta(){
 		scialuppaRaggiunta = true;
 	}
+
+
 }
