@@ -158,36 +158,36 @@ public class MappaGalilei
 //		return false;
 //	}
 	
-	private static int rateo=2;
-	public boolean mossaValida(int index, String nome)
-	{
-		
-		//visto che si passa il nome del settore qui ci vuole il traduttore nome-->indice
-		int posizioneCorrente=51;
-		listaSettoriAdiacenti=mappaGalilei.get(listSettore.get(posizioneCorrente));
+//	private static int rateo=2;
+//	public boolean mossaValida(int index, String nome)
+//	{
+//		
+//		//visto che si passa il nome del settore qui ci vuole il traduttore nome-->indice
+//		int posizioneCorrente=51;
+//		listaSettoriAdiacenti=mappaGalilei.get(listSettore.get(posizioneCorrente));
 //		System.out.println(listSettore.get(index).getNome());
 //		System.out.println(listSettore.get(51).getNome());
-		
-		
-		for(int k=0;k<listaSettoriAdiacenti.size();k++)
-		{
-//			System.out.println(listaSettoriAdiacenti.get(k).getNome());
-			if(listaSettoriAdiacenti.get(k).getNome().equals(nome)) return true;
-		}
-		
-		return false;
-	}
-	
-	private boolean controllaVicini(int settoreUno, int settoreDue)
-	{
-		if(rateo==0) return false;
-		
-		
-		
-		if(if(listaSettoriAdiacenti.get().getNome().equals())
-		
-		return false;
-	}
+//		
+//		
+//		for(int k=0;k<listaSettoriAdiacenti.size();k++)
+//		{
+////			System.out.println(listaSettoriAdiacenti.get(k).getNome());
+//			if(listaSettoriAdiacenti.get(k).getNome().equals(nome)) return true;
+//		}
+//		
+//		return false;
+//	}
+//	
+//	private boolean controllaVicini(int settoreUno, int settoreDue)
+//	{
+//		if(rateo==0) return false;
+//		
+//		
+//		
+//		if(if(listaSettoriAdiacenti.get().getNome().equals())
+//		
+//		return false;
+//	}
 
 	
 	
