@@ -9,7 +9,7 @@ import java.util.List;
 public class MazzoOggetti
 {
 
-	private List<CartaOggetto> mazzoCarteOggetto = new ArrayList<>();
+	List<CartaOggetto> mazzoCarteOggetto = new ArrayList<>();
 	private CartaOggetto cartaOggetto;
 	
 
@@ -36,4 +36,7 @@ public class MazzoOggetti
 
 	}
 	
+	public List<CartaOggetto> getMazzo(){
+		return mazzoCarteOggetto;
+	}
 }

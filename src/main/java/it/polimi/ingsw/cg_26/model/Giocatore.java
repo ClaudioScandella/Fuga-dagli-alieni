@@ -9,7 +9,7 @@ public abstract class Giocatore
 {
 	private int idGiocatore=0;
 	
-	@SuppressWarnings("unused")
+	
 	private int idPartita;
 	private String nomeUtente;
 	private String personaggio;
@@ -30,6 +30,9 @@ public abstract class Giocatore
 		idGiocatore ++; 
 	}
 	
+	public int getIdPartita(){
+		return idPartita;
+	}
 	public int getIdGiocatore(){return idGiocatore;}
 	
 	public String getNomeUtente() {return nomeUtente;}
