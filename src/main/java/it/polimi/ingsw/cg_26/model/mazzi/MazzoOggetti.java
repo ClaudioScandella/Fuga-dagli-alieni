@@ -1,28 +1,39 @@
 package it.polimi.ingsw.cg_26.model.mazzi;
 
 import it.polimi.ingsw.cg_26.model.carte.CartaOggetto;
+import it.polimi.ingsw.cg_26.model.carte.CartaOggetto.TipoOggetto;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MazzoOggetti
 {
 
-	ArrayList<CartaOggetto> mazzoCarteOggetto = new ArrayList<CartaOggetto>();
+	private List<CartaOggetto> mazzoCarteOggetto = new ArrayList<>();
+	private CartaOggetto cartaOggetto;
+	
 
-	public void setMazzo(){
-		mazzoCarteOggetto.add(new CartaOggetto("attacco"));
-		mazzoCarteOggetto.add(new CartaOggetto("attacco"));
-		mazzoCarteOggetto.add(new CartaOggetto("teletrasporto"));
-		mazzoCarteOggetto.add(new CartaOggetto("teletrasporto"));
-		mazzoCarteOggetto.add(new CartaOggetto("adrenalina"));
-		mazzoCarteOggetto.add(new CartaOggetto("adrenalina"));
-		mazzoCarteOggetto.add(new CartaOggetto("sedativi"));
-		mazzoCarteOggetto.add(new CartaOggetto("sedativi"));
-		mazzoCarteOggetto.add(new CartaOggetto("sedativi"));
-		mazzoCarteOggetto.add(new CartaOggetto("luci"));
-		mazzoCarteOggetto.add(new CartaOggetto("luci"));
-		mazzoCarteOggetto.add(new CartaOggetto("difesa"));
+	public MazzoOggetti(){
+		
+		cartaOggetto=new CartaOggetto(TipoOggetto.ADRENALINA);
+		mazzoCarteOggetto.add(cartaOggetto);
+		mazzoCarteOggetto.add(cartaOggetto);
+		cartaOggetto=new CartaOggetto(TipoOggetto.ATTACCO);
+		mazzoCarteOggetto.add(cartaOggetto);
+		mazzoCarteOggetto.add(cartaOggetto);
+		cartaOggetto=new CartaOggetto(TipoOggetto.LUCI);
+		mazzoCarteOggetto.add(cartaOggetto);
+		mazzoCarteOggetto.add(cartaOggetto);
+		cartaOggetto=new CartaOggetto(TipoOggetto.TELETRASPORTO);
+		mazzoCarteOggetto.add(cartaOggetto);
+		mazzoCarteOggetto.add(cartaOggetto);
+		cartaOggetto=new CartaOggetto(TipoOggetto.SEDATIVI);
+		mazzoCarteOggetto.add(cartaOggetto);
+		mazzoCarteOggetto.add(cartaOggetto);
+		mazzoCarteOggetto.add(cartaOggetto);
+		cartaOggetto=new CartaOggetto(TipoOggetto.DIFESA);
+		mazzoCarteOggetto.add(cartaOggetto);
+
 	}
+	
 }
-//togliere il creaMazzo dal controller (perchè formiamo qui 
-//il mazzo e peschiamo a caso)

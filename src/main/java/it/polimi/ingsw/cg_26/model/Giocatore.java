@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg_26.model;
 
 import it.polimi.ingsw.cg_26.model.carte.CartaOggetto;
+import it.polimi.ingsw.cg_26.model.mappe.Settore;
 
 import java.util.ArrayList;
 
@@ -8,13 +9,13 @@ public abstract class Giocatore
 {
 	private int idGiocatore=0;
 	
-	//@SuppressWarnings("unused")
+	@SuppressWarnings("unused")
 	private int idPartita;
 	private String nomeUtente;
 	private String personaggio;
-	private String posizione; 
+	private Settore posizione; 
 	ArrayList<CartaOggetto> carteOggetto = new ArrayList<CartaOggetto>(); //max carteOggetto=3?
-	ArrayList<String> listaMosse = new ArrayList<String>();	 //max turni=39?
+	ArrayList<Settore> listaMosse = new ArrayList<Settore>();	 //max turni=39?
 	private boolean inVita = true;
 	
 	//utile solo per alieni
@@ -29,30 +30,18 @@ public abstract class Giocatore
 		idGiocatore ++; 
 	}
 	
-	public int getIdPartita(){ 
-		return idPartita;
-	}
+	public int getIdGiocatore(){return idGiocatore;}
 	
-	public int getIdGiocatore(){
-		return idGiocatore;
-	}
+	public String getNomeUtente() {return nomeUtente;}
 	
-	public String getNomeUtente() {
-		return nomeUtente;
-	}
+	public Settore getPosizione(){ return posizione;}
 	
-	public String getPosizione(){ 
-		return posizione;
-	}
-	
-	public void setPosizione(String posizione){
+	public void setPosizione(Settore posizione){
 		this.posizione = posizione;
 		listaMosse.add(posizione); //aggiorna listaMosse
 	} 
 	
-	public String getPersonaggio(){ 
-		return personaggio;	
-	}
+	public String getPersonaggio(){ return personaggio;	}
 	
 	public void setPersonaggio(String personaggio){
 		this.personaggio = personaggio;
@@ -83,7 +72,7 @@ public abstract class Giocatore
 		carteOggetto.remove(oggetto);	
 	}
 
-	public ArrayList<String> getListaMosse(){
+	public ArrayList<Settore> getListaMosse(){
 		return listaMosse;
 	}
 	

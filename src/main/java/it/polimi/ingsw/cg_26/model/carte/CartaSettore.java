@@ -1,25 +1,25 @@
 package it.polimi.ingsw.cg_26.model.carte;
 
-public class CartaSettore extends Carta
+public class CartaSettore
 {
+	public enum TipoSettore{SILENZIO, RUMORE, RUMOREinSETTORE;}
+	private TipoSettore tipo;
 	private boolean conOggetto;
 	
-	//tipoCartaSettore può essere:
-		//"silenzio", "rumore",
-		//"rumoreInSettore"
+
+	public CartaSettore(TipoSettore tipo, boolean conOggetto)
+	{
+		this.tipo=tipo;
+		this.conOggetto=conOggetto;
+	}
 		
-	private String tipoCartaSettore;
-		
-	public CartaSettore(String tipoCartaSettore, boolean conOggetto){
-			super(tipoCartaSettore);
-			this.conOggetto = conOggetto;
-		}
-		
-	public String getTipoCartaSettore(){
-			return tipoCartaSettore;
-		}
+	public TipoSettore getTipoCartaSettore()
+	{
+		return tipo;
+	}
 	
-	public boolean getConOggetto(){
+	public boolean getConOggetto()
+	{
 		return conOggetto;
 	}
 }
