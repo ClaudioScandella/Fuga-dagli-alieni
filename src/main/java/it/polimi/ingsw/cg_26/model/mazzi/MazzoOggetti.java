@@ -13,7 +13,7 @@ public class MazzoOggetti
 	private CartaOggetto cartaOggetto;
 	
 
-	public void setMazzo(){
+	public MazzoOggetti(){
 		
 		cartaOggetto=new CartaOggetto(TipoOggetto.ADRENALINA);
 		mazzoCarteOggetto.add(cartaOggetto);
