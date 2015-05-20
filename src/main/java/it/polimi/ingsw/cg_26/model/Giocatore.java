@@ -1,21 +1,20 @@
 package it.polimi.ingsw.cg_26.model;
 
 import it.polimi.ingsw.cg_26.model.carte.CartaOggetto;
-import it.polimi.ingsw.cg_26.model.mappe.Settore;
 
 import java.util.ArrayList;
 
-public abstract class Giocatore
+public class Giocatore
 {
-	private int idGiocatore=0;
+	private int idGiocatore;
+	private static int counter = 0;
 	
-	@SuppressWarnings("unused")
 	private int idPartita;
 	private String nomeUtente;
-	private String personaggio;
-	private Settore posizione; 
+	private Personaggio personaggio;
+	private String posizione; 
 	ArrayList<CartaOggetto> carteOggetto = new ArrayList<CartaOggetto>(); //max carteOggetto=3?
-	ArrayList<Settore> listaMosse = new ArrayList<Settore>();	 //max turni=39?
+	ArrayList<String> listaMosse = new ArrayList<String>();	 //max turni=39?
 	private boolean inVita = true;
 	
 	//utile solo per alieni
@@ -24,26 +23,41 @@ public abstract class Giocatore
 	//true possibile solo per umani
 	private boolean scialuppaRaggiunta = false;
 	
+	public enum Personaggio { UMANO, ALIENO;}
+	
 	public Giocatore(String nomeUtente, int idPartita){
 		this.nomeUtente = nomeUtente;
 		this.idPartita = idPartita;
-		idGiocatore ++; 
+		this.idGiocatore = counter;
+		counter++;
 	}
 	
-	public int getIdGiocatore(){return idGiocatore;}
+	public int getIdPartita(){
+		return idPartita;
+	}
 	
-	public String getNomeUtente() {return nomeUtente;}
+	public int getIdGiocatore(){
+		return idGiocatore;
+		}
 	
-	public Settore getPosizione(){ return posizione;}
+	public String getNomeUtente() {
+		return nomeUtente;
+		}
 	
-	public void setPosizione(Settore posizione){
+	public String getPosizione(){ 
+		return posizione;
+	}
+	
+	public void setPosizione(String posizione){
 		this.posizione = posizione;
 		listaMosse.add(posizione); //aggiorna listaMosse
 	} 
 	
-	public String getPersonaggio(){ return personaggio;	}
+	public Personaggio getPersonaggio(){ 
+		return personaggio;	
+		}
 	
-	public void setPersonaggio(String personaggio){
+	public void setPersonaggio(Personaggio personaggio){
 		this.personaggio = personaggio;
 	}
 	
@@ -72,11 +86,13 @@ public abstract class Giocatore
 		carteOggetto.remove(oggetto);	
 	}
 
-	public ArrayList<Settore> getListaMosse(){
+	public ArrayList<String> getListaMosse(){
 		return listaMosse;
 	}
 	
-	public boolean getInVita() {return inVita;}
+	public boolean getInVita() {
+		return inVita;
+	}
 	
 	public void morto(){
 		inVita = false;
@@ -90,7 +106,10 @@ public abstract class Giocatore
 	}
 	
 	//possibile solo per umani
-	public boolean getScialuppaRaggiunta(){return scialuppaRaggiunta;}
+	public boolean getScialuppaRaggiunta()
+	{
+		return scialuppaRaggiunta;
+	}
 	
 	public void setScialuppaRaggiunta(){
 		scialuppaRaggiunta = true;

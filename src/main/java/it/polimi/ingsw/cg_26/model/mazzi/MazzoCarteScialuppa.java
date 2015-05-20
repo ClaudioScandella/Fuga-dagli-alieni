@@ -4,11 +4,11 @@ import it.polimi.ingsw.cg_26.model.carte.CartaScialuppa;
 import it.polimi.ingsw.cg_26.model.carte.CartaScialuppa.Colore;
 
 import java.util.ArrayList;
-import java.util.List;
+//import java.util.List;
 
 public class MazzoCarteScialuppa {
 
-	private List<CartaScialuppa> mazzoScialuppa = new ArrayList<>();
+	private ArrayList<CartaScialuppa> mazzoScialuppa = new ArrayList<>();
 	private CartaScialuppa cartaScialuppa;
 	
 	
@@ -23,5 +23,13 @@ public class MazzoCarteScialuppa {
 			cartaScialuppa=new CartaScialuppa(Colore.ROSSA);
 			mazzoScialuppa.add(cartaScialuppa);
 		}
+	}
+	
+	public ArrayList<CartaScialuppa> getMazzoCarteScialuppa(){
+		return mazzoScialuppa;
+	}
+	
+	public CartaScialuppa getMazzoScialuppa(int i){
+		return mazzoScialuppa.get(i);
 	}
 }
