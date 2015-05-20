@@ -5,6 +5,7 @@ import java.util.*;
 public abstract class Settore
 {
 	private String nome;
+	private String nomeSupplementare;
 	//private String coordinata;
 	//private enum tipoDiSettore{VUOTO,PERICOLOSO,SICURO,PARTENZA_ALIENI,PARTENZA_UMANI,SCIALUPPA1,SCIALUPPA2,SCIALUPPA3,SCIALUPPA4}
 	//private List<Settore> settoriAdiacenti;
@@ -15,18 +16,30 @@ public abstract class Settore
 		this.nome=nome;
 	}
 	
+	public Settore(String nome, String nomeSupplementare)
+	{
+		this.nome=nome;
+		this.nomeSupplementare=nomeSupplementare;
+	}
+	
 	public String getNome() {
 		// TODO Auto-generated method stub
 		return nome;
 	}
 	
-	
-	
-	public ArrayList trovaSettoriAdiacenti(String nome)
-	{
-		//traduttore nome-->indice
-		return null;
+	public String getNomeSupplementare() {
+		// TODO Auto-generated method stub
+		return nomeSupplementare;
 	}
+	
+	
+	
+	
+//	public ArrayList trovaSettoriAdiacenti(String nome)
+//	{
+//		//traduttore nome-->indice
+//		return null;
+//	}
 	
 
 	@Override

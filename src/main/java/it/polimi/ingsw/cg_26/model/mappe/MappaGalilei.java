@@ -1,7 +1,6 @@
 package it.polimi.ingsw.cg_26.model.mappe;
 
 import java.util.*;
-
 import java.io.*;
 
 public class MappaGalilei
@@ -9,7 +8,7 @@ public class MappaGalilei
 	
 	private static HashMap<Settore, ArrayList<Settore>> mappaGalilei=new HashMap<>();
 	//int nMaxSettoriAdiacenti=6;
-	ArrayList<Settore> listSettore=new ArrayList<>();//verrà riempito con tutti i possibili settori
+	ArrayList<Settore> listSettore=new ArrayList<>();//verra' riempito con tutti i possibili settori
 	ArrayList<Settore> listaSettoriAdiacenti;//usato per mettere in mappaGalilei la lista dei settori adiacenti ad una chiave
 	static int i=0;
 	String coordinata="";
@@ -28,7 +27,6 @@ public class MappaGalilei
 		
 		
 		//generatore di settori da A01 a W14 e li aggiunge a listSettore
-		
 		for(char coordinataNumerica1='0';coordinataNumerica1!='2';coordinataNumerica1++)
 			for(char coordinataNumerica2='0';coordinataNumerica2!=':';coordinataNumerica2++)
 			{
@@ -39,7 +37,6 @@ public class MappaGalilei
 					
 					coordinata=""+coordinataNumerica1+coordinataNumerica2;
 					String nomeSettore=""+coordinataAlfabetica+coordinataNumerica1+coordinataNumerica2;
-					//System.out.println(nomeSettore);
 					Settore settoreTemporaneo= null;
 					
 					try
@@ -54,15 +51,15 @@ public class MappaGalilei
 					
 					switch (c)
 					{
-						case '0': settoreTemporaneo=new SettoreVuoto(nomeSettore); break;
+						case '0': settoreTemporaneo=new SettoreVuoto(nomeSettore, "Settore vuoto"); break;
 						case '1': settoreTemporaneo=new SettorePericoloso(nomeSettore); break;
 						case '2': settoreTemporaneo=new SettoreSicuro(nomeSettore); break;
-						case '3': settoreTemporaneo=new SettorePartenzaAlieni(nomeSettore); break;
-						case '4': settoreTemporaneo=new SettorePartenzaUmani(nomeSettore); break;
-						case '5': settoreTemporaneo=new SettoreScialuppa1(nomeSettore); break;
-						case '6': settoreTemporaneo=new SettoreScialuppa2(nomeSettore); break;
-						case '7': settoreTemporaneo=new SettoreScialuppa3(nomeSettore); break;
-						case '8': settoreTemporaneo=new SettoreScialuppa4(nomeSettore); break;
+						case '3': settoreTemporaneo=new SettorePartenzaAlieni(nomeSettore, "Partenza Alieni"); break;
+						case '4': settoreTemporaneo=new SettorePartenzaUmani(nomeSettore, "Partenza Umani"); break;
+						case '5': settoreTemporaneo=new SettoreScialuppa1(nomeSettore, "Scialuppa 1"); break;
+						case '6': settoreTemporaneo=new SettoreScialuppa2(nomeSettore, "Scialuppa 2"); break;
+						case '7': settoreTemporaneo=new SettoreScialuppa3(nomeSettore, "Scialuppa 3"); break;
+						case '8': settoreTemporaneo=new SettoreScialuppa4(nomeSettore, "Scialuppa 4"); break;
 					}
 					listSettore.add(settoreTemporaneo);
 				}
@@ -71,26 +68,26 @@ public class MappaGalilei
 		for(i=0;i<listSettore.size();i++)
 		{
 			listaSettoriAdiacenti=new ArrayList<>();
-			if((i%23)!=22) {listaSettoriAdiacenti.add(listSettore.get(i+1));System.out.println("a");}//settore a dx
-			if((i%23)!=0) {listaSettoriAdiacenti.add(listSettore.get(i-1));System.out.println("b");}//settore a sx
-			if(i<=((listSettore.size())-24)) {listaSettoriAdiacenti.add(listSettore.get(i+23));System.out.println("c");}//settore in giu
-			if((i-23)>=0) {listaSettoriAdiacenti.add(listSettore.get(i-23));System.out.println("d");}//settore in su
-			if((i%23)%2==0) //se la colonna è pari
+			if((i%23)!=22) listaSettoriAdiacenti.add(listSettore.get(i+1));
+			if((i%23)!=0) listaSettoriAdiacenti.add(listSettore.get(i-1));
+			if(i<=((listSettore.size())-24)) listaSettoriAdiacenti.add(listSettore.get(i+23));
+			if((i-23)>=0) listaSettoriAdiacenti.add(listSettore.get(i-23));
+			if((i%23)%2==0) //se la colonna e' pari
 			{
-				System.out.println("e");
-				if((i%23)!=0&&i>22) {listaSettoriAdiacenti.add(listSettore.get(i-24));System.out.println("f");}//settore in alto a sx
-				if((i%23)!=22&&i>22) {listaSettoriAdiacenti.add(listSettore.get(i-22));System.out.println("g");}//settore in alto a dx
+				if((i%23)!=0&&i>22) listaSettoriAdiacenti.add(listSettore.get(i-24));
+				if((i%23)!=22&&i>22) listaSettoriAdiacenti.add(listSettore.get(i-22));
 			}
-			else //se la colonna è dispari
+			else //se la colonna e' dispari
 			{
-				System.out.println("h");
-				if((i%23)!=22&&i<(listSettore.size()-22)) {listaSettoriAdiacenti.add(listSettore.get(i+24));System.out.println("i");}//settore in basso a dx
-				if((i%23)!=0&&i<(listSettore.size()-22)) {listaSettoriAdiacenti.add(listSettore.get(i+22));System.out.println("j");}//settore in basso a sx
+				if((i%23)!=22&&i<(listSettore.size()-22)) listaSettoriAdiacenti.add(listSettore.get(i+24));
+				if((i%23)!=0&&i<(listSettore.size()-22)) listaSettoriAdiacenti.add(listSettore.get(i+22));
 			}
 		mappaGalilei.put(listSettore.get(i), listaSettoriAdiacenti);
 		}
 	
 		System.out.println("FINE");
+//		System.out.println(""+mappaGalilei.get(listSettore.get(0)).size());
+//		System.out.println(""+listSettore.get(0).getNome());
 		
 		/*
 		for(int k=250;k<322;k++)
@@ -117,9 +114,10 @@ public class MappaGalilei
 
 
 	//metodo per tornare la lista dei settori adiacenti ad un dato settore, nella classe Settore
-	public ArrayList<Settore> settoriAdiacenti(int index)
+	public ArrayList<Settore> settoriAdiacenti(String nome)
 	{
-		return mappaGalilei.get(index);
+		int indice=convertitore(nome);
+		return mappaGalilei.get(listSettore.get(indice));
 	}
 
 	@Override
@@ -150,43 +148,50 @@ public class MappaGalilei
 		return true;
 	}
 	
-/*	//controlla se la mossa è valida
-//	public boolean mossaValida(String nomeSettore)
+	public static int convertitore(String nome)
+	{
+		int lettera=nome.charAt(0)-65;
+		int numero=((nome.charAt(1)-48)*10+nome.charAt(2)-48)-1;
+		int indiceSettore=lettera+(numero*23);
+		return indiceSettore;
+	}
+	
+	//passo la portata (1 umani e 2/3 alieni) il settore destinazione e la posizione del giocatore, ma solo adesso xk non ho il getPosizione
+//	public boolean mossaValida(String destinazione, String corrente, int portata)
 //	{
-////		traduci(nomeSettore);
+//		int indiceDestinazione=convertitore(destinazione);
+//		int indiceCorrente=convertitore(corrente);
+//		
+//		List<Settore> settoriRaggiungibili=new ArrayList<>();
+//		
+//		settoriRaggiungibili=mappaGalilei.get(listSettore.get(indiceCorrente));
+//		while(portata>0)
+//		{
+//			for(int i=0;i<settoriRaggiungibili.size();i++)
+//			settoriRaggiungibili.add(mappaGalilei.get(listSettore.get(i)).get(i));
+//			portata--;
+//		}
+//		
+//		
+//		
+//		
+//		
+//		
+//		
 //		
 //		return false;
 //	}
 	
-	private static int rateo=2;
-	public boolean mossaValida(int index, String nome)
-	{
-		
-		//visto che si passa il nome del settore qui ci vuole il traduttore nome-->indice
-		int posizioneCorrente=51;
-		listaSettoriAdiacenti=mappaGalilei.get(listSettore.get(posizioneCorrente));
-//		System.out.println(listSettore.get(index).getNome());
-//		System.out.println(listSettore.get(51).getNome());
-		
-		
-		for(int k=0;k<listaSettoriAdiacenti.size();k++)
-		{
-//			System.out.println(listaSettoriAdiacenti.get(k).getNome());
-			if(listaSettoriAdiacenti.get(k).getNome().equals(nome)) return true;
-		}
-		
-		return false;
-	}
 	
-	private boolean controllaVicini(int settoreUno, int settoreDue)
-	{
-		if(rateo==0) return false;
-		
-		
-		
-		if(if(listaSettoriAdiacenti.get().getNome().equals())
-		
-		return false;
-	}
-*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

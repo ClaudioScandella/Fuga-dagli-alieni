@@ -7,6 +7,11 @@ public class SettoreVuoto extends Settore{
 		super(nome);
 	}
 	
+	public SettoreVuoto(String nome, String nomeSupplementare)
+	{ 
+		super(nome, nomeSupplementare);
+	}
+	
 	
 	
 	

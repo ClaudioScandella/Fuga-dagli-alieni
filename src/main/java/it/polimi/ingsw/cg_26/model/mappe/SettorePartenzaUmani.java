@@ -6,4 +6,9 @@ public class SettorePartenzaUmani extends Settore{
 	{
 		super(nome);
 	}
+	
+	public SettorePartenzaUmani(String nome, String nomeSupplementare)
+	{
+		super(nome, nomeSupplementare);
+	}
 }
