@@ -1,7 +1,5 @@
 package it.polimi.ingsw.cg_26.model;
 
-import it.polimi.ingsw.cg_26.model.mappe.Settore;
-
 import java.util.ArrayList;
 
 public class Partita {
@@ -25,7 +23,6 @@ public class Partita {
 		this.giocatori = giocatori;
 		this.tipoMappa = tipoMappa;
 		numeroGiocatori = giocatori.size();
-		idPartita++;
 	}
 	
 	public int getIdPartita(){
@@ -60,32 +57,35 @@ public class Partita {
 		return giro;
 	}
 	
+	public void setGiro(int giro){
+		this.giro = giro;
+	}
+	
 	//setter log
-	public void setLog(int turno, int idGiocatore, Settore spostamento){
+	public void setLog(int turno, int idGiocatore, String spostamento){
 		log[turno][idGiocatore][0] = spostamento;
 	}
 	
-	public void setLogPosizioneDichairata(int turno, int idGiocatore, Settore posizioneDichiarata){
+	public void setLogPosizioneDichairata(int turno, int idGiocatore, String posizioneDichiarata){
 		log[turno][idGiocatore][1] = posizioneDichiarata;
 	}
 	
 	//pescaCarta è true se il giocatore ha pescato una carta
-	public void setLog(int turno, int idGiocatore, boolean pescaCarta){
+	public void setLogPescato(int turno, int idGiocatore, String pescaCarta){
 		log[turno][idGiocatore][2] = pescaCarta;
 	}
 	
-	//getter log - serve???
-	public Object[][][] getLog(){
-		return log;
+	public Object getLog(int x, int y, int z){
+		return log [x][y][z];
 	}
 	
-	public Object posizioneDichiarata(int turno, int idGiocatore){
-		return log[turno][idGiocatore][1];
-	}
+	//public Object posizioneDichiarata(int turno, int idGiocatore){
+		//return log[turno][idGiocatore][1];
+	//}
 	
-	public Object haPescato(int turno, int idGiocatore){
-		return log[turno][idGiocatore][2];
-	}
+//	public Object haPescato(int turno, int idGiocatore){
+//		return log[turno][idGiocatore][2];
+//	}
 	
 	public int getNumeroUmaniMorti(){
 		return numeroUmaniMorti;
@@ -107,7 +107,7 @@ public class Partita {
 		return numeroUmaniScappati;
 	}
 	
-	public void setNumeroUmaniScappati(){
+	public void scappa(){
 		numeroUmaniScappati++;
 	}
 	

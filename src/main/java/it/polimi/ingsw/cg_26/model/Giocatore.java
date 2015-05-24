@@ -6,9 +6,7 @@ import java.util.ArrayList;
 
 public class Giocatore
 {
-	private int idGiocatore;
-	private static int counter = 0;
-	
+	private final int idGiocatore;
 	private int idPartita;
 	private String nomeUtente;
 	private Personaggio personaggio;
@@ -25,11 +23,10 @@ public class Giocatore
 	
 	public enum Personaggio { UMANO, ALIENO;}
 	
-	public Giocatore(String nomeUtente, int idPartita){
+	public Giocatore(String nomeUtente, int idGiocatore, int idPartita){
 		this.nomeUtente = nomeUtente;
 		this.idPartita = idPartita;
-		this.idGiocatore = counter;
-		counter++;
+		this.idGiocatore = idGiocatore;
 	}
 	
 	public int getIdPartita(){
@@ -90,6 +87,12 @@ public class Giocatore
 		return listaMosse;
 	}
 	
+	//ritorna la mossa fatta all'i-esimo turno del giocatore
+	// i-esima stringa nell'ArrayList listamosse
+	public String getMossaIesima(int i){
+		return listaMosse.get(i);
+	}
+	
 	public boolean getInVita() {
 		return inVita;
 	}
@@ -99,7 +102,9 @@ public class Giocatore
 	}
 
 	//utile solo per alieni
-	public boolean getHaUcciso() {return haUcciso;}
+	public boolean getHaUcciso() {
+		return haUcciso;
+	}
 	
 	public void setHaUcciso() {
 		haUcciso = true;

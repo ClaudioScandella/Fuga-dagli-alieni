@@ -15,7 +15,7 @@ public class MazzoCarteScialuppa {
 	public MazzoCarteScialuppa()
 	{
 		//creo 8 carte scialuppa: 4 verdi, 4 rosse e le aggiungo a mazzoScialuppa
-		for(int i=0;i<4;i++)
+		for(int i = 0; i<4; i++)
 		{
 			cartaScialuppa=new CartaScialuppa(Colore.VERDE);
 			mazzoScialuppa.add(cartaScialuppa);
@@ -25,11 +25,12 @@ public class MazzoCarteScialuppa {
 		}
 	}
 	
-	public ArrayList<CartaScialuppa> getMazzoCarteScialuppa(){
-		return mazzoScialuppa;
-	}
-	
+	//public ArrayList<CartaScialuppa> getMazzoCarteScialuppa(){
+		//return mazzoScialuppa;
+	//}
+		
 	public CartaScialuppa getMazzoScialuppa(int i){
 		return mazzoScialuppa.get(i);
 	}
+	
 }
