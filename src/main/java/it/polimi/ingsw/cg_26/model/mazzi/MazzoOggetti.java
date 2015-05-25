@@ -15,6 +15,7 @@ public class MazzoOggetti
 
 	public MazzoOggetti(){
 		
+		
 		cartaOggetto=new CartaOggetto(TipoOggetto.ADRENALINA);
 		mazzoCarteOggetto.add(cartaOggetto);
 		mazzoCarteOggetto.add(cartaOggetto);
