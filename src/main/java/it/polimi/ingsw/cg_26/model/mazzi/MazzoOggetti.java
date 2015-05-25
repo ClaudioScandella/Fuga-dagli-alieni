@@ -4,37 +4,122 @@ import it.polimi.ingsw.cg_26.model.carte.CartaOggetto;
 import it.polimi.ingsw.cg_26.model.carte.CartaOggetto.TipoOggetto;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class MazzoOggetti
 {
 
-	private List<CartaOggetto> mazzoCarteOggetto = new ArrayList<>();
-	private CartaOggetto cartaOggetto;
-	
+	private ArrayList<CartaOggetto> mazzoCarteOggetto = new ArrayList<>();
+	private ArrayList<CartaOggetto> scartiOggetto = new ArrayList<>();
 
 	public MazzoOggetti(){
 		
-		
-		cartaOggetto=new CartaOggetto(TipoOggetto.ADRENALINA);
-		mazzoCarteOggetto.add(cartaOggetto);
-		mazzoCarteOggetto.add(cartaOggetto);
-		cartaOggetto=new CartaOggetto(TipoOggetto.ATTACCO);
-		mazzoCarteOggetto.add(cartaOggetto);
-		mazzoCarteOggetto.add(cartaOggetto);
-		cartaOggetto=new CartaOggetto(TipoOggetto.LUCI);
-		mazzoCarteOggetto.add(cartaOggetto);
-		mazzoCarteOggetto.add(cartaOggetto);
-		cartaOggetto=new CartaOggetto(TipoOggetto.TELETRASPORTO);
-		mazzoCarteOggetto.add(cartaOggetto);
-		mazzoCarteOggetto.add(cartaOggetto);
-		cartaOggetto=new CartaOggetto(TipoOggetto.SEDATIVI);
-		mazzoCarteOggetto.add(cartaOggetto);
-		mazzoCarteOggetto.add(cartaOggetto);
-		mazzoCarteOggetto.add(cartaOggetto);
-		cartaOggetto=new CartaOggetto(TipoOggetto.DIFESA);
-		mazzoCarteOggetto.add(cartaOggetto);
+		mazzoCarteOggetto.add(new CartaOggetto(TipoOggetto.ADRENALINA));
+		mazzoCarteOggetto.add(new CartaOggetto(TipoOggetto.ADRENALINA));
+		mazzoCarteOggetto.add(new CartaOggetto(TipoOggetto.ATTACCO));
+		mazzoCarteOggetto.add(new CartaOggetto(TipoOggetto.ATTACCO));
+		mazzoCarteOggetto.add(new CartaOggetto(TipoOggetto.LUCI));
+		mazzoCarteOggetto.add(new CartaOggetto(TipoOggetto.LUCI));
+		mazzoCarteOggetto.add(new CartaOggetto(TipoOggetto.TELETRASPORTO));
+		mazzoCarteOggetto.add(new CartaOggetto(TipoOggetto.TELETRASPORTO));
+		mazzoCarteOggetto.add(new CartaOggetto(TipoOggetto.SEDATIVI));
+		mazzoCarteOggetto.add(new CartaOggetto(TipoOggetto.SEDATIVI));
+		mazzoCarteOggetto.add(new CartaOggetto(TipoOggetto.SEDATIVI));
+		mazzoCarteOggetto.add(new CartaOggetto(TipoOggetto.DIFESA));
 
 	}
+	//per pescare
+	public CartaOggetto getCartaOggetto(){
+		return mazzoCarteOggetto.get(0);	
+	}
+	
+	//ritorna il numero di oggetti nel mazzo
+	public int lunghezzaListaOggetti(){
+		return mazzoCarteOggetto.size();
+	}
+	
+	public void aggiungiScartiOggetto(CartaOggetto carta){
+		scartiOggetto.add(carta);
+	}
+	
+	public ArrayList<CartaOggetto> getMazzoCarteOggetto()
+	{
+		return this.mazzoCarteOggetto;
+	}
+	
+	public void mischia()
+	{
+        long seed = System.nanoTime();
+        Collections.shuffle(mazzoCarteOggetto, new Random(seed));
+    }
+	
+	public void mostraMazzo()
+	{
+        for (CartaOggetto carta : this.mazzoCarteOggetto)
+        {
+            System.out.println(carta.getTipoOggetto());
+        }
+    }
+	
+	public void rimuoviCarta()
+	{
+		mazzoCarteOggetto.remove(0);
+	}
+	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
