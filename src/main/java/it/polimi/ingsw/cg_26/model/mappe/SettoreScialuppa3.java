@@ -6,4 +6,9 @@ public class SettoreScialuppa3 extends Settore{
 	{
 		super(nome);
 	}
+	
+	public SettoreScialuppa3(String nome, String nomeSupplementare)
+	{
+		super(nome, nomeSupplementare);
+	}
 }
