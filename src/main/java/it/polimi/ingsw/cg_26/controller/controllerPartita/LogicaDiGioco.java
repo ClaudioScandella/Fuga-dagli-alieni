@@ -4,4 +4,7 @@ import it.polimi.ingsw.cg_26.model.Partita;
 
 public class LogicaDiGioco {
 
+	public void turnoDiGioco(){
+		
+	}
 }

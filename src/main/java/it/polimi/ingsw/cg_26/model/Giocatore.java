@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 public class Giocatore
 {
-	//CIAO
 	private final int idGiocatore;
 	private int idPartita;
 	private String nomeUtente;

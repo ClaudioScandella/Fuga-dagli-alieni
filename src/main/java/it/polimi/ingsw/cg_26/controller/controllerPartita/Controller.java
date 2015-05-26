@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import it.polimi.ingsw.cg_26.model.*;
 import it.polimi.ingsw.cg_26.model.Giocatore.Personaggio;
 
-public class InizializzaPartita {
+public class Controller {
 
 	private ArrayList<Giocatore> giocatori = new ArrayList<Giocatore>();
 	private int idPartita;
