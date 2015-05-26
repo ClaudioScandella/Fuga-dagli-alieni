@@ -5,7 +5,6 @@ import it.polimi.ingsw.cg_26.model.carte.CartaOggetto.TipoOggetto;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 public class MazzoOggetti
@@ -31,7 +30,7 @@ public class MazzoOggetti
 
 	}
 	//per pescare
-	public CartaOggetto getCartaOggetto(){
+	public CartaOggetto pesca(){
 		return mazzoCarteOggetto.get(0);	
 	}
 	
@@ -54,6 +53,11 @@ public class MazzoOggetti
         long seed = System.nanoTime();
         Collections.shuffle(mazzoCarteOggetto, new Random(seed));
     }
+	
+	public void rigeneraMazzo(){
+		mazzoCarteOggetto = (ArrayList<CartaOggetto>) scartiOggetto.clone();
+		scartiOggetto.clear();
+	}
 	
 	public void mostraMazzo()
 	{

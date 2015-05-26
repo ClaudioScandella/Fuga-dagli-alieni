@@ -1,8 +1,8 @@
 package it.polimi.ingsw.cg_26.model.mappe;
 
-import java.util.*;
+//import java.util.*;
 
-import model.mappe.Settore;
+//import model.mappe.Settore;
 
 public abstract class Settore
 {

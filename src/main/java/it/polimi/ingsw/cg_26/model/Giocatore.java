@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg_26.model;
 
 import it.polimi.ingsw.cg_26.model.carte.CartaOggetto;
+import it.polimi.ingsw.cg_26.model.carte.CartaOggetto.TipoOggetto;
 
 import java.util.ArrayList;
 
@@ -11,6 +12,8 @@ public class Giocatore
 	private String nomeUtente;
 	private Personaggio personaggio;
 	private String posizione; 
+	private boolean adrenalina = false;
+	private boolean sedativi = false;
 	ArrayList<CartaOggetto> carteOggetto = new ArrayList<CartaOggetto>(); //max carteOggetto=3?
 	ArrayList<String> listaMosse = new ArrayList<String>();	 //max turni=39?
 	private boolean inVita = true;
@@ -31,6 +34,22 @@ public class Giocatore
 	
 	public int getIdPartita(){
 		return idPartita;
+	}
+	
+	public void setAdrenalina(boolean adrenalina){
+		this.adrenalina = adrenalina;
+	}
+	
+	public boolean getAdrenalina(){
+		return this.adrenalina;
+	}
+	
+	public void setSedativi(boolean sedativi){
+		this.sedativi = sedativi;
+	}
+	
+	public boolean getSedativi(){
+		return sedativi;
 	}
 	
 	public int getIdGiocatore(){
