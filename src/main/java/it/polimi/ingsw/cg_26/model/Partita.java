@@ -1,15 +1,21 @@
 package it.polimi.ingsw.cg_26.model;
 
+import it.polimi.ingsw.cg_26.controller.controllerMazzo.ControllerMazzoOggetti;
+import it.polimi.ingsw.cg_26.controller.controllerMazzo.ControllerMazzoScialuppa;
+import it.polimi.ingsw.cg_26.model.Giocatore.Personaggio;
+import it.polimi.ingsw.cg_26.model.mappe.Mappa;
+
 import java.util.ArrayList;
 
 public class Partita {
 	
 	private int idPartita;
 	private int numeroGiocatori;
-	private int turno; //indica il giocatore 
-	private int giro = 0; //numero turni di ogni giocatore
+	private int giro=0; //indica il giocatore 
+	private int turno = 0; //numero turni di ogni giocatore
 						  //quando tutti i giocatori hanno giocato: giro++
 	private String tipoMappa;
+	private Mappa mappa;
 	private ArrayList<Giocatore> giocatori = new ArrayList<Giocatore>();
 	private Object[][][] log = new Object [39][8][3]; //[turno][giocatore][0] = mosse
 													  //[turno][giocatore][1] = posizioneDichiarata
@@ -18,11 +24,17 @@ public class Partita {
 	private int numeroAlieniMorti = 0;
 	private int numeroUmaniScappati = 0;
 
-	public Partita(int idPartita, ArrayList<Giocatore> giocatori, String tipoMappa ){
+	
+	
+	public Partita(int idPartita, String mappa ){
 		this.idPartita = idPartita;
-		this.giocatori = giocatori;
-		this.tipoMappa = tipoMappa;
-		numeroGiocatori = giocatori.size();
+		this.tipoMappa = mappa;
+		
+		this.mappa=new Mappa(mappa);
+		
+		ControllerMazzoOggetti controllerMazzoOggetti=new ControllerMazzoOggetti(this, this.mappa);
+		ControllerMazzoScialuppa controllerMazzoScialuppa=new ControllerMazzoScialuppa(this);
+		ControllerMazzoSettore controllerMazzoSettore=new ControllerMazzoSettore(this);
 	}
 	
 	public int getIdPartita(){
@@ -110,5 +122,42 @@ public class Partita {
 	public void scappa(){
 		numeroUmaniScappati++;
 	}
+	
+	public void start()
+	{
+		//ruoli e posizioni assegnate
+		for(int i=0;i<giocatori.size();i++)
+		{
+			if(giocatori.get(i).getIdGiocatore()%2==0)
+			{
+				giocatori.get(i).setPersonaggio(Personaggio.ALIENO);
+				giocatori.get(i).setPosizione(mappa.getPartenzaAlieni());
+			}
+			else
+			{
+				giocatori.get(i).setPersonaggio(Personaggio.UMANO);
+				giocatori.get(i).setPosizione(mappa.getPartenzaUmani());
+			}
+		}
+	}
+	
+	public void finePartita()
+	{
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

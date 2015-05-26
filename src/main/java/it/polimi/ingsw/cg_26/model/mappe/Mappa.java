@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg_26.model.mappe;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -17,7 +18,7 @@ public class Mappa
 	{
 		this.nomeMappa = nomeMappa;
 		
-		String percorsoMappa="/fuga_dagli_alieni/src/main/java/fileMappe/"+nomeMappa+".txt";
+		String percorsoMappa=""+File.separatorChar+"fuga_dagli_alieni"+File.separatorChar+"src"+File.separatorChar+"main"+File.separatorChar+"java"+File.separatorChar+"fileMappe"+File.separatorChar+nomeMappa+".txt";
 		
 		//creo oggetto reader per leggere da file
 		FileReader reader=null;
@@ -103,6 +104,19 @@ public class Mappa
 	public String getNomeMappa() {
 		return nomeMappa;
 	}
+	
+	public String getPartenzaAlieni()
+	{
+		return null;
+	}
+
+	public String getPartenzaUmani() {
+		return null;
+	}
+	
+	
+	
+	
 }
 
 

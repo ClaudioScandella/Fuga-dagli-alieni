@@ -4,6 +4,7 @@ import it.polimi.ingsw.cg_26.model.Giocatore;
 import it.polimi.ingsw.cg_26.model.Partita;
 import it.polimi.ingsw.cg_26.model.carte.CartaOggetto;
 import it.polimi.ingsw.cg_26.model.carte.CartaOggetto.TipoOggetto;
+import it.polimi.ingsw.cg_26.model.mappe.Mappa;
 import it.polimi.ingsw.cg_26.model.mazzi.MazzoOggetti;
 import it.polimi.ingsw.cg_26.model.Giocatore.*;
 
@@ -11,12 +12,13 @@ public class ControllerMazzoOggetti {
 	
 	private Partita partita;
 	private MazzoOggetti mazzoOggetti;
+	private Mappa mappa;
 	
-	public ControllerMazzoOggetti(Partita partita){
+	public ControllerMazzoOggetti(Partita partita, Mappa mappa){
 		this.partita = partita;
 		mazzoOggetti=new MazzoOggetti();
 		mazzoOggetti.mischia();
-		
+		this.mappa=mappa;
 	}
 	
 	public void eseguiFunzioneCarta(CartaOggetto cartaOggetto, Giocatore giocatore, int turno){
@@ -28,11 +30,11 @@ public class ControllerMazzoOggetti {
 			
 		case TELETRASPORTO:
 			if(giocatore.getPersonaggio() == Personaggio.ALIENO){
-				giocatore.setPosizione(SettoreAlieno);
+				giocatore.setPosizione(mappa.getPartenzaAlieni());
 				partita.setLog(turno, giocatore, settoreAlieno);
 			}
 			else if(giocatore.getPersonaggio() == Personaggio.UMANO){
-				giocatore.setPosizione(SettoreUmano);
+				giocatore.setPosizione(mappa.getPartenzaUmani());
 				partita.setLog(turno, giocatore, settoreAlieno);
 			}
 			break;

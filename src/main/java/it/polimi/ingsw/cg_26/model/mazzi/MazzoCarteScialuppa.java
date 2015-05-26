@@ -5,6 +5,8 @@ import it.polimi.ingsw.cg_26.model.carte.CartaScialuppa.Colore;
 
 import java.util.ArrayList;
 //import java.util.List;
+import java.util.Collections;
+import java.util.Random;
 
 public class MazzoCarteScialuppa {
 
@@ -28,5 +30,47 @@ public class MazzoCarteScialuppa {
 	public CartaScialuppa getMazzoScialuppa(int i){
 		return mazzoCarteScialuppa.get(i);
 	}
+	
+	public void mischia()
+	{
+        long seed = System.nanoTime();
+        Collections.shuffle(mazzoCarteScialuppa, new Random(seed));
+    }
+	
+	public CartaScialuppa pesca()
+	{
+		return mazzoCarteScialuppa.get(0);
+	}
+	
+	public void rimuoviPrimaCarta()
+	{
+		mazzoCarteScialuppa.remove(0);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
