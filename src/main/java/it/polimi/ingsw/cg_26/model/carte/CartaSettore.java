@@ -2,7 +2,7 @@ package it.polimi.ingsw.cg_26.model.carte;
 
 public class CartaSettore
 {
-	public enum TipoSettore{SILENZIO, RUMORE, RUMOREinSETTORE;}
+	public enum TipoSettore{SILENZIO, RUMOREaSCELTA, RUMOREproprioSETTORE;}
 	private TipoSettore tipo;
 	private boolean conOggetto;
 	

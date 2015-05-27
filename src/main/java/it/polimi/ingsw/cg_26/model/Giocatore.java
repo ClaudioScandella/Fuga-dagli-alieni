@@ -15,8 +15,8 @@ public class Giocatore
 	private String posizione; 
 	private boolean adrenalina = false;
 	private boolean sedativi = false;
-	ArrayList<CartaOggetto> carteOggetto = new ArrayList<CartaOggetto>(); //max carteOggetto=3?
-	ArrayList<String> listaMosse = new ArrayList<String>();	 //max turni=39?
+	private ArrayList<CartaOggetto> carteOggetto = new ArrayList<CartaOggetto>(); //max carteOggetto=3?
+	private ArrayList<String> listaMosse = new ArrayList<String>();	 //max turni=39?
 	private boolean inVita = true;
 	
 	//utile solo per alieni

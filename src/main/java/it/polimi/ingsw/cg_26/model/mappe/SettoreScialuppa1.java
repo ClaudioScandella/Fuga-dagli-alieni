@@ -1,6 +1,8 @@
 package it.polimi.ingsw.cg_26.model.mappe;
 
 public class SettoreScialuppa1 extends Settore{
+	
+	private boolean bloccata=false;
 
 	public SettoreScialuppa1(String nome)
 	{
@@ -11,4 +13,10 @@ public class SettoreScialuppa1 extends Settore{
 	{
 		super(nome, nomeSupplementare);
 	}
+	
+	
+	
+	
+	
+	
 }

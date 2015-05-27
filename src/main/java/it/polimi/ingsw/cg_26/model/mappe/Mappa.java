@@ -107,14 +107,34 @@ public class Mappa
 	
 	public String getPartenzaAlieni()
 	{
+		for(int i=0;i<listaSettoriTotali.size();i++)
+		{
+			if(listaSettoriTotali.get(i).getNomeSupplementare()=="Partenza Alieni")
+				return listaSettoriTotali.get(i).getNome();
+		}
 		return null;
 	}
 
-	public String getPartenzaUmani() {
+	public String getPartenzaUmani()
+	{
+		for(int i=0;i<listaSettoriTotali.size();i++)
+		{
+			if(listaSettoriTotali.get(i).getNomeSupplementare()=="Partenza Umani")
+				return listaSettoriTotali.get(i).getNome();
+		}
 		return null;
 	}
 	
-	
+	public int numeroScialuppeBloccate()
+	{
+		int contatoreScialuppeBloccate=0;
+		for(int i=0;i<listaSettoriTotali.size();i++)
+		{
+			if(listaSettoriTotali.get(i).getBloccata()==true)
+				contatoreScialuppeBloccate++;
+		}
+		return contatoreScialuppeBloccate;
+	}
 	
 	
 }

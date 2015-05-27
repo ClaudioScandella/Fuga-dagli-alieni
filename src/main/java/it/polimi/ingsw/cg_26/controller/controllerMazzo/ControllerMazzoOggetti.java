@@ -54,7 +54,7 @@ public class ControllerMazzoOggetti {
 		}
 	}
 	
-	public CartaOggetto pescaCartaOggetto(Giocatore giocatore){
+	public CartaOggetto pescaCartaOggetto(){
 		if(mazzoOggetti.lunghezzaListaOggetti() < 1) 
 			mazzoOggetti.rigeneraMazzo();
 		CartaOggetto carta = new CartaOggetto(mazzoOggetti.pesca().getTipoOggetto());

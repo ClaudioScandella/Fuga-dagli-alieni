@@ -78,7 +78,7 @@ public class Partita {
 		log[turno][idGiocatore][0] = spostamento;
 	}
 	
-	public void setLogPosizioneDichairata(int turno, int idGiocatore, String posizioneDichiarata){
+	public void setLogPosizioneDichiarata(int turno, int idGiocatore, String posizioneDichiarata){
 		log[turno][idGiocatore][1] = posizioneDichiarata;
 	}
 	
@@ -144,6 +144,10 @@ public class Partita {
 	public void finePartita()
 	{
 		
+	}
+
+	public Mappa getMappa() {
+		return this.mappa;
 	}
 	
 	

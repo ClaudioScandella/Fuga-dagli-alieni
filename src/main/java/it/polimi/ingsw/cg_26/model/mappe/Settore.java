@@ -11,6 +11,7 @@ public abstract class Settore
 	//private String coordinata;
 	//private enum tipoDiSettore{VUOTO,PERICOLOSO,SICURO,PARTENZA_ALIENI,PARTENZA_UMANI,SCIALUPPA1,SCIALUPPA2,SCIALUPPA3,SCIALUPPA4}
 	//private List<Settore> settoriAdiacenti;
+	private boolean bloccata=false;
 	
 	
 	public Settore(String nome)
@@ -33,6 +34,14 @@ public abstract class Settore
 		// TODO Auto-generated method stub
 		return nomeSupplementare;
 	}	
+	
+	public boolean getBloccata() {
+		return bloccata;
+	}
+
+	public void setBloccata(boolean bloccata) {
+		this.bloccata = bloccata;
+	}
 
 	@Override
 	public int hashCode() {
