@@ -1,6 +1,6 @@
 package it.polimi.ingsw.cg_26.model.mazzi;
 
-import it.polimi.ingsw.cg_26.model.carte.CartaOggetto;
+//import it.polimi.ingsw.cg_26.model.carte.CartaOggetto;
 import it.polimi.ingsw.cg_26.model.carte.CartaSettore;
 import it.polimi.ingsw.cg_26.model.carte.CartaSettore.TipoSettore;
 
@@ -23,13 +23,13 @@ public class MazzoCarteSettore {
 		}
 			
 		for(int i=0; i<4; i++){
-			mazzoCarteSettore.add(new CartaSettore(TipoSettore.RUMORE, true));
-			mazzoCarteSettore.add(new CartaSettore(TipoSettore.RUMOREinSETTORE, true));
+			mazzoCarteSettore.add(new CartaSettore(TipoSettore.RUMOREaSCELTA, true));
+			mazzoCarteSettore.add(new CartaSettore(TipoSettore.RUMOREproprioSETTORE, true));
 		}
 		
 		for(int i=0; i<6; i++){
-			mazzoCarteSettore.add(new CartaSettore(TipoSettore.RUMORE, false));
-			mazzoCarteSettore.add(new CartaSettore(TipoSettore.RUMOREinSETTORE, false));
+			mazzoCarteSettore.add(new CartaSettore(TipoSettore.RUMOREaSCELTA, false));
+			mazzoCarteSettore.add(new CartaSettore(TipoSettore.RUMOREproprioSETTORE, false));
 		}
 	}
 	

@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg_26.model;
 
 import it.polimi.ingsw.cg_26.controller.controllerMazzo.ControllerMazzoOggetti;
 import it.polimi.ingsw.cg_26.controller.controllerMazzo.ControllerMazzoScialuppa;
+import it.polimi.ingsw.cg_26.controller.controllerMazzo.ControllerMazzoSettori;
 import it.polimi.ingsw.cg_26.model.Giocatore.Personaggio;
 import it.polimi.ingsw.cg_26.model.mappe.Mappa;
 
@@ -34,7 +35,7 @@ public class Partita {
 		
 		ControllerMazzoOggetti controllerMazzoOggetti=new ControllerMazzoOggetti(this, this.mappa);
 		ControllerMazzoScialuppa controllerMazzoScialuppa=new ControllerMazzoScialuppa(this);
-		ControllerMazzoSettore controllerMazzoSettore=new ControllerMazzoSettore(this);
+		ControllerMazzoSettori controllerMazzoSettore=new ControllerMazzoSettori(this);
 	}
 	
 	public int getIdPartita(){
