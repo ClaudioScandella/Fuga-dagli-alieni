@@ -1,3 +1,4 @@
+//fare metodo possiedoCartaOggetto!!
 package it.polimi.ingsw.cg_26.model.mazzi;
 
 import it.polimi.ingsw.cg_26.model.carte.CartaOggetto;
@@ -71,8 +72,7 @@ public class MazzoOggetti
 	{
 		mazzoCarteOggetto.remove(0);
 	}
-	
-	
+
 }
 
 

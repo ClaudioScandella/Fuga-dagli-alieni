@@ -32,10 +32,7 @@ public class MazzoCarteSettore {
 			mazzoCarteSettore.add(new CartaSettore(TipoSettore.RUMOREproprioSETTORE, false));
 		}
 	}
-	
-	public CartaSettore getMazzoSettore(int i){
-		return mazzoCarteSettore.get(i);
-	}
+
 	
 	public void mischia()
 	{

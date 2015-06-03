@@ -37,9 +37,9 @@ public class MazzoCarteScialuppa {
         Collections.shuffle(mazzoCarteScialuppa, new Random(seed));
     }
 	
-	public CartaScialuppa pesca()
+	public Colore pesca()
 	{
-		return mazzoCarteScialuppa.get(0);
+		return mazzoCarteScialuppa.get(0).getColore();
 	}
 	
 	public void rimuoviPrimaCarta()
