@@ -1,143 +1,240 @@
 package it.polimi.ingsw.cg_26.model;
 
-import it.polimi.ingsw.cg_26.model.carte.CartaOggetto;
-import it.polimi.ingsw.cg_26.model.carte.CartaOggetto.TipoOggetto;
-
 import java.util.ArrayList;
+
+import model.carte.CartaOggetto;
+import model.carte.CartaOggetto.TipoOggetto;
 
 public class Giocatore
 {
 	private final int idGiocatore;
-	private int idPartita;
+//	private ModelPartita partita;
 	private String nomeUtente;
 	private Personaggio personaggio;
 	private String posizione; 
-	private boolean adrenalina = false;
-	private boolean sedativi = false;
-	ArrayList<CartaOggetto> carteOggetto = new ArrayList<CartaOggetto>(); //max carteOggetto=3?
-	ArrayList<String> listaMosse = new ArrayList<String>();	 //max turni=39?
-	private boolean inVita = true;
-	
+	private boolean adrenalina=false;
+	private boolean sedativi=false;
+	private ArrayList<CartaOggetto> carteOggetto=new ArrayList<CartaOggetto>(); //max carteOggetto=3?
+//	private ArrayList<String> listaMosse=new ArrayList<String>();	 //max turni=39?
+	private boolean inVita=true;
+	private String vittoria_sconfitta;
+	private int portata;
+	private boolean haMosso=false;
+	private boolean puoPassare=false;
+	private boolean haPassato=false;
+
 	//utile solo per alieni
-	private boolean haUcciso = false;
+	private boolean haUcciso=false;
 	
 	//true possibile solo per umani
-	private boolean scialuppaRaggiunta = false;
+	private boolean scialuppaRaggiunta=false;
 	
-	public enum Personaggio { UMANO, ALIENO;}
+	public enum Personaggio {UMANO, ALIENO;}
 	
-	public Giocatore(String nomeUtente, int idGiocatore, int idPartita){
-		this.nomeUtente = nomeUtente;
-		this.idPartita = idPartita;
-		this.idGiocatore = idGiocatore;
+//	----------------------------------------------------------------------------------------------------
+	
+	public Giocatore(int idGiocatore, String nomeUtente)
+	{
+		this.nomeUtente=nomeUtente;
+		this.idGiocatore=idGiocatore;
 	}
 	
-	public int getIdPartita(){
-		return idPartita;
+//	----------------------------------------------------------------------------------------------------
+	
+	public int getPortata()
+	{
+		return portata;
 	}
 	
-	public void setAdrenalina(boolean adrenalina){
-		this.adrenalina = adrenalina;
-	}
-	
-	public boolean getAdrenalina(){
+	public boolean getAdrenalina()
+	{
 		return this.adrenalina;
 	}
 	
-	public void setSedativi(boolean sedativi){
-		this.sedativi = sedativi;
-	}
-	
-	public boolean getSedativi(){
+	public boolean getSedativi()
+	{
 		return sedativi;
 	}
 	
-	public int getIdGiocatore(){
+	public int getIdGiocatore()
+	{
 		return idGiocatore;
-		}
+	}
 	
-	public String getNomeUtente() {
-		return nomeUtente;
-		}
-	
-	public String getPosizione(){ 
+	public String getPosizione()
+	{ 
 		return posizione;
 	}
 	
-	public void setPosizione(String posizione){
-		this.posizione = posizione;
-		listaMosse.add(posizione); //aggiorna listaMosse
-	} 
-	
-	public Personaggio getPersonaggio(){ 
+	public Personaggio getPersonaggio()
+	{ 
 		return personaggio;	
-		}
-	
-	public void setPersonaggio(Personaggio personaggio){
-		this.personaggio = personaggio;
 	}
 	
-	//aggiunge una carta oggetto alla lista,
-	//però poi nel Controller, quando il giocatore pesca la carta,
-	//dobbiamo ricordarci di controllare che gli oggetti nella
-	//lista siano meno di 4!
-	
-	public void setCartaOggetto(CartaOggetto oggetto){
-		carteOggetto.add(oggetto);
-	}
-	
-	//controlla che in carteOggetto sia presente la carta
-	public boolean possiedoCartaOggetto(CartaOggetto oggetto){
-		return carteOggetto.contains(oggetto);
-	}
-	
-	//ritorna il numero di carte oggetto presenti nella lista
-	public int numeroCarteOggetto(){
-		return carteOggetto.size();
-	}
-	
-	public void usaCartaOggetto(CartaOggetto oggetto){
-		//remove(oggetto) rimuove la prima occorrenza trovata dell'oggetto
-		//che gli passiamo e ritorna true
-		carteOggetto.remove(oggetto);	
-	}
-
-	public ArrayList<String> getListaMosse(){
-		return listaMosse;
-	}
+//	public ArrayList<String> getListaMosse()
+//	{
+//		return listaMosse;
+//	}
 	
 	//ritorna la mossa fatta all'i-esimo turno del giocatore
 	// i-esima stringa nell'ArrayList listamosse
-	public String getMossaIesima(int i){
-		return listaMosse.get(i);
-	}
+//	public String getMossaIesima(int i)
+//	{
+//		return listaMosse.get(i);
+//	}
 	
-	public boolean getInVita() {
+	public boolean getInVita()
+	{
 		return inVita;
 	}
 	
-	public void morto(){
-		inVita = false;
-	}
-
-	//utile solo per alieni
-	public boolean getHaUcciso() {
+	public boolean getHaUcciso()
+	{
 		return haUcciso;
 	}
 	
-	public void setHaUcciso() {
-		haUcciso = true;
-	}
-	
-	//possibile solo per umani
 	public boolean getScialuppaRaggiunta()
 	{
 		return scialuppaRaggiunta;
 	}
 	
-	public void setScialuppaRaggiunta(){
-		scialuppaRaggiunta = true;
+	public boolean getHaMosso()
+	{
+		return haMosso;
+	}
+	
+	public boolean getPuoPassare()
+	{
+		return puoPassare;
+	}
+	
+	public boolean getHaPassato()
+	{
+		return haPassato;
+	}
+	
+	public String getNomeUtente()
+	{
+		return nomeUtente;
+	}
+	
+	public ArrayList<CartaOggetto> getCarteOggetto() {
+		return carteOggetto;
+	}
+	
+	public CartaOggetto getCartaOggetto(String nomeOggetto)
+	{
+		for(int i=0;i<this.carteOggetto.size();i++)
+		{
+			if(this.carteOggetto.get(i).getTipoOggetto()==TipoOggetto.valueOf(nomeOggetto))
+			{
+				return this.carteOggetto.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public String getVittoria_sconfitta()
+	{
+		return this.vittoria_sconfitta;
+	}
+	
+//	----------------------------------------------------------------------------------------------------
+
+	public void setPortata(int portata)
+	{
+		this.portata=portata;
+	}
+	
+	public void setAdrenalina(boolean adrenalina)
+	{
+		this.adrenalina=adrenalina;
+	}
+	
+	public void setSedativi(boolean sedativi)
+	{
+		this.sedativi=sedativi;
+	}
+	
+	public void setPosizione(String posizione)
+	{
+		this.posizione=posizione;
+//		listaMosse.add(posizione); //aggiorna listaMosse
+	}
+	
+	public void setPersonaggio(Personaggio personaggio, int portata, String posizione)
+	{
+		this.posizione=posizione;
+		this.personaggio=personaggio;
+		this.portata=portata;
 	}
 
+	public void setCartaOggetto(CartaOggetto oggetto)
+	{
+		carteOggetto.add(oggetto);
+	}
+	
+	public void setInVita(boolean stato)
+	{
+		inVita=stato;
+	}
+	
+	public void setHaUcciso(boolean stato)
+	{
+		haUcciso=stato;
+		portata=3;
+	}
+	
+	public void setScialuppaRaggiunta(boolean stato)
+	{
+		scialuppaRaggiunta=stato;
+	}
 
+	public void setHaMosso(boolean haMosso)
+	{
+		this.haMosso=haMosso;
+	}
+	
+	public void setPuoPassare(boolean puoPassare)
+	{
+		this.puoPassare = puoPassare;
+	}
+	
+	public void setHaPassato(boolean haPassato)
+	{
+		this.haPassato=haPassato;
+	}
+	
+	public void setVittoria_sconfitta(String vittoria_sconfitta)
+	{
+		this.vittoria_sconfitta=vittoria_sconfitta;
+	}
+	
+//	----------------------------------------------------------------------------------------------------
+	
+	public boolean possiedeCartaOggetto(String oggetto)
+	{
+		for(CartaOggetto carta : this.carteOggetto)
+		{
+			try{
+			if(carta.getTipoOggetto().equals(TipoOggetto.valueOf(oggetto)))
+				return true;
+			}
+			catch(IllegalArgumentException e){
+				e.printStackTrace();
+				return false;
+			}
+		}
+		return false;
+	}
+	
+	public int numeroCarteOggettoPossedute()
+	{
+		return carteOggetto.size();
+	}
+	
+	public void scartaOggetto(CartaOggetto oggetto)
+	{
+		carteOggetto.remove(oggetto);	
+	}
 }

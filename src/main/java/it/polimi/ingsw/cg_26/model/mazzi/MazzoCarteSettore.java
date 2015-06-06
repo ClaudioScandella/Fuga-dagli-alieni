@@ -1,35 +1,53 @@
 package it.polimi.ingsw.cg_26.model.mazzi;
 
-import it.polimi.ingsw.cg_26.model.carte.CartaSettore;
-import it.polimi.ingsw.cg_26.model.carte.CartaSettore.TipoSettore;
-
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
+
+import model.carte.CartaSettore;
+import model.carte.CartaSettore.TipoSettore;
 
 public class MazzoCarteSettore {
 
-	private List<CartaSettore> mazzoCarteSettore=new ArrayList<>();
+	private ArrayList<CartaSettore> mazzoCarteSettore=new ArrayList<>();
+	private ArrayList<CartaSettore> scartiCarteSettore=new ArrayList<>();
+	
+//	--------------------------------------------------------------------------------------------------
 
-		//crea tutte le carte e le inserisce in ArrayList carteSettore
-		
-		//creo le carte Silenzio
-	public MazzoCarteSettore(){
+	public MazzoCarteSettore()
+	{
 		for(int i=0; i<5; i++){
 			mazzoCarteSettore.add(new CartaSettore(TipoSettore.SILENZIO, false));
 		}
 			
 		for(int i=0; i<4; i++){
-			mazzoCarteSettore.add(new CartaSettore(TipoSettore.RUMORE, true));
-			mazzoCarteSettore.add(new CartaSettore(TipoSettore.RUMOREinSETTORE, true));
+			mazzoCarteSettore.add(new CartaSettore(TipoSettore.RUMOREaSCELTA, true));
+			mazzoCarteSettore.add(new CartaSettore(TipoSettore.RUMOREproprioSETTORE, true));
 		}
 		
 		for(int i=0; i<6; i++){
-			mazzoCarteSettore.add(new CartaSettore(TipoSettore.RUMORE, false));
-			mazzoCarteSettore.add(new CartaSettore(TipoSettore.RUMOREinSETTORE, false));
+			mazzoCarteSettore.add(new CartaSettore(TipoSettore.RUMOREaSCELTA, false));
+			mazzoCarteSettore.add(new CartaSettore(TipoSettore.RUMOREproprioSETTORE, false));
 		}
 	}
 	
-	public CartaSettore getMazzoSettore(int i){
-		return mazzoCarteSettore.get(i);
+//	--------------------------------------------------------------------------------------------------
+
+	public ArrayList<CartaSettore> getMazzoCarteSettore()
+	{
+		return mazzoCarteSettore;
+	}
+	
+	public ArrayList<CartaSettore> getScartiCarteSettore()
+	{
+		return scartiCarteSettore;
+	}
+	
+//	--------------------------------------------------------------------------------------------------
+
+	public void setMazzoCarteSettore(ArrayList<CartaSettore> mazzoCarteSettore)
+	{
+		this.mazzoCarteSettore = mazzoCarteSettore;
 	}
 }
