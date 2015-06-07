@@ -1,12 +1,9 @@
 package it.polimi.ingsw.cg_26.model.mazzi;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import it.polimi.ingsw.cg_26.model.carte.CartaSettore;
+import it.polimi.ingsw.cg_26.model.carte.CartaSettore.TipoSettore;
 
-import model.carte.CartaSettore;
-import model.carte.CartaSettore.TipoSettore;
+import java.util.ArrayList;
 
 public class MazzoCarteSettore {
 
@@ -18,7 +15,7 @@ public class MazzoCarteSettore {
 	public MazzoCarteSettore()
 	{
 		for(int i=0; i<5; i++){
-			mazzoCarteSettore.add(new CartaSettore(TipoSettore.SILENZIO, false));
+			mazzoCarteSettore.add(new CartaSettore(TipoSettore.SILENZIO, true));//DEVE ESSERE FALSE
 		}
 			
 		for(int i=0; i<4; i++){
@@ -27,8 +24,8 @@ public class MazzoCarteSettore {
 		}
 		
 		for(int i=0; i<6; i++){
-			mazzoCarteSettore.add(new CartaSettore(TipoSettore.RUMOREaSCELTA, false));
-			mazzoCarteSettore.add(new CartaSettore(TipoSettore.RUMOREproprioSETTORE, false));
+			mazzoCarteSettore.add(new CartaSettore(TipoSettore.RUMOREaSCELTA, true));//DEVE ESSERE FALSE
+			mazzoCarteSettore.add(new CartaSettore(TipoSettore.RUMOREproprioSETTORE, true));//DEVE ESSERE FALSE
 		}
 	}
 	

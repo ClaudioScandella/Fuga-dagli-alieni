@@ -1,16 +1,17 @@
 package it.polimi.ingsw.cg_26.main;
 
-import controller.ControllerPartita;
-import model.Giocatore;
-import model.ModelPartita;
+import it.polimi.ingsw.cg_26.controller.ControllerPartita;
+import it.polimi.ingsw.cg_26.model.Giocatore;
+import it.polimi.ingsw.cg_26.model.ModelPartita;
 
-import java.io.*;
-
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
 	
 	private static int idPartita=0;
-	private static String nomeMappa="fermi";
+	private static String nomeMappa="easy";
 	private static int idGiocatore=0;
 
 	public static void main(String[] args) throws InterruptedException, IOException {
@@ -21,6 +22,8 @@ public class Main {
 		idPartita++;
 		controllerPartita.addGiocatore(new Giocatore(idGiocatore++, "Claudio"));
 		controllerPartita.addGiocatore(new Giocatore(idGiocatore++, "Stefano"));
+		controllerPartita.addGiocatore(new Giocatore(idGiocatore++, "Patrizia"));
+		controllerPartita.addGiocatore(new Giocatore(idGiocatore++, "Shreiber"));
 		
 		System.out.println("Partita pronta per iniziare. Attendo comando di inizio.");
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -31,9 +34,6 @@ public class Main {
 			
 		controllerPartita.iniziaPartita();
 		controllerPartita.terminaPartita();
-		
-		System.out.println("La partita � terminata.");
-		System.out.println("Ecco i vincitori: "+controllerPartita.getPartita().getGiocatoriVincenti().get(0).getNomeUtente());
-		System.out.println("Ecco i perdenti: "+controllerPartita.getPartita().getGiocatoriPerdenti().get(0).getNomeUtente());
+		controllerPartita.stampaVincitoriEPerdenti();
 	}
 }

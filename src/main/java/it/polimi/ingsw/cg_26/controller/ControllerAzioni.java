@@ -1,14 +1,14 @@
 package it.polimi.ingsw.cg_26.controller;
 
+import it.polimi.ingsw.cg_26.model.Giocatore;
+import it.polimi.ingsw.cg_26.model.Giocatore.Personaggio;
+import it.polimi.ingsw.cg_26.model.carte.CartaOggetto;
+import it.polimi.ingsw.cg_26.model.carte.CartaScialuppa.Colore;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-
-import model.Giocatore;
-import model.Giocatore.Personaggio;
-import model.carte.CartaOggetto;
-import model.carte.CartaScialuppa.Colore;
 
 public class ControllerAzioni
 {
@@ -46,16 +46,31 @@ public class ControllerAzioni
 		switch(azione)
 		{
 		case ATTACCO:
-			System.out.println("Verifico se hai gia mosso e quindi puoi attaccare.");
-			if(partita.giocatoreCorrente().getHaMosso()==false)
+			if(!partita.giocatoreCorrente().getPuoAttaccare())
 			{
-				System.out.println("Non puoi attaccare! Devi muovere prima di farlo.");
+				System.out.println("Attenzione sei un umano, puoi attaccare solo con la carta ATTACCO.");
 				break;
 			}
-			System.out.println("OK puoi attaccare.");
+			if(partita.giocatoreCorrente().getHaAttaccato())
+			{
+				System.out.println("Non puoi attaccare! Lo hai gia fatto in questo turno.");
+				break;
+			}
+			if(partita.giocatoreCorrente().getPersonaggio().equals(Personaggio.ALIENO))
+			{
+				System.out.println("Verifico se hai gia mosso e quindi puoi attaccare.");
+				if(partita.giocatoreCorrente().getHaMosso()==false)
+				{
+					System.out.println("Non puoi attaccare! Devi muovere prima di farlo.");
+					break;
+				}
+				System.out.println("OK puoi attaccare.");
+			}
+			partita.giocatoreCorrente().setHaAttaccato(true);
 			System.out.println("Verifico se hai ucciso qualcuno.");
 			String settoreDiAttacco=partita.giocatoreCorrente().getPosizione();
 			ArrayList<Giocatore> listaGiocatoriAttaccati=new ArrayList<>();
+			Giocatore giocatoreSalvatoConDifesa=null;
 			listaGiocatoriAttaccati.addAll(partita.getGiocatoriInSettore(settoreDiAttacco));
 			listaGiocatoriAttaccati.remove(partita.giocatoreCorrente());
 			if(listaGiocatoriAttaccati.size()>0)
@@ -64,18 +79,19 @@ public class ControllerAzioni
 				partita.giocatoreCorrente().setHaUcciso(true);
 				for(Giocatore giocatore : listaGiocatoriAttaccati)
 				{
-					if(giocatore.possiedeCartaOggetto("DIFESA") && giocatore.getPersonaggio().equals(Personaggio.UMANO))
+					if(giocatore.possiedeCartaOggetto("DIFESA")==true && giocatore.getPersonaggio().equals(Personaggio.UMANO)==true)
 					{
+						giocatoreSalvatoConDifesa=giocatore;
 						System.out.println("Il giocatore "+giocatore.getNomeUtente()+" si � salvato con la carta difesa.");
 						CartaOggetto oggetto=giocatore.getCartaOggetto("DIFESA");
 						giocatore.scartaOggetto(oggetto);
 						partita.getPartita().getControllerMazzoCarteOggetto().aggiungiCartaAScartiOggetto(oggetto);
-						listaGiocatoriAttaccati.remove(giocatore);
 					}
 					else
 					{
-						for(CartaOggetto oggetto : giocatore.getCarteOggetto())
+						while(giocatore.getCarteOggetto().size()>0)
 						{
+							CartaOggetto oggetto=giocatore.getCarteOggetto().get(0);
 							giocatore.scartaOggetto(oggetto);
 							partita.getPartita().getControllerMazzoCarteOggetto().aggiungiCartaAScartiOggetto(oggetto);
 						}
@@ -84,17 +100,23 @@ public class ControllerAzioni
 						giocatore.setPosizione(null);
 					}
 				}
+				listaGiocatoriAttaccati.remove(giocatoreSalvatoConDifesa);
 				System.out.print("Hai ucciso:");
 				for(Giocatore giocatore : listaGiocatoriAttaccati)
-				{
 					System.out.print(" "+giocatore.getNomeUtente());
-				}
 				System.out.println(".");
 			}
 			else
-			{
 				System.out.println("Non hai ucciso nessuno.");
-			}			
+			if(this.partita.numeroUmaniInGioco()==0)
+				for(Giocatore giocatore : this.partita.getPartita().getGiocatori())
+					if(giocatore.getPersonaggio().equals(Personaggio.ALIENO))
+						giocatore.setVittoria_sconfitta("vittoria");
+			else
+				if(this.partita.numeroAlieniInGioco()==0)
+					for(Giocatore gamer : this.partita.getPartita().getGiocatori())
+						if(gamer.getPersonaggio().equals(Personaggio.UMANO) && gamer.getInVita())
+							gamer.setVittoria_sconfitta("vittoria");
 			break;
 		case MOSSA:
 			if(partita.giocatoreCorrente().getHaMosso()==true)
@@ -106,12 +128,12 @@ public class ControllerAzioni
 			{
 				System.out.println("Inserisci il settore: ");
 				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-				String settore=br.readLine().toString();
+				String settore=br.readLine();
 				if(partita.getPartita().getControllerMappa().verificaEsistenzaSettore(settore)==true)
 				{
 					if(partita.getPartita().getControllerMappa().isScialuppa(settore)==true)
 					{
-						if(partita.getPartita().getControllerMappa().getMappa().getListaSettoriTotali().get(partita.getPartita().getControllerMappa().convertitoreStringa_Indice(settore)).getBloccata()==false)
+						if(partita.getPartita().getControllerMappa().getMappa().getListaSettoriTotali().get(partita.getPartita().getControllerMappa().convertitoreStringa_Indice(settore)).getBloccata()==true)
 						{
 							System.out.println("La scialuppa � bloccata");
 							break;
@@ -123,10 +145,18 @@ public class ControllerAzioni
 							{
 								System.out.println("HAI VINTO!");
 								//aggiorno vittorie, spostamenti e altro
-								partita.getPartita().getGiocatori().get(partita.giocatoreCorrente().getIdGiocatore()).setInVita(false);
-								partita.getPartita().getGiocatori().get(partita.giocatoreCorrente().getIdGiocatore()).setVittoria_sconfitta("vittoria");
-								partita.getPartita().getGiocatori().get(partita.giocatoreCorrente().getIdGiocatore()).setPosizione(null);
+								partita.giocatoreCorrente().setInVita(false);
+								partita.giocatoreCorrente().setVittoria_sconfitta("vittoria");
+								partita.giocatoreCorrente().setPosizione(null);
 								partita.getPartita().getControllerMappa().getMappa().getListaSettoriTotali().get(partita.getPartita().getControllerMappa().convertitoreStringa_Indice(settore)).setBloccata(true);
+								partita.giocatoreCorrente().setHaMosso(true);
+								partita.giocatoreCorrente().setPuoPassare(true);
+								while(this.partita.giocatoreCorrente().getCarteOggetto().size()>0)
+								{
+									CartaOggetto oggetto=this.partita.giocatoreCorrente().getCarteOggetto().get(0);
+									this.partita.giocatoreCorrente().scartaOggetto(oggetto);
+									partita.getPartita().getControllerMazzoCarteOggetto().aggiungiCartaAScartiOggetto(oggetto);
+								}
 								break;
 							}
 							System.out.println("La carta � rossa, non puoi fuggire da qui");
@@ -147,9 +177,14 @@ public class ControllerAzioni
 						//controllo tipo settore e agisco di conseguenza
 						if(partita.getPartita().getControllerMappa().settoreSicuro_Pericoloso(settore)=="pericoloso")
 						{
-							System.out.println("Pesca la carta settore.");
-							ControllerEffettoCarteSettore controllerEffettoCarteSettore=new ControllerEffettoCarteSettore(partita);
-							controllerEffettoCarteSettore.pescaEdEseguiEffettoCarta();
+							if(partita.giocatoreCorrente().getSedativi())
+								System.out.println("Non peschi carte settore perch� hai usato SEDATIVI.");
+							else
+							{
+								System.out.println("Pesca la carta settore.");
+								ControllerEffettoCarteSettore controllerEffettoCarteSettore=new ControllerEffettoCarteSettore(partita);
+								controllerEffettoCarteSettore.pescaEdEseguiEffettoCarta();
+							}
 						}
 						else
 						{
@@ -165,21 +200,22 @@ public class ControllerAzioni
 			if(partita.giocatoreCorrente().getPersonaggio()==Personaggio.ALIENO)
 			{
 				System.out.println("Attenzione! Sei un alieno! Solo gli umani possono usare le carte oggetto.");
+				System.out.println("Ti mostro comunque le carte che possiedi: "+this.partita.giocatoreCorrente().stampaCarteOggetto());
 				break;
 			}
 			else
 			{
-				System.out.println("Ti mostro le carte che possiedi: "+partita.giocatoreCorrente().getCarteOggetto().toString());
+				System.out.println("Ti mostro le carte che possiedi: "+this.partita.giocatoreCorrente().stampaCarteOggetto());
 				System.out.println("Scrivi il nome dell'oggetto che vuoi usare. Non puoi usare carta difesa.");
 				
 				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-				String comando=br.readLine().toString();
+				String comando=br.readLine();
 				System.out.println("Controllo che tu abbia davvero quella carta.");
 				if(partita.giocatoreCorrente().possiedeCartaOggetto(comando.toUpperCase())==true)
 				{
 					System.out.println("Sembra proprio tu ce l'abbia.");
 					System.out.println("Controllo che non hai deciso di usare la carta difesa.");
-					if(comando.toLowerCase()=="difesa")
+					if(comando.toLowerCase().equals("difesa"))
 					{
 						System.out.println("Attenzione! La carta difesa si attiva solo automaticamente quando vieni attaccato e solo se sei umano.");
 						break;
@@ -187,7 +223,7 @@ public class ControllerAzioni
 					System.out.println("Hai deciso di usare la carta "+comando.toLowerCase());
 					System.out.println("Aziono gli effetti della carta.");
 					ControllerEffettoCarteOggetto controllerEffettoCarteOggetto=new ControllerEffettoCarteOggetto(comando.toUpperCase(),partita);
-					CartaOggetto oggetto=partita.giocatoreCorrente().getCartaOggetto(comando);
+					CartaOggetto oggetto=partita.giocatoreCorrente().getCartaOggetto(comando.toUpperCase());
 					controllerEffettoCarteOggetto.eseguiEffettoCarta(oggetto);
 				}
 			}
@@ -200,13 +236,30 @@ public class ControllerAzioni
 			else
 			{
 				if(partita.giocatoreCorrente().getPersonaggio()==Personaggio.UMANO)
+				{
 					partita.giocatoreCorrente().setPortata(1);
+					partita.giocatoreCorrente().setPuoAttaccare(false);
+					partita.giocatoreCorrente().setSedativi(false);
+				}
 				partita.giocatoreCorrente().setPuoPassare(false);
 				partita.giocatoreCorrente().setHaMosso(false);
 				partita.giocatoreCorrente().setHaPassato(true);
+				partita.giocatoreCorrente().setHaAttaccato(false);
 			}
 			break;
 		}
+	}
+	
+	@Override
+	public String toString()
+	{
+		String stringaDaStampare="";
+		
+		for(CartaOggetto oggetto : partita.giocatoreCorrente().getCarteOggetto())
+		{
+			stringaDaStampare+=oggetto.getTipoOggetto();
+		}
+		return stringaDaStampare;
 	}
 
 	

@@ -1,11 +1,10 @@
 package it.polimi.ingsw.cg_26.model.mazzi;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
+import it.polimi.ingsw.cg_26.model.carte.CartaOggetto;
+import it.polimi.ingsw.cg_26.model.carte.CartaOggetto.TipoOggetto;
 
-import model.carte.CartaOggetto;
-import model.carte.CartaOggetto.TipoOggetto;
+import java.util.ArrayList;
+
 
 public class MazzoCarteOggetto
 {

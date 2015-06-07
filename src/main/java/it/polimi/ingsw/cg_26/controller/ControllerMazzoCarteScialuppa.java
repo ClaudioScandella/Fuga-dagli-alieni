@@ -1,10 +1,11 @@
 package it.polimi.ingsw.cg_26.controller;
 
+import it.polimi.ingsw.cg_26.model.carte.CartaScialuppa;
+import it.polimi.ingsw.cg_26.model.mazzi.MazzoCarteScialuppa;
+
 import java.util.Collections;
 import java.util.Random;
 
-import model.carte.CartaScialuppa;
-import model.mazzi.MazzoCarteScialuppa;
 
 public class ControllerMazzoCarteScialuppa
 {

@@ -1,10 +1,11 @@
 package it.polimi.ingsw.cg_26.controller;
 
+import it.polimi.ingsw.cg_26.model.Giocatore.Personaggio;
+import it.polimi.ingsw.cg_26.model.mappa.Mappa;
+import it.polimi.ingsw.cg_26.model.mappa.Settore;
+
 import java.util.ArrayList;
 
-import model.Giocatore.Personaggio;
-import model.mappa.Mappa;
-import model.mappa.Settore;
 
 public class ControllerMappa
 {
@@ -133,7 +134,6 @@ public class ControllerMappa
 		if(settoreDestinazione.equals(settorePartenza))
 			return false;
 		int indiceSettoreDestinazione=this.convertitoreStringa_Indice(settoreDestinazione);
-		int indiceSettorePartenza=this.convertitoreStringa_Indice(settorePartenza);
 		
 		ArrayList<Settore> settoriRaggiungibili=new ArrayList<>();
 		ArrayList<Settore> settoriNonTransitabili=new ArrayList<>();

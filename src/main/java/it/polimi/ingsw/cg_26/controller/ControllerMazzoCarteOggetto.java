@@ -1,12 +1,13 @@
 package it.polimi.ingsw.cg_26.controller;
 
+import it.polimi.ingsw.cg_26.model.carte.CartaOggetto;
+import it.polimi.ingsw.cg_26.model.mazzi.MazzoCarteOggetto;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-import model.carte.CartaOggetto;
-import model.carte.CartaSettore;
-import model.mazzi.MazzoCarteOggetto;
+
 
 public class ControllerMazzoCarteOggetto
 {
@@ -18,6 +19,7 @@ public class ControllerMazzoCarteOggetto
 	public ControllerMazzoCarteOggetto(MazzoCarteOggetto mazzoCarteOggetto)
 	{
 		this.mazzoCarteOggetto=mazzoCarteOggetto;
+		this.mischia();
 	}
 	
 //	--------------------------------------------------------------------------------------------------
