@@ -1,14 +1,14 @@
 package it.polimi.ingsw.cg_26.controller;
 
+import it.polimi.ingsw.cg_26.model.Giocatore;
+import it.polimi.ingsw.cg_26.model.Giocatore.Personaggio;
+import it.polimi.ingsw.cg_26.model.carte.CartaOggetto;
+import it.polimi.ingsw.cg_26.model.carte.CartaScialuppa.Colore;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-
-import model.Giocatore;
-import model.Giocatore.Personaggio;
-import model.carte.CartaOggetto;
-import model.carte.CartaScialuppa.Colore;
 
 public class ControllerAzioni
 {

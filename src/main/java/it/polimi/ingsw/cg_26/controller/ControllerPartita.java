@@ -1,19 +1,18 @@
 package it.polimi.ingsw.cg_26.controller;
 
+import it.polimi.ingsw.cg_26.model.GameState;
+import it.polimi.ingsw.cg_26.model.Giocatore;
+import it.polimi.ingsw.cg_26.model.Giocatore.Personaggio;
+import it.polimi.ingsw.cg_26.model.ModelPartita;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-import java.util.Scanner;
+//import java.util.Scanner;
 
-import model.GameState;
-import model.Giocatore;
-import model.ModelPartita;
-import model.Giocatore.Personaggio;
-import model.carte.CartaSettore;
-import model.mappa.Mappa;
 
 public class ControllerPartita {
 	

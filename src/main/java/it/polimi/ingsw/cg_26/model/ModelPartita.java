@@ -1,15 +1,15 @@
 package it.polimi.ingsw.cg_26.model;
 
-import java.util.ArrayList;
+import it.polimi.ingsw.cg_26.controller.ControllerMappa;
+import it.polimi.ingsw.cg_26.controller.ControllerMazzoCarteOggetto;
+import it.polimi.ingsw.cg_26.controller.ControllerMazzoCarteScialuppa;
+import it.polimi.ingsw.cg_26.controller.ControllerMazzoCarteSettore;
+import it.polimi.ingsw.cg_26.model.mappa.Mappa;
+import it.polimi.ingsw.cg_26.model.mazzi.MazzoCarteOggetto;
+import it.polimi.ingsw.cg_26.model.mazzi.MazzoCarteScialuppa;
+import it.polimi.ingsw.cg_26.model.mazzi.MazzoCarteSettore;
 
-import model.mappa.Mappa;
-import model.mazzi.MazzoCarteOggetto;
-import model.mazzi.MazzoCarteScialuppa;
-import model.mazzi.MazzoCarteSettore;
-import controller.ControllerMappa;
-import controller.ControllerMazzoCarteOggetto;
-import controller.ControllerMazzoCarteScialuppa;
-import controller.ControllerMazzoCarteSettore;
+import java.util.ArrayList;
 
 public class ModelPartita {
 	

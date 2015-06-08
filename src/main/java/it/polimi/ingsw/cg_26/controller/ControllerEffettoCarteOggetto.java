@@ -1,12 +1,12 @@
 package it.polimi.ingsw.cg_26.controller;
 
+import it.polimi.ingsw.cg_26.model.carte.CartaOggetto;
+import it.polimi.ingsw.cg_26.model.mappa.Settore;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-
-import model.carte.CartaOggetto;
-import model.mappa.Settore;
 
 public class ControllerEffettoCarteOggetto
 {

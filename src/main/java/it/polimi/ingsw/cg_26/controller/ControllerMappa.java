@@ -1,10 +1,11 @@
 package it.polimi.ingsw.cg_26.controller;
 
+import it.polimi.ingsw.cg_26.model.Giocatore.Personaggio;
+import it.polimi.ingsw.cg_26.model.mappa.Mappa;
+import it.polimi.ingsw.cg_26.model.mappa.Settore;
+
 import java.util.ArrayList;
 
-import model.Giocatore.Personaggio;
-import model.mappa.Mappa;
-import model.mappa.Settore;
 
 public class ControllerMappa
 {

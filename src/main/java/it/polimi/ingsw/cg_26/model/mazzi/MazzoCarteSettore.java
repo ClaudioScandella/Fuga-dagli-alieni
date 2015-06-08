@@ -1,12 +1,13 @@
 package it.polimi.ingsw.cg_26.model.mazzi;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import it.polimi.ingsw.cg_26.model.carte.CartaSettore;
+import it.polimi.ingsw.cg_26.model.carte.CartaSettore.TipoSettore;
 
-import model.carte.CartaSettore;
-import model.carte.CartaSettore.TipoSettore;
+import java.util.ArrayList;
+//import java.util.Collections;
+//import java.util.List;
+//import java.util.Random;
+
 
 public class MazzoCarteSettore {
 

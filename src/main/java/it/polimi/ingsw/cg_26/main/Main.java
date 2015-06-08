@@ -1,10 +1,12 @@
 package it.polimi.ingsw.cg_26.main;
 
-import controller.ControllerPartita;
-import model.Giocatore;
-import model.ModelPartita;
+import it.polimi.ingsw.cg_26.controller.ControllerPartita;
+import it.polimi.ingsw.cg_26.model.Giocatore;
+import it.polimi.ingsw.cg_26.model.ModelPartita;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 
 public class Main {
