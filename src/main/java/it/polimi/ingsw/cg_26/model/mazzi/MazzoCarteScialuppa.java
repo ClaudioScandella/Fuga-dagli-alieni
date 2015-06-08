@@ -1,13 +1,9 @@
 package it.polimi.ingsw.cg_26.model.mazzi;
 
-
 import it.polimi.ingsw.cg_26.model.carte.CartaScialuppa;
 import it.polimi.ingsw.cg_26.model.carte.CartaScialuppa.Colore;
 
 import java.util.ArrayList;
-//import java.util.List;
-//import java.util.Collections;
-//import java.util.Random;
 
 
 public class MazzoCarteScialuppa {

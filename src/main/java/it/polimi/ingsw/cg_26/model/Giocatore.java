@@ -5,8 +5,6 @@ import it.polimi.ingsw.cg_26.model.carte.CartaOggetto.TipoOggetto;
 
 import java.util.ArrayList;
 
-
-
 public class Giocatore
 {
 	private final int idGiocatore;
@@ -16,14 +14,17 @@ public class Giocatore
 	private String posizione; 
 	private boolean adrenalina=false;
 	private boolean sedativi=false;
-	private ArrayList<CartaOggetto> carteOggetto=new ArrayList<CartaOggetto>(); //max carteOggetto=3?
-//	private ArrayList<String> listaMosse=new ArrayList<String>();	 //max turni=39?
+
+	//	private ArrayList<String> listaMosse=new ArrayList<String>();	 //max turni=39?
 	private boolean inVita=true;
 	private String vittoria_sconfitta;
 	private int portata;
+	private boolean puoAttaccare;
 	private boolean haMosso=false;
 	private boolean puoPassare=false;
 	private boolean haPassato=false;
+	private boolean haAttaccato=false;
+	private ArrayList<CartaOggetto> carteOggetto=new ArrayList<CartaOggetto>();
 
 	//utile solo per alieni
 	private boolean haUcciso=false;
@@ -42,6 +43,11 @@ public class Giocatore
 	}
 	
 //	----------------------------------------------------------------------------------------------------
+	
+	public boolean getHaAttaccato()
+	{
+		return this.haAttaccato;
+	}
 	
 	public int getPortata()
 	{
@@ -120,17 +126,18 @@ public class Giocatore
 		return nomeUtente;
 	}
 	
-	public ArrayList<CartaOggetto> getCarteOggetto() {
+	public ArrayList<CartaOggetto> getCarteOggetto()
+	{
 		return carteOggetto;
 	}
 	
 	public CartaOggetto getCartaOggetto(String nomeOggetto)
 	{
-		for(int i=0;i<this.carteOggetto.size();i++)
+		for(CartaOggetto oggetto : this.carteOggetto)
 		{
-			if(this.carteOggetto.get(i).getTipoOggetto()==TipoOggetto.valueOf(nomeOggetto))
+			if(oggetto.getTipoOggetto().equals(TipoOggetto.valueOf(nomeOggetto)))
 			{
-				return this.carteOggetto.get(i);
+				return oggetto;
 			}
 		}
 		return null;
@@ -141,8 +148,18 @@ public class Giocatore
 		return this.vittoria_sconfitta;
 	}
 	
+	public boolean getPuoAttaccare()
+	{
+		return this.puoAttaccare;
+	}
+	
 //	----------------------------------------------------------------------------------------------------
 
+	public void setHaAttaccato(boolean haAttaccato)
+	{
+		this.haAttaccato=haAttaccato;
+	}
+	
 	public void setPortata(int portata)
 	{
 		this.portata=portata;
@@ -164,11 +181,20 @@ public class Giocatore
 //		listaMosse.add(posizione); //aggiorna listaMosse
 	}
 	
+	public void setPuoAttaccare(boolean puoAttaccare)
+	{
+		this.puoAttaccare=puoAttaccare;
+	}
+	
 	public void setPersonaggio(Personaggio personaggio, int portata, String posizione)
 	{
 		this.posizione=posizione;
 		this.personaggio=personaggio;
 		this.portata=portata;
+		if(this.personaggio.equals(Personaggio.ALIENO))
+			setPuoAttaccare(true);
+		else
+			setPuoAttaccare(false);
 	}
 
 	public void setCartaOggetto(CartaOggetto oggetto)
@@ -218,12 +244,13 @@ public class Giocatore
 	{
 		for(CartaOggetto carta : this.carteOggetto)
 		{
-			try{
+			try
+			{
 			if(carta.getTipoOggetto().equals(TipoOggetto.valueOf(oggetto)))
 				return true;
 			}
-			catch(IllegalArgumentException e){
-				e.printStackTrace();
+			catch(IllegalArgumentException e)
+			{
 				return false;
 			}
 		}
@@ -237,6 +264,16 @@ public class Giocatore
 	
 	public void scartaOggetto(CartaOggetto oggetto)
 	{
-		carteOggetto.remove(oggetto);	
+		this.carteOggetto.remove(oggetto);	
 	}
+
+	public String stampaCarteOggetto()
+	{
+		String stringaDaStampare="";
+		for(CartaOggetto oggetto : this.carteOggetto)
+		{
+			stringaDaStampare+=(oggetto.getTipoOggetto().name())+" ";
+		}
+		return stringaDaStampare;
+	}	
 }

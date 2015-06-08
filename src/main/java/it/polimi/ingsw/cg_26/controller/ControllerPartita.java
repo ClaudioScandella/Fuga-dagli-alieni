@@ -11,7 +11,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-//import java.util.Scanner;
 
 
 public class ControllerPartita {
@@ -58,11 +57,13 @@ public class ControllerPartita {
 		this.assegnaRuoli();
 		partita.setStato(GameState.RUNNING);
 		
-		while(partita.getNumeroTurno()!=40 && partita.getStato()!=GameState.FINEGIOCO)
+		while(partita.getNumeroTurno()!=40 && !(partita.getStato().equals(GameState.FINEGIOCO)))
 		{
 			for(int i=0;i<partita.getGiocatori().size();i++)
 			{
 				partita.setNumeroGiocatoreCorrente(i);
+				if(!this.giocatoreCorrente().getInVita())
+					continue;
 				while(this.giocatoreCorrente().getHaPassato()==false)
 				{
 					System.out.println("E' il turno del giocatore "+(i+1)+" "+this.giocatoreCorrente().getNomeUtente()+":");
@@ -72,11 +73,20 @@ public class ControllerPartita {
 					ControllerAzioni controllerAzioni=new ControllerAzioni(comando, this);
 					controllerAzioni.agisci();
 				}
-				this.giocatoreCorrente().setHaPassato(false);
-				if(this.controllaFinePartita())
+				if(this.controllaFinePartita()==true)
 					break;
+				this.giocatoreCorrente().setHaPassato(false);
 			}
 			this.aggiornaTurno();
+		}
+		if(partita.getNumeroTurno()==40)
+		{
+			for(Giocatore giocatore : this.getPartita().getGiocatori())
+				if(giocatore.getPersonaggio().equals(Personaggio.ALIENO))
+					giocatore.setVittoria_sconfitta("vittoria");
+				else
+					if(giocatore.getPersonaggio().equals(Personaggio.UMANO) && giocatore.getInVita())
+						giocatore.setVittoria_sconfitta("sconfitta");
 		}
 	}
 	
@@ -87,7 +97,7 @@ public class ControllerPartita {
 	
 	public boolean controllaFinePartita()
 	{
-		if(this.numeroUmaniInGioco()==0)
+		if(this.numeroUmaniInGioco()==0 || partita.getControllerMappa().numeroScialuppeBloccate()==4 || this.numeroAlieniInGioco()==0)
 		{
 			partita.setStato(GameState.FINEGIOCO);
 			return true;
@@ -101,10 +111,10 @@ public class ControllerPartita {
 		{
 			if(giocatore.getPersonaggio().equals(Personaggio.UMANO))
 			{
-				if(giocatore.getVittoria_sconfitta()=="vittoria")
-					partita.addGiocatoreVincente(giocatore);
-				else
+				if(giocatore.getVittoria_sconfitta()=="sconfitta")
 					partita.addGiocatorePerdente(giocatore);
+				else
+					partita.addGiocatoreVincente(giocatore);
 			}
 		}
 		if(partita.getGiocatoriPerdenti().isEmpty())
@@ -125,6 +135,19 @@ public class ControllerPartita {
 		}
 	}
 	
+	public void stampaVincitoriEPerdenti()
+	{
+		System.out.println("La partita � terminata.");
+		System.out.print("Ecco i vincitori: ");
+		for(Giocatore giocatore : this.getPartita().getGiocatoriVincenti())
+			System.out.print(giocatore.getNomeUtente()+" ");
+		System.out.println(".");
+		System.out.print("Ecco i perdenti: ");
+		for(Giocatore giocatore : this.getPartita().getGiocatoriPerdenti())
+			System.out.print(giocatore.getNomeUtente()+" ");
+		System.out.println(".");
+	}
+	
 //	--------------------------------------------------------------------------------------------------
 	//POSSIBILI METODI PER UNA EVENTUALE CLASSE CONTROLLERGIOCATORE ?!?!?!?!?
 	
@@ -132,11 +155,15 @@ public class ControllerPartita {
 	{
 		ArrayList<Giocatore> listaGiocatoriInSettore=new ArrayList<>();
 		for(Giocatore giocatore : partita.getGiocatori())
+		{
+			if(!giocatore.getInVita())
+				continue;
 			if(giocatore.getPosizione().equals(settore))
 				listaGiocatoriInSettore.add(giocatore);
+		}
 		return listaGiocatoriInSettore;
 	}
-	
+
 	public Giocatore giocatoreCorrente()
 	{
 		return partita.getGiocatori().get(partita.getNumeroGiocatoreCorrente());
@@ -153,7 +180,42 @@ public class ControllerPartita {
 		return contatoreUmani;
 	}
 	
-	
+	public int numeroAlieniInGioco()
+	{
+		int contatoreAlieni=0;
+		for(Giocatore giocatore : partita.getGiocatori())
+		{
+			if(giocatore.getPersonaggio().equals(Personaggio.ALIENO) && giocatore.getInVita()==true)
+				contatoreAlieni++;
+		}
+		return contatoreAlieni;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((partita == null) ? 0 : partita.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ControllerPartita other = (ControllerPartita) obj;
+		if (partita == null) {
+			if (other.partita != null)
+				return false;
+		} else if (!partita.equals(other.partita))
+			return false;
+		return true;
+	}
+
 	
 	
 

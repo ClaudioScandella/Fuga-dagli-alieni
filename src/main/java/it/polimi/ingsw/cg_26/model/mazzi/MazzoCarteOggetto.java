@@ -4,8 +4,6 @@ import it.polimi.ingsw.cg_26.model.carte.CartaOggetto;
 import it.polimi.ingsw.cg_26.model.carte.CartaOggetto.TipoOggetto;
 
 import java.util.ArrayList;
-//import java.util.Collections;
-//import java.util.Random;
 
 
 public class MazzoCarteOggetto

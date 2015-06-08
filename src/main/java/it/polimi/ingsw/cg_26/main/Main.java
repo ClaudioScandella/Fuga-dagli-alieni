@@ -8,7 +8,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-
 public class Main {
 	
 	private static int idPartita=0;
@@ -22,7 +21,9 @@ public class Main {
 //		Giocatore giocatore=new Giocatore(idGiocatore, idPartita);		
 		idPartita++;
 		controllerPartita.addGiocatore(new Giocatore(idGiocatore++, "Claudio"));
-		controllerPartita.addGiocatore(new Giocatore(idGiocatore++, "Stefano"));
+		controllerPartita.addGiocatore(new Giocatore(idGiocatore++, "Diego"));
+//		controllerPartita.addGiocatore(new Giocatore(idGiocatore++, "Barbara"));
+//		controllerPartita.addGiocatore(new Giocatore(idGiocatore++, "Andrea"));
 		
 		System.out.println("Partita pronta per iniziare. Attendo comando di inizio.");
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -33,9 +34,45 @@ public class Main {
 			
 		controllerPartita.iniziaPartita();
 		controllerPartita.terminaPartita();
-		
-		System.out.println("La partita � terminata.");
-		System.out.println("Ecco i vincitori: "+controllerPartita.getPartita().getGiocatoriVincenti().get(0).getNomeUtente());
-		System.out.println("Ecco i perdenti: "+controllerPartita.getPartita().getGiocatoriPerdenti().get(0).getNomeUtente());
+		controllerPartita.stampaVincitoriEPerdenti();
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

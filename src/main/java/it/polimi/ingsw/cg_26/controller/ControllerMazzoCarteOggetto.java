@@ -17,6 +17,7 @@ public class ControllerMazzoCarteOggetto
 	public ControllerMazzoCarteOggetto(MazzoCarteOggetto mazzoCarteOggetto)
 	{
 		this.mazzoCarteOggetto=mazzoCarteOggetto;
+		this.mischia();
 	}
 	
 //	--------------------------------------------------------------------------------------------------

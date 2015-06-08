@@ -22,7 +22,8 @@ public class Mappa
 //		String percorsoMappa="fuga_dagli_alieni"+File.separatorChar+"src"+File.separatorChar+"main"+File.separatorChar+"java"+File.separatorChar+"it"+File.separatorChar+"polimi"+File.separatorChar+"ingsw"+File.separatorChar+"cg_26"+File.separatorChar+"model"+File.separatorChar+"mappe"+File.separatorChar+nomeMappa+".txt";
 //		String percorsoMappa="/fuga_dagli_alieni/src/main/java/it/polimi/ingsw/cg_26/model/mappe/"+nomeMappa+".txt";
 //		String percorsoMappa="C:\\Users\\Claudio\\Desktop\\galilei.txt";
-		String percorsoMappa="src"+File.separatorChar+"fileMappe"+File.separatorChar+nomeMappa+".txt";
+//		/src/main/java/it/polimi/ingsw/cg_26/fileMappe/
+		String percorsoMappa="src"+File.separatorChar+"main"+File.separatorChar+"java"+File.separatorChar+"it"+File.separatorChar+"polimi"+File.separatorChar+"ingsw"+File.separatorChar+"cg_26"+File.separatorChar+"fileMappe"+File.separatorChar+nomeMappa+".txt";
 		
 		//creo oggetto reader per leggere da file
 		FileReader reader=null;
@@ -34,7 +35,7 @@ public class Mappa
 		}
 		
 		int carattereLetto=0;
-		String coordinata="";
+//		String coordinata="";
 		
 		//generatore di settori da A01 a W14 e li aggiunge a listSettore
 		for(char coordinataNumerica1='0';coordinataNumerica1!='2';coordinataNumerica1++)
@@ -45,7 +46,7 @@ public class Mappa
 				for(char coordinataAlfabetica='A';coordinataAlfabetica!='X';coordinataAlfabetica++)
 				{
 					
-					coordinata=""+coordinataNumerica1+coordinataNumerica2;
+//					coordinata=""+coordinataNumerica1+coordinataNumerica2;
 					String nomeSettore=""+coordinataAlfabetica+coordinataNumerica1+coordinataNumerica2;
 					Settore settoreTemporaneo= null;
 					
