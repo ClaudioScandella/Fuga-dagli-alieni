@@ -5,6 +5,7 @@ import it.polimi.ingsw.cg_26.model.carte.CartaOggetto.TipoOggetto;
 
 import java.util.ArrayList;
 
+
 public class Giocatore
 {
 	private final int idGiocatore;

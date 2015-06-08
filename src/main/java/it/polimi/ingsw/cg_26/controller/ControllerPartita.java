@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+
 public class ControllerPartita {
 	
 	private ModelPartita partita;
@@ -77,6 +78,15 @@ public class ControllerPartita {
 				this.giocatoreCorrente().setHaPassato(false);
 			}
 			this.aggiornaTurno();
+		}
+		if(partita.getNumeroTurno()==40)
+		{
+			for(Giocatore giocatore : this.getPartita().getGiocatori())
+				if(giocatore.getPersonaggio().equals(Personaggio.ALIENO))
+					giocatore.setVittoria_sconfitta("vittoria");
+				else
+					if(giocatore.getPersonaggio().equals(Personaggio.UMANO) && giocatore.getInVita())
+						giocatore.setVittoria_sconfitta("sconfitta");
 		}
 	}
 	

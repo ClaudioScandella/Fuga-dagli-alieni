@@ -11,6 +11,7 @@ import it.polimi.ingsw.cg_26.model.mazzi.MazzoCarteSettore;
 
 import java.util.ArrayList;
 
+
 public class ModelPartita {
 	
 	private int idPartita;

@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 public class Main {
 	
 	private static int idPartita=0;
-	private static String nomeMappa="easy";
+	private static String nomeMappa="fermi";
 	private static int idGiocatore=0;
 
 	public static void main(String[] args) throws InterruptedException, IOException {
@@ -21,9 +21,9 @@ public class Main {
 //		Giocatore giocatore=new Giocatore(idGiocatore, idPartita);		
 		idPartita++;
 		controllerPartita.addGiocatore(new Giocatore(idGiocatore++, "Claudio"));
-		controllerPartita.addGiocatore(new Giocatore(idGiocatore++, "Stefano"));
-		controllerPartita.addGiocatore(new Giocatore(idGiocatore++, "Patrizia"));
-		controllerPartita.addGiocatore(new Giocatore(idGiocatore++, "Shreiber"));
+		controllerPartita.addGiocatore(new Giocatore(idGiocatore++, "Diego"));
+//		controllerPartita.addGiocatore(new Giocatore(idGiocatore++, "Barbara"));
+//		controllerPartita.addGiocatore(new Giocatore(idGiocatore++, "Andrea"));
 		
 		System.out.println("Partita pronta per iniziare. Attendo comando di inizio.");
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -36,4 +36,43 @@ public class Main {
 		controllerPartita.terminaPartita();
 		controllerPartita.stampaVincitoriEPerdenti();
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

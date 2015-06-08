@@ -141,7 +141,7 @@ public class ControllerMappa
 		settoriNonTransitabili.add(mappa.getListaSettoriTotali().get(this.convertitoreStringa_Indice(this.getPartenzaAlieni())));
 		settoriNonTransitabili.add(mappa.getListaSettoriTotali().get(this.convertitoreStringa_Indice(this.getPartenzaUmani())));
 		settoriNonTransitabili.addAll(this.getSettoriVuoti());
-		settoriNonTransitabili.addAll(this.getSettoriScialuppa());
+//		settoriNonTransitabili.addAll(this.getSettoriScialuppa());
 		
 		//salvo in settoriRaggiungibili tutti i settori raggiungibili dal settore partenza con una specifica portata
 		settoriRaggiungibili.addAll(this.settoriAdiacenti(settorePartenza));
