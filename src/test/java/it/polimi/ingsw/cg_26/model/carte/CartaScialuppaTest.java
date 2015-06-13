@@ -18,7 +18,7 @@ public class CartaScialuppaTest {
 
 	@Test
 	public void testGetColore() {
-		assertTrue(c1.getColore() == Colore.VERDE);
+		assertEquals(c1.getColore(), Colore.VERDE);
 	}
 
 }

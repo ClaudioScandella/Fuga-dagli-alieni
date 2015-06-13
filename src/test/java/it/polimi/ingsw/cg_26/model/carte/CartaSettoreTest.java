@@ -17,7 +17,7 @@ public class CartaSettoreTest {
 
 	@Test
 	public void testGetTipoCartaSettore() {
-		assertTrue(c1.getTipoCartaSettore() == TipoSettore.SILENZIO);
+		assertEquals(c1.getTipoCartaSettore(), TipoSettore.SILENZIO);
 	}
 
 	@Test
