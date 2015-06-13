@@ -42,6 +42,12 @@ public class GiocatoreTest {
 	}
 
 	@Test
+	public void testGiocatore() {
+		assertTrue(g1 instanceof Giocatore);
+	}
+
+	
+	@Test
 	public void testGetPortata() {
 		assertTrue(g1.getPortata() == 1);
 		assertTrue(g2.getPortata() == 2);
@@ -134,17 +140,111 @@ public class GiocatoreTest {
 		assertTrue(g1.getVittoria_sconfitta() == "vittoria");
 		assertTrue(g2.getVittoria_sconfitta() == "sconfitta");
 	}
+	
+	@Test
+	public void testSetPortata() {
+		g3.setPortata(2);
+		assertTrue(g3.getPortata() == 2);
+	}
+
+	@Test
+	public void testSetAdrenalina() {
+		g3.setAdrenalina(true);
+		assertTrue(g3.getAdrenalina() == true);
+	}
+
+	@Test
+	public void testSetSedativi() {
+		g3.setSedativi(true);
+		assertTrue(g3.getSedativi() == true);
+	}
+
+	@Test
+	public void testSetPosizione() {
+		g3.setPosizione("S03");
+		assertTrue(g3.getPosizione() == "S03");
+
+	}
+
+	@Test
+	public void testSetPersonaggio() {
+		g3.setPersonaggio(Personaggio.UMANO, 1, "A08");
+		assertTrue(g3.getPersonaggio() == Personaggio.UMANO);
+
+	}
+	
+	@Test
+	public void testSetCartaOggetto() {
+		int numeroCarte = g3.getCarteOggetto().size();
+		g3.setCartaOggetto(new CartaOggetto(TipoOggetto.ATTACCO));
+		g3.setCartaOggetto(new CartaOggetto(TipoOggetto.LUCI));
+		assertTrue(g3.getCarteOggetto().size() == numeroCarte+2);
+	}
+	
+	@Test
+	public void testSetInVita() {
+		g3.setInVita(false);
+		assertFalse(g3.getInVita());
+	}
+
+	@Test
+	public void testSetHaUcciso() {
+		g3.setHaUcciso(true);
+		assertTrue(g3.getHaUcciso());
+	}
+	
+	@Test
+	public void testSetScialuppaRaggiunta() {
+		g3.setScialuppaRaggiunta(true);
+		assertTrue(g3.getScialuppaRaggiunta());
+	}
+	
+	@Test
+	public void testSetHaMosso() {
+		g3.setHaMosso(true);
+		assertTrue(g3.getHaMosso());
+	}
+	
+	@Test
+	public void testSetPuoPassare() {
+		g3.setPuoPassare(false);
+		assertFalse(g3.getPuoPassare());
+	}
+	
+	@Test
+	public void testSetHaPassato() {
+		g3.setHaPassato(true);
+		assertTrue(g3.getHaPassato());
+	}
+	
+	@Test
+	public void testSetVittoria_sconfitta() {
+		g3.setVittoria_sconfitta("vittoria");
+		assertTrue(g3.getVittoria_sconfitta() == "vittoria");
+	}
+
 
 	@Test
 	public void testPossiedeCartaOggetto() {
 		assertTrue(g1.possiedeCartaOggetto("SEDATIVI"));
 		assertFalse(g1.possiedeCartaOggetto("LUCI"));
 	}
-
+	
 	@Test
 	public void testNumeroCarteOggettoPossedute() {
 		assertTrue(g1.numeroCarteOggettoPossedute() == 1);
 	}
 
+
+	@Test
+	public void testScartaOggetto() {
+		CartaOggetto c1 = new CartaOggetto(TipoOggetto.ADRENALINA);
+		CartaOggetto c2 = new CartaOggetto(TipoOggetto.LUCI);
+		g3.setCartaOggetto(c1);
+		g3.setCartaOggetto(c2);
+		g3.scartaOggetto(c1);
+		assertTrue(g3.possiedeCartaOggetto("LUCI"));
+		assertFalse(g3.possiedeCartaOggetto("ADRENALINA"));
+	}
 }
 

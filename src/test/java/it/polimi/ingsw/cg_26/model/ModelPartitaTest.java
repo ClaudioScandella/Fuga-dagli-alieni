@@ -16,6 +16,7 @@ public class ModelPartitaTest {
 	private ModelPartita model = new ModelPartita(1234, "galilei");	
 	private Giocatore g1 = new Giocatore(1111,"Patrizia");
 	private Giocatore g2 = new Giocatore(2222, "Michela");
+	private Giocatore g3 = new Giocatore(3333, "Matilde");
 	private ArrayList<Giocatore> lista = new ArrayList<Giocatore>();
 	private ArrayList<Giocatore> vincenti = new ArrayList<Giocatore>();
 	private ArrayList<Giocatore> perdenti = new ArrayList<Giocatore>();
@@ -38,7 +39,13 @@ public class ModelPartitaTest {
 	}
 
 	@Test
+	public void testModelPartita() {
+		assertTrue(model instanceof ModelPartita);
+	}
+	
+	@Test
 	public void testGetStato() {
+		model.setStato(GameState.RUNNING);
 		assertTrue(model.getStato() == GameState.RUNNING);
 	}
 
@@ -104,6 +111,44 @@ public class ModelPartitaTest {
 	public void testGetNumeroGiocatoreCorrente() {
 		assertTrue(model.getNumeroGiocatoreCorrente() == 8);
 	}
+	
+	@Test
+	public void testSetGiocatore() {
+		int num = model.getGiocatori().size();
+		model.setGiocatore(g3);
+		assertTrue(model.getGiocatori().size() == num+1);
+	}
+	
+	@Test
+	public void testSetStato() {
+		model.setStato(GameState.INIZIALIZZAZIONE);
+		assertTrue(model.getStato() == GameState.INIZIALIZZAZIONE);
+	}
+	
+	@Test
+	public void testSetNumeroTurno() {
+		model.setNumeroTurno(8);
+		assertTrue(model.getNumeroTurno() == 8);
+	}
+	
+	@Test
+	public void testSetNumeroGiocatoreCorrente() {
+		model.setNumeroGiocatoreCorrente(7);
+		assertTrue(model.getNumeroGiocatoreCorrente() == 7);
+	}
+	
+	@Test
+	public void testAddGiocatorePerdente() {
+		int num = model.getGiocatoriPerdenti().size();
+		model.addGiocatorePerdente(g3);
+		assertTrue(model.getGiocatoriPerdenti().size() == num+1);
+	}
 
+	@Test
+	public void testAddGiocatoreVincente() {
+		int num = model.getGiocatoriVincenti().size();
+		model.addGiocatoreVincente(g3);
+		assertTrue(model.getGiocatoriVincenti().size() == num+1);
+	}
 }
 
