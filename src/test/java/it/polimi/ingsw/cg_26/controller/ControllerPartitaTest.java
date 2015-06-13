@@ -38,7 +38,6 @@ public class ControllerPartitaTest {
 
 //	@Test
 //	public void testIniziaPartita() throws IOException {
-//		partita.setNumeroTurno(39);
 //		controller.iniziaPartita();
 //		assertTrue(g1.getPersonaggio() == Personaggio.ALIENO || g1.getPersonaggio() == Personaggio.UMANO);
 //		assertTrue(g2.getPersonaggio() == Personaggio.ALIENO || g2.getPersonaggio() == Personaggio.UMANO);
