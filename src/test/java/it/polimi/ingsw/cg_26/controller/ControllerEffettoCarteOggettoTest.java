@@ -55,9 +55,11 @@ public class ControllerEffettoCarteOggettoTest {
 		assertTrue(g1.getPortata() == 2);
 		
 //		//attacco
-//		controller2.eseguiEffettoCarta(c2);
-//		g1.setHaMosso(true);
-//		controller2.eseguiEffettoCarta(c2);
+		controller2.eseguiEffettoCarta(c2);
+		g1.setHaMosso(true);
+		g1.setPuoAttaccare(true);
+		controller2.eseguiEffettoCarta(c2);
+		assertTrue(g1.getHaAttaccato() == true);
 
 		
 //		//luci
