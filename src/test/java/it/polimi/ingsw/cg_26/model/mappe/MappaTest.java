@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg_26.model.mappe;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import it.polimi.ingsw.cg_26.model.mappa.Mappa;
 
 import org.junit.Before;
 import org.junit.Test;

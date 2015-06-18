@@ -6,7 +6,6 @@ import it.polimi.ingsw.cg_26.model.mazzi.MazzoCarteScialuppa;
 import java.util.Collections;
 import java.util.Random;
 
-
 public class ControllerMazzoCarteScialuppa
 {
 	private MazzoCarteScialuppa mazzoCarteScialuppa;

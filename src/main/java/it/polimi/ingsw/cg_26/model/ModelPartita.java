@@ -11,17 +11,18 @@ import it.polimi.ingsw.cg_26.model.mazzi.MazzoCarteSettore;
 
 import java.util.ArrayList;
 
-
 public class ModelPartita {
 	
 	private int idPartita;
 	private String nomeMappa;
+//	private Hashtable<Integer, Integer> associazioneClient_Giocatore=new Hashtable<>();
 	private ArrayList<Giocatore> giocatori;
 	private ArrayList<Giocatore> giocatoriFuoriGioco=new ArrayList<>();
 	private ArrayList<Giocatore> giocatoriPerdenti=new ArrayList<>();
 	private ArrayList<Giocatore> giocatoriVincenti=new ArrayList<>();
 	private GameState stato;
-	private LOG log;
+	private StatoAvanzamentoTurno statoAvanzamentoTurno;
+//	private LOG log;
 	private int numeroTurno=1;
 	private int numeroGiocatoreCorrente=0;
 
@@ -40,13 +41,14 @@ public class ModelPartita {
 	{
 //		int idGiocatore=0;
 		this.setStato(GameState.INIZIALIZZAZIONE);
+		this.statoAvanzamentoTurno=StatoAvanzamentoTurno.ATTESA_COMANDO;
 		giocatori=new ArrayList<>();
 		giocatoriFuoriGioco=new ArrayList<>();
 		this.idPartita=idPartita;
 		this.nomeMappa=mappa;
 		this.mappa=new Mappa(mappa);
 		controllerMappa=new ControllerMappa(this.mappa);
-		this.log=new LOG();
+//		this.log=new LOG();
 		mazzoCarteScialuppa=new MazzoCarteScialuppa();
 		controllerMazzoCarteScialuppa=new ControllerMazzoCarteScialuppa(mazzoCarteScialuppa);
 		mazzoCarteSettore=new MazzoCarteSettore();
@@ -62,6 +64,11 @@ public class ModelPartita {
 	public GameState getStato()
 	{
 		return this.stato;
+	}
+	
+	public StatoAvanzamentoTurno getStatoAvanzamentoTurno()
+	{
+		return this.statoAvanzamentoTurno;
 	}
 	
 	@Override
@@ -102,10 +109,10 @@ public class ModelPartita {
 		return giocatoriVincenti;
 	}
 
-	public LOG getLog()
-	{
-		return log;
-	}
+//	public LOG getLog()
+//	{
+//		return log;
+//	}
 
 	public ControllerMappa getControllerMappa()
 	{
@@ -137,8 +144,23 @@ public class ModelPartita {
 		return numeroGiocatoreCorrente;
 	}
 	
+//	public int getIdGiocatoreDiClient(int idClient)
+//	{
+//		return this.associazioneClient_Giocatore.get(idClient);
+//	}
+	
 //	--------------------------------------------------------------------------------------------------
 
+//	public void setIdGiocatoreDiClient(int idClient, int idGiocatore)
+//	{
+//		this.associazioneClient_Giocatore.put(idClient, idGiocatore);
+//	}
+	
+	public void setStatoAvanzamentoTurno(StatoAvanzamentoTurno stato)
+	{
+		this.statoAvanzamentoTurno=stato;
+	}
+	
 	public void setGiocatore(Giocatore nuovoGiocatore)
 	{
 		giocatori.add(nuovoGiocatore);
@@ -170,6 +192,15 @@ public class ModelPartita {
 	}
 	
 //	--------------------------------------------------------------------------------------------------
+	
+	public void aggiornaGiocatoreCorrente()
+	{
+		this.numeroGiocatoreCorrente++;
+		if(this.numeroGiocatoreCorrente>=this.giocatori.size())
+			this.numeroGiocatoreCorrente=0;
+		if(!this.giocatori.get(numeroGiocatoreCorrente).getInVita())
+			this.aggiornaGiocatoreCorrente();
+	}
 	
 	@Override
 	public boolean equals(Object obj) {

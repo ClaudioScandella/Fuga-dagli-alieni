@@ -6,7 +6,6 @@ import it.polimi.ingsw.cg_26.model.mappa.Settore;
 
 import java.util.ArrayList;
 
-
 public class ControllerMappa
 {
 	private Mappa mappa;

@@ -5,30 +5,43 @@ import it.polimi.ingsw.cg_26.model.Giocatore;
 import it.polimi.ingsw.cg_26.model.Giocatore.Personaggio;
 import it.polimi.ingsw.cg_26.model.ModelPartita;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-
-public class ControllerPartita {
-	
+public class ControllerPartita
+{
 	private ModelPartita partita;
+	private LOG log;
+	private ControllerAzioni controllerAzioni;
 //	private String mappa;
-	
+//	private int numeroGiocatoreNelTurno=0;
+
 	public ControllerPartita(ModelPartita partita)
 	{
 		this.partita=partita;
+		log=new LOG();
+		partita.setStato(GameState.RUNNING);
+		System.out.print("PARTITA INIZIATA!");
 	}
+	
+	public LOG getLog()
+	{
+		return log;
+	}
+	
+//	public int getNumeroGiocatoreNelTurno()
+//	{
+//		return numeroGiocatoreNelTurno;
+//	}
 	
 	public void addGiocatore(Giocatore g)
 	{
 		this.partita.setGiocatore(g);
 	}
 	
-	private void assegnaRuoli()
+	public void assegnaRuoli()
 	{
 		this.mischiaGiocatori();
 		for(int i=0;i<partita.getGiocatori().size();i++)
@@ -51,31 +64,71 @@ public class ControllerPartita {
 	{
 		partita.setNumeroTurno((partita.getNumeroTurno())+1);
 	}
+//	
+//	public void iniziaPartita() throws IOException
+//	{
+//		this.assegnaRuoli();
+//		partita.setStato(GameState.RUNNING);
+//		System.out.print("PARTITA INIZIATA!");
+//		while(partita.getNumeroTurno()!=40 && !(partita.getStato().equals(GameState.FINEGIOCO)))
+//		{
+//			for(int i=0;i<partita.getGiocatori().size();i++)
+//			{
+//				partita.setNumeroGiocatoreCorrente(i);
+//				if(!this.giocatoreCorrente().getInVita())
+//					continue;
+//				while(this.giocatoreCorrente().getHaPassato()==false)
+//				{
+//					System.out.println("E' il turno del giocatore "+(i+1)+" "+this.giocatoreCorrente().getNomeUtente()+":");
+//					System.out.println("\tInserisci l'azione che vuoi compiere.");
+//					BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//					String comando=br.readLine();
+//					ControllerAzioni controllerAzioni=new ControllerAzioni(comando, this);
+//					controllerAzioni.agisci();
+//				}
+//				if(this.controllaFinePartita()==true)
+//					break;
+//				this.giocatoreCorrente().setHaPassato(false);
+//			}
+//			this.aggiornaTurno();
+//		}
+//		if(partita.getNumeroTurno()==40)
+//		{
+//			for(Giocatore giocatore : this.getPartita().getGiocatori())
+//				if(giocatore.getPersonaggio().equals(Personaggio.ALIENO))
+//					giocatore.setVittoria_sconfitta("vittoria");
+//				else
+//					if(giocatore.getPersonaggio().equals(Personaggio.UMANO) && giocatore.getInVita())
+//						giocatore.setVittoria_sconfitta("sconfitta");
+//		}
+//	}
 	
-	public void iniziaPartita() throws IOException
+
+	
+	public void avanzaPartita(String comando) throws IOException
 	{
-		this.assegnaRuoli();
-		partita.setStato(GameState.RUNNING);
-		
-		while(partita.getNumeroTurno()!=40 && !(partita.getStato().equals(GameState.FINEGIOCO)))
+		if(partita.getNumeroTurno()!=40 && !(partita.getStato().equals(GameState.FINEGIOCO)))
 		{
-			for(int i=0;i<partita.getGiocatori().size();i++)
+			if(this.partita.getNumeroGiocatoreCorrente()<partita.getGiocatori().size())//i++
 			{
-				partita.setNumeroGiocatoreCorrente(i);
-				if(!this.giocatoreCorrente().getInVita())
-					continue;
-				while(this.giocatoreCorrente().getHaPassato()==false)
-				{
-					System.out.println("E' il turno del giocatore "+(i+1)+" "+this.giocatoreCorrente().getNomeUtente()+":");
-					System.out.println("\tInserisci l'azione che vuoi compiere.");
-					BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-					String comando=br.readLine();
-					ControllerAzioni controllerAzioni=new ControllerAzioni(comando, this);
+				partita.setNumeroGiocatoreCorrente(this.partita.getNumeroGiocatoreCorrente());
+//				if(this.giocatoreCorrente().getHaPassato()==false)
+//				{
+//					System.out.println("E' il turno del giocatore "+(this.partita.getNumeroGiocatoreCorrente()+1)+" "+this.giocatoreCorrente().getNomeUtente()+":");
+//					System.out.println("\tInserisci l'azione che vuoi compiere.");
+//					BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//					String comando=br.readLine();
+					controllerAzioni=new ControllerAzioni(comando, this);
 					controllerAzioni.agisci();
-				}
+					if(this.giocatoreCorrente().getHaPassato()==false)
+						return;
+//				}
 				if(this.controllaFinePartita()==true)
-					break;
-				this.giocatoreCorrente().setHaPassato(false);
+					return;
+				this.giocatoreCorrente().setHaPassato(false);	
+				this.partita.aggiornaGiocatoreCorrente();
+//				if(this.partita.getNumeroGiocatoreCorrente()>=this.getPartita().getGiocatori().size())
+//					this.partita.getNumeroGiocatoreCorrente()=0;
 			}
 			this.aggiornaTurno();
 		}
@@ -89,6 +142,84 @@ public class ControllerPartita {
 						giocatore.setVittoria_sconfitta("sconfitta");
 		}
 	}
+	
+	public void inserisciSettoreDestinazione(String settore)
+	{
+		controllerAzioni.inserisciSettoreDestinazione(settore);
+	}
+	
+	public void scriviMessaggioChat(String messaggio)
+	{
+		controllerAzioni.scriviMessaggioChat(messaggio);
+	}
+	
+	public void inserisciCartaOggetto(String oggetto)
+	{
+		controllerAzioni.inserisciCartaOggetto(oggetto);
+	}
+	
+	public void inserisciSettoreLuci(String settore)
+	{
+		controllerAzioni.inserisciSettoreLuci(settore);
+	}
+	
+	public void inserisciSettoreRumoreAScelta(String settore)
+	{
+		controllerAzioni.inserisciSettoreRumoreAScelta(settore);
+	}
+	
+	public void inserisciProprioSettore(String settore)
+	{
+		controllerAzioni.inserisciProprioSettore(settore);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public ModelPartita getPartita()
 	{
