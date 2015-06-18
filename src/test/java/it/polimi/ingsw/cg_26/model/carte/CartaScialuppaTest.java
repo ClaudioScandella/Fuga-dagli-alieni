@@ -8,25 +8,17 @@ import org.junit.Test;
 
 public class CartaScialuppaTest {
 	
-	private CartaScialuppa c1,c2;
-	private Colore VERDE, ROSSA;
+	private CartaScialuppa c1;
 
 	@Before
 	public void setUp() throws Exception {
-		c1 = new CartaScialuppa(VERDE);
-		c2 = new CartaScialuppa(ROSSA);
-	}
-
-	@Test
-	public void testCartaScialuppa() {
-		assertTrue(c1.getColore() == VERDE);
-		assertTrue(c2.getColore() == ROSSA);
+		
+		c1 = new CartaScialuppa(Colore.VERDE);
 	}
 
 	@Test
 	public void testGetColore() {
-		assertTrue(c1.getColore() == VERDE);
-		assertTrue(c2.getColore() == ROSSA);
+		assertEquals(c1.getColore(), Colore.VERDE);
 	}
 
 }

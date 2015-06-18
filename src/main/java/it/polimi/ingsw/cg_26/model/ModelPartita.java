@@ -8,7 +8,6 @@ import it.polimi.ingsw.cg_26.model.mappa.Mappa;
 import it.polimi.ingsw.cg_26.model.mazzi.MazzoCarteOggetto;
 import it.polimi.ingsw.cg_26.model.mazzi.MazzoCarteScialuppa;
 import it.polimi.ingsw.cg_26.model.mazzi.MazzoCarteSettore;
-
 import java.util.ArrayList;
 
 public class ModelPartita {
