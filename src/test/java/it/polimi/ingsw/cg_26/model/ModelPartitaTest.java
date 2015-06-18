@@ -78,10 +78,10 @@ public class ModelPartitaTest {
 		assertEquals(model.getGiocatoriVincenti(), this.vincenti);
 	}
 
-	@Test
-	public void testGetLog() {
-		assertTrue(model.getLog() instanceof LOG);
-		}
+//	@Test
+//	public void testGetLog() {
+//		assertTrue(model.getLog() instanceof LOG);
+//		}
 
 	@Test
 	public void testGetControllerMappa() {

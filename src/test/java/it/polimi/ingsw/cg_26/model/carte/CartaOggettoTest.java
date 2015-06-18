@@ -1,6 +1,6 @@
 package it.polimi.ingsw.cg_26.model.carte;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import it.polimi.ingsw.cg_26.model.carte.CartaOggetto.TipoOggetto;
 
 import org.junit.Before;
