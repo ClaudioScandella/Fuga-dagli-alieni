@@ -10,7 +10,6 @@ import java.util.Random;
 public class ControllerMazzoCarteOggetto
 {
 	private MazzoCarteOggetto mazzoCarteOggetto;
-//	private MazzoCarteOggetto scartiCarteOggetto;
 	
 //	--------------------------------------------------------------------------------------------------
 	
@@ -67,55 +66,4 @@ public class ControllerMazzoCarteOggetto
 		this.rimuoviCarta();
 		return carta;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

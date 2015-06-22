@@ -6,13 +6,9 @@ import java.net.Socket;
 
 public class Server
 {
-	//IDEA: NON USO ARRAY LIST PER THREAD MA USO UN ARRAY DOVE NELLA POSIZIONE i CI SARA' IL THREAD CON IL CLIENT
-	//CON ID=i. OPPURE USARE UNA HASH DOVE AD OGNI VALORE i MI RITORNERA' IL THREAD CORRISPONDENTE (CHIAVE-->VALORE)
 	private static final int PORT=29999;
 	private int idClient=0;
 	private static Gestore gestore=new Gestore();
-//	private ArrayList<ClientHandler> listaThread=new ArrayList<ClientHandler>();
-//	private Hashtable<Integer, ClientHandler> listaClient;
 	
 	private void startServer() throws IOException
 	{
@@ -23,14 +19,7 @@ public class Server
 		{
 			socket=serverSocket.accept();
 			System.out.println("Si � aggiunto Client con id "+this.idClient);
-			
 			gestore.aggiungiClient(new ClientHandler(socket,idClient++,gestore));
-//			Thread clientHandlerIn=new Thread(new ClientHandlerIn(socket,idClient));
-//			Thread clientHandlerOut=new Thread(new ClientHandlerOut(socket,idClient++));
-//			clientHandlerIn.start();
-//			clientHandlerOut.start();
-//			System.out.println("Threads partiti.");
-//			gestore.aggiungiClient();
 		}
 	}
 

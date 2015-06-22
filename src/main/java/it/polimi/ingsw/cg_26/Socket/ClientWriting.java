@@ -21,7 +21,6 @@ public class ClientWriting implements Runnable
 	@Override
 	public void run()
 	{
-
 		try
 		{
 			socketOut = new PrintWriter(socket.getOutputStream());
@@ -45,9 +44,6 @@ public class ClientWriting implements Runnable
 				break;
 			}
 		}
-
-
-		
 		System.out.println("Inserisci il nome della mappa:");
 		while(true)
 		{
@@ -115,5 +111,4 @@ public class ClientWriting implements Runnable
 			return false;
 		return true;
 	}
-
 }

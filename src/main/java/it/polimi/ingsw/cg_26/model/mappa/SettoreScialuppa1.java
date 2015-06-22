@@ -1,7 +1,7 @@
 package it.polimi.ingsw.cg_26.model.mappa;
 
-public class SettoreScialuppa1 extends Settore{
-	
+public class SettoreScialuppa1 extends Settore
+{
 	public SettoreScialuppa1(String nome)
 	{
 		super(nome);
@@ -11,10 +11,4 @@ public class SettoreScialuppa1 extends Settore{
 	{
 		super(nome, nomeSupplementare);
 	}
-	
-	
-	
-	
-	
-	
 }

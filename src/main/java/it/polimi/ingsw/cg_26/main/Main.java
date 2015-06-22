@@ -1,21 +1,20 @@
 package it.polimi.ingsw.cg_26.main;
 
-
 import it.polimi.ingsw.cg_26.Socket.ClientHandler;
 import it.polimi.ingsw.cg_26.controller.ControllerPartita;
 import it.polimi.ingsw.cg_26.model.Giocatore;
+import it.polimi.ingsw.cg_26.model.Giocatore.Personaggio;
 import it.polimi.ingsw.cg_26.model.ModelPartita;
+import it.polimi.ingsw.cg_26.model.StatoAvanzamentoTurno;
+import it.polimi.ingsw.cg_26.model.carte.CartaOggetto;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-
 public class Main
 {
-	
 	private int idPartita;
 	private String nomeMappa;
-//	private int idGiocatore=0;
 	private ModelPartita modelPartita;
 	private ControllerPartita controllerPartita;
 	public enum Stato {DISPONIBILE, PIENA, INIZIATA, FINITA;}
@@ -63,27 +62,19 @@ public class Main
 	
 	public void aggiungiGiocatori(ArrayList<ClientHandler> clients)
 	{
-//		String messaggio="";
 		for(ClientHandler client : clients)
 		{
 			this.controllerPartita.addGiocatore(new Giocatore(client.getIdClient(),client.getNomeClient()));
 		}
 		System.out.println("Giocatori aggiunti.");
-//		this.controllerPartita.addGiocatore(new Giocatore(idGiocatore, nomeUtente));
-//		ArrayList<Giocatore> giocatori=this.controllerPartita.assegnaRuoli();
-//		for(Giocatore giocatore : giocatori)
-//		{
-//			
-//		}
-//		System.out.println("E' il turno del giocatore "+(this.controllerPartita.getPartita().getNumeroGiocatoreCorrente()+1)+" "+this.controllerPartita.giocatoreCorrente().getNomeUtente()+":");
-	}
+		this.controllerPartita.assegnaRuoli();
+		}
 	
 	public void inzializzaPartita() throws IOException
 	{
 		this.setStato(Stato.INIZIATA);
 		this.modelPartita=new ModelPartita(idPartita, nomeMappa);
 		this.controllerPartita=new ControllerPartita(modelPartita);
-//		controllerPartita.iniziaPartita();
 	}
 	
 	public ArrayList<String> avanzaPartita(String comando) throws IOException
@@ -98,7 +89,6 @@ public class Main
 		switch(this.modelPartita.getStatoAvanzamentoTurno())
 		{
 		case ATTESA_COMANDO:
-			System.out.println("A");
 			this.controllerPartita.avanzaPartita(comando);
 			break;
 		case ATTESA_SETTORE_DESTINAZIONE:
@@ -106,9 +96,6 @@ public class Main
 			break;
 		case ATTESA_CARTA:
 			this.controllerPartita.inserisciCartaOggetto(comando);
-			break;
-		case ATTESA_MESSAGGIO:
-			this.controllerPartita.scriviMessaggioChat(comando);
 			break;
 		case ATTESA_SETTORE_LUCI:
 			this.controllerPartita.inserisciSettoreLuci(comando);
@@ -119,6 +106,12 @@ public class Main
 		case ATTESA_PROPRIO_SETTORE:
 			this.controllerPartita.inserisciProprioSettore(comando);
 			break;
+		case ATTESA_CARTA_DA_SCARTARE:
+			this.controllerPartita.scartaOggetto(comando);
+			break;
+		case ATTESA_USA_O_SCARTA:
+			this.controllerPartita.usaOscarta(comando);
+			break;
 		}
 		mexPrivato=this.generaMexPrivato();
 		mexPubblico=this.generaMexPubblico();
@@ -127,29 +120,6 @@ public class Main
 		return messaggi;
 	}
 
-//	public static void main(String[] args) throws InterruptedException, IOException {
-//		System.out.println("Inizializzo la partita.");
-//		ModelPartita modelPartita=new ModelPartita(idPartita, nomeMappa);
-//		ControllerPartita controllerPartita=new ControllerPartita(modelPartita);
-////		Giocatore giocatore=new Giocatore(idGiocatore, idPartita);		
-//		idPartita++;
-//		controllerPartita.addGiocatore(new Giocatore(idGiocatore++, "Claudio"));
-//		controllerPartita.addGiocatore(new Giocatore(idGiocatore++, "Diego"));
-////		controllerPartita.addGiocatore(new Giocatore(idGiocatore++, "Barbara"));
-////		controllerPartita.addGiocatore(new Giocatore(idGiocatore++, "Andrea"));
-//		
-//		System.out.println("Partita pronta per iniziare. Attendo comando di inizio.");
-//		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//		String comando=br.readLine();
-//		
-//		if(comando.equals("inizia"))
-//			System.out.println("Inizio la partita.");
-//			
-//		controllerPartita.iniziaPartita();
-//		controllerPartita.terminaPartita();
-//		controllerPartita.stampaVincitoriEPerdenti();
-//	}
-	
 	public String generaMexPrivato()
 	{
 		String mexPrivato="";
@@ -161,24 +131,6 @@ public class Main
 	public String generaMexPubblico()
 	{
 		String mexPubblico="";
-		if(this.controllerPartita.getLog().getLOG(this.modelPartita.getNumeroGiocatoreCorrente(), this.modelPartita.getNumeroTurno(), 1).equals(""))
-			;
-		else if(this.controllerPartita.getLog().getLOG(this.modelPartita.getNumeroGiocatoreCorrente(), this.modelPartita.getNumeroTurno(), 1).equals("1"))
-			mexPubblico+=this.controllerPartita.giocatoreCorrente().getNomeUtente()+" ha pescato una carta settore.\n";
-		else
-			mexPubblico+=this.controllerPartita.giocatoreCorrente().getNomeUtente()+" non ha pescato una carta settore.\n";
-		if(this.controllerPartita.getLog().getLOG(this.modelPartita.getNumeroGiocatoreCorrente(), this.modelPartita.getNumeroTurno(), 2).equals(""))
-			;
-		else if(this.controllerPartita.getLog().getLOG(this.modelPartita.getNumeroGiocatoreCorrente(), this.modelPartita.getNumeroTurno(), 2).equals("0"))
-			mexPubblico+=this.controllerPartita.giocatoreCorrente().getNomeUtente()+" ha dichiarato silenzio.\n";
-		else if(this.controllerPartita.getLog().getLOG(this.modelPartita.getNumeroGiocatoreCorrente(), this.modelPartita.getNumeroTurno(), 2).equals(""))
-			;
-		else
-			mexPubblico+=this.controllerPartita.giocatoreCorrente().getNomeUtente()+" ha dichiarato rumore in settore "+this.controllerPartita.getLog().getLOG(this.modelPartita.getNumeroGiocatoreCorrente(), this.modelPartita.getNumeroTurno(), 2)+".\n";
-		if(this.controllerPartita.getLog().getLOG(this.modelPartita.getNumeroGiocatoreCorrente(), this.modelPartita.getNumeroTurno(), 3).equals("0"))
-			mexPubblico+=this.controllerPartita.giocatoreCorrente().getNomeUtente()+" non ha pescato alcun oggetto.\n";
-		else if(this.controllerPartita.getLog().getLOG(this.modelPartita.getNumeroGiocatoreCorrente(), this.modelPartita.getNumeroTurno(), 3).equals("1"))
-			mexPubblico+=this.controllerPartita.giocatoreCorrente().getNomeUtente()+" ha pescato un oggetto.\n";
 		if(this.controllerPartita.getLog().getLOG(this.modelPartita.getNumeroGiocatoreCorrente(), this.modelPartita.getNumeroTurno(), 4).equals(""))
 			;
 		else
@@ -186,47 +138,72 @@ public class Main
 		return mexPubblico;
 	}
 	
-	//(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, giocatore.getNomeUtente()+" si � salvato con la carta difesa\n");
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public void eliminaClientDaPartita(int idClient)
+	{
+		Giocatore giocatore=null;
+		for(Giocatore g : this.getModelPartita().getGiocatori())
+		{
+			if(g.getIdGiocatore()==idClient)
+				giocatore=g;
+		}
+		if(this.controllerPartita.giocatoreCorrente().getIdGiocatore()==idClient)
+		{
+			giocatore.setVittoria_sconfitta("sconfitta");
+			giocatore.setInVita(false);
+			while(giocatore.getCarteOggetto().size()>0)
+			{
+				CartaOggetto oggetto=this.controllerPartita.giocatoreCorrente().getCarteOggetto().get(0);
+				this.controllerPartita.giocatoreCorrente().scartaOggetto(oggetto);
+				this.modelPartita.getControllerMazzoCarteOggetto().aggiungiCartaAScartiOggetto(oggetto);
+			}
+			if(this.controllerPartita.controllaFinePartita())
+			{
+				this.controllerPartita.terminaPartita();
+				return;
+			}
+			int contatoreGiocatoriInGiocoDopoGiocatoreCorrente=0;
+			for(int i=this.modelPartita.getNumeroGiocatoreCorrente();i<this.modelPartita.getGiocatori().size()-1;i++)
+			{
+				if((this.modelPartita.getNumeroGiocatoreCorrente()+1)==this.modelPartita.getGiocatori().size())
+					break;
+				if(this.modelPartita.getGiocatori().get(i+1).getInVita())
+					contatoreGiocatoriInGiocoDopoGiocatoreCorrente++;
+			}
+			if(contatoreGiocatoriInGiocoDopoGiocatoreCorrente==0)
+				this.controllerPartita.aggiornaTurno();
+			if(this.modelPartita.getNumeroTurno()==40)
+			{
+				for(Giocatore g : this.modelPartita.getGiocatori())
+					if(g.getPersonaggio().equals(Personaggio.ALIENO))
+						g.setVittoria_sconfitta("vittoria");
+					else
+						if(g.getPersonaggio().equals(Personaggio.UMANO) && giocatore.getInVita())
+							g.setVittoria_sconfitta("sconfitta");
+				this.controllerPartita.terminaPartita();
+			}
+			else
+				this.modelPartita.aggiornaGiocatoreCorrente();
+			this.modelPartita.setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_COMANDO);
 
-
+		}
+		else
+		{
+			giocatore.setVittoria_sconfitta("sconfitta");
+			giocatore.setInVita(false);
+			while(giocatore.getCarteOggetto().size()>0)
+			{
+				CartaOggetto oggetto=this.controllerPartita.giocatoreCorrente().getCarteOggetto().get(0);
+				this.controllerPartita.giocatoreCorrente().scartaOggetto(oggetto);
+				this.modelPartita.getControllerMazzoCarteOggetto().aggiungiCartaAScartiOggetto(oggetto);
+			}
+			if(this.controllerPartita.controllaFinePartita())
+			{
+				this.controllerPartita.terminaPartita();
+				return;
+			}
+		}
+	}
 	
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -275,4 +252,3 @@ public class Main
 		return true;
 	}
 }
-	

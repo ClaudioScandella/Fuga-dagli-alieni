@@ -27,5 +27,4 @@ public class LOG {
 		for(int k=0;k<6;k++)
 			log[giocatore][turno-1][k]="";
 	}
-
 }

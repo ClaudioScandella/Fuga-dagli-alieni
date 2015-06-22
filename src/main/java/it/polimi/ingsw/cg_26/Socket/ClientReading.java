@@ -40,7 +40,5 @@ public class ClientReading implements Runnable
 			}
 		}
 		socketIn.close();
-
 	}
-
 }

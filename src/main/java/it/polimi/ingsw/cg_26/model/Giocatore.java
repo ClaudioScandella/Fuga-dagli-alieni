@@ -8,14 +8,11 @@ import java.util.ArrayList;
 public class Giocatore
 {
 	private final int idGiocatore;
-//	private ModelPartita partita;
 	private String nomeUtente;
 	private Personaggio personaggio;
 	private String posizione; 
 	private boolean adrenalina=false;
 	private boolean sedativi=false;
-
-	//	private ArrayList<String> listaMosse=new ArrayList<String>();	 //max turni=39?
 	private boolean inVita=true;
 	private String vittoria_sconfitta;
 	private int portata;
@@ -25,13 +22,8 @@ public class Giocatore
 	private boolean haPassato=false;
 	private boolean haAttaccato=false;
 	private ArrayList<CartaOggetto> carteOggetto=new ArrayList<CartaOggetto>();
-
-	//utile solo per alieni
 	private boolean haUcciso=false;
-	
-	//true possibile solo per umani
 	private boolean scialuppaRaggiunta=false;
-	
 	public enum Personaggio {UMANO, ALIENO;}
 	
 //	----------------------------------------------------------------------------------------------------
@@ -78,18 +70,6 @@ public class Giocatore
 	{ 
 		return personaggio;	
 	}
-	
-//	public ArrayList<String> getListaMosse()
-//	{
-//		return listaMosse;
-//	}
-	
-	//ritorna la mossa fatta all'i-esimo turno del giocatore
-	// i-esima stringa nell'ArrayList listamosse
-//	public String getMossaIesima(int i)
-//	{
-//		return listaMosse.get(i);
-//	}
 	
 	public boolean getInVita()
 	{
@@ -178,7 +158,6 @@ public class Giocatore
 	public void setPosizione(String posizione)
 	{
 		this.posizione=posizione;
-//		listaMosse.add(posizione); //aggiorna listaMosse
 	}
 	
 	public void setPuoAttaccare(boolean puoAttaccare)

@@ -23,10 +23,7 @@ public class Client
 			e.printStackTrace();
 			System.out.println("errore 5");
 		}
-//		Thread.sleep(1000);
-
 		this.setID(socketIn.nextInt());
-
 		Thread clientReading=new Thread(new ClientReading(socket,this.id));
 		Thread clientWriting=new Thread(new ClientWriting(socket,this.id));
 		clientReading.start();
@@ -38,8 +35,6 @@ public class Client
 	{
 		this.id=id;
 	}
-	
-	
 	
 	public static void main(String[] args)
 	{
@@ -54,49 +49,4 @@ public class Client
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

@@ -10,7 +10,6 @@ import java.util.Random;
 public class ControllerMazzoCarteSettore
 {
 	private MazzoCarteSettore mazzoCarteSettore;
-//	private MazzoCarteSettore scartiCarteSettore;
 	
 //	--------------------------------------------------------------------------------------------------
 
@@ -70,48 +69,4 @@ public class ControllerMazzoCarteSettore
 		this.aggiungiCartaAScartiSettore(carta);
 		return carta;
 	}
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

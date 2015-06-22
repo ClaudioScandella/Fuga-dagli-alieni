@@ -16,13 +16,11 @@ public class ClientHandlerOut extends Thread
 		this.socket=socket;
 		this.idClient=idClient;
 	}
-	
 
 	@Override
 	public void run()
 	{
 		String comando;
-		
 		try
 		{
 			socketOut = new PrintWriter(socket.getOutputStream());
@@ -32,15 +30,6 @@ public class ClientHandlerOut extends Thread
 			e.printStackTrace();
 			System.out.println("errore 1");
 		}
-//		try
-//		{
-//			Thread.sleep(3000);
-//			System.out.println("fatto");
-//		}
-//		catch (InterruptedException e)
-//		{
-//			e.printStackTrace();
-//		}
 		socketOut.println(this.idClient);
 		socketOut.flush();
 		System.out.println("inviato id: "+idClient);
@@ -64,42 +53,4 @@ public class ClientHandlerOut extends Thread
 		socketOut.println(mex);
 		socketOut.flush();
 	}
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

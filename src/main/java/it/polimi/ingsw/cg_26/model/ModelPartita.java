@@ -8,23 +8,23 @@ import it.polimi.ingsw.cg_26.model.mappa.Mappa;
 import it.polimi.ingsw.cg_26.model.mazzi.MazzoCarteOggetto;
 import it.polimi.ingsw.cg_26.model.mazzi.MazzoCarteScialuppa;
 import it.polimi.ingsw.cg_26.model.mazzi.MazzoCarteSettore;
+
 import java.util.ArrayList;
 
 public class ModelPartita {
 	
 	private int idPartita;
 	private String nomeMappa;
-//	private Hashtable<Integer, Integer> associazioneClient_Giocatore=new Hashtable<>();
 	private ArrayList<Giocatore> giocatori;
 	private ArrayList<Giocatore> giocatoriFuoriGioco=new ArrayList<>();
 	private ArrayList<Giocatore> giocatoriPerdenti=new ArrayList<>();
 	private ArrayList<Giocatore> giocatoriVincenti=new ArrayList<>();
 	private GameState stato;
 	private StatoAvanzamentoTurno statoAvanzamentoTurno;
-//	private LOG log;
+	public enum StatoPescaOggetto {DEVE_PESCARE, NON_DEVE_PESCARE;}
+	private StatoPescaOggetto statoPescaOggetto=StatoPescaOggetto.NON_DEVE_PESCARE;
 	private int numeroTurno=1;
 	private int numeroGiocatoreCorrente=0;
-
 	private Mappa mappa;
 	private ControllerMappa controllerMappa;
 	private MazzoCarteScialuppa mazzoCarteScialuppa;
@@ -38,7 +38,6 @@ public class ModelPartita {
 
 	public ModelPartita(int idPartita, String mappa)
 	{
-//		int idGiocatore=0;
 		this.setStato(GameState.INIZIALIZZAZIONE);
 		this.statoAvanzamentoTurno=StatoAvanzamentoTurno.ATTESA_COMANDO;
 		giocatori=new ArrayList<>();
@@ -47,15 +46,12 @@ public class ModelPartita {
 		this.nomeMappa=mappa;
 		this.mappa=new Mappa(mappa);
 		controllerMappa=new ControllerMappa(this.mappa);
-//		this.log=new LOG();
 		mazzoCarteScialuppa=new MazzoCarteScialuppa();
 		controllerMazzoCarteScialuppa=new ControllerMazzoCarteScialuppa(mazzoCarteScialuppa);
 		mazzoCarteSettore=new MazzoCarteSettore();
 		controllerMazzoCarteSettore=new ControllerMazzoCarteSettore(mazzoCarteSettore);
 		mazzoCarteOggetto=new MazzoCarteOggetto();
 		controllerMazzoCarteOggetto=new ControllerMazzoCarteOggetto(mazzoCarteOggetto);
-//		this.setGiocatore(new Giocatore(idGiocatore++));
-//		this.setGiocatore(new Giocatore(idGiocatore++));
 	}
 	
 //	--------------------------------------------------------------------------------------------------
@@ -70,12 +66,9 @@ public class ModelPartita {
 		return this.statoAvanzamentoTurno;
 	}
 	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((stato == null) ? 0 : stato.hashCode());
-		return result;
+	public StatoPescaOggetto getStatoPescaOggetto()
+	{
+		return this.statoPescaOggetto;
 	}
 
 	public int getIdPartita()
@@ -108,11 +101,6 @@ public class ModelPartita {
 		return giocatoriVincenti;
 	}
 
-//	public LOG getLog()
-//	{
-//		return log;
-//	}
-
 	public ControllerMappa getControllerMappa()
 	{
 		return controllerMappa;
@@ -143,21 +131,16 @@ public class ModelPartita {
 		return numeroGiocatoreCorrente;
 	}
 	
-//	public int getIdGiocatoreDiClient(int idClient)
-//	{
-//		return this.associazioneClient_Giocatore.get(idClient);
-//	}
-	
 //	--------------------------------------------------------------------------------------------------
-
-//	public void setIdGiocatoreDiClient(int idClient, int idGiocatore)
-//	{
-//		this.associazioneClient_Giocatore.put(idClient, idGiocatore);
-//	}
 	
 	public void setStatoAvanzamentoTurno(StatoAvanzamentoTurno stato)
 	{
 		this.statoAvanzamentoTurno=stato;
+	}
+	
+	public void setStatoPescaOggetto(StatoPescaOggetto stato)
+	{
+		this.statoPescaOggetto=stato;
 	}
 	
 	public void setGiocatore(Giocatore nuovoGiocatore)
@@ -194,6 +177,14 @@ public class ModelPartita {
 	
 	public void aggiornaGiocatoreCorrente()
 	{
+		int contatore=0;
+		for(Giocatore giocatore : this.giocatori)
+		{
+			if(!giocatore.getInVita())
+				contatore++;
+		}
+		if(contatore==this.giocatori.size())
+			return;
 		this.numeroGiocatoreCorrente++;
 		if(this.numeroGiocatoreCorrente>=this.giocatori.size())
 			this.numeroGiocatoreCorrente=0;
@@ -214,58 +205,12 @@ public class ModelPartita {
 			return false;
 		return true;
 	}
-
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((stato == null) ? 0 : stato.hashCode());
+		return result;
+	}
 }

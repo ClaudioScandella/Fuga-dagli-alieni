@@ -1,16 +1,9 @@
 package it.polimi.ingsw.cg_26.model.mappa;
 
-//import java.util.*;
-
-//import model.mappe.Settore;
-
 public abstract class Settore
 {
 	private String nome;
 	private String nomeSupplementare;
-	//private String coordinata;
-	//private enum tipoDiSettore{VUOTO,PERICOLOSO,SICURO,PARTENZA_ALIENI,PARTENZA_UMANI,SCIALUPPA1,SCIALUPPA2,SCIALUPPA3,SCIALUPPA4}
-	//private List<Settore> settoriAdiacenti;
 	private boolean bloccata=false;
 	
 //	--------------------------------------------------------------------------------------------------
@@ -28,17 +21,18 @@ public abstract class Settore
 	
 //	--------------------------------------------------------------------------------------------------
 
-	public String getNome() {
-		// TODO Auto-generated method stub
+	public String getNome() 
+	{
 		return nome;
 	}
 	
-	public String getNomeSupplementare() {
-		// TODO Auto-generated method stub
+	public String getNomeSupplementare()
+	{
 		return nomeSupplementare;
 	}	
 	
-	public boolean getBloccata() {
+	public boolean getBloccata()
+	{
 		return bloccata;
 	}
 

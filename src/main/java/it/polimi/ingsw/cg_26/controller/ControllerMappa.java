@@ -124,7 +124,6 @@ public class ControllerMappa
 						return true;
 			}
 		}
-		System.out.println("Settore inesistente.");
 		return false;
 	}
 	
@@ -133,16 +132,11 @@ public class ControllerMappa
 		if(settoreDestinazione.equals(settorePartenza))
 			return false;
 		int indiceSettoreDestinazione=this.convertitoreStringa_Indice(settoreDestinazione);
-		
 		ArrayList<Settore> settoriRaggiungibili=new ArrayList<>();
 		ArrayList<Settore> settoriNonTransitabili=new ArrayList<>();
-		
 		settoriNonTransitabili.add(mappa.getListaSettoriTotali().get(this.convertitoreStringa_Indice(this.getPartenzaAlieni())));
 		settoriNonTransitabili.add(mappa.getListaSettoriTotali().get(this.convertitoreStringa_Indice(this.getPartenzaUmani())));
 		settoriNonTransitabili.addAll(this.getSettoriVuoti());
-//		settoriNonTransitabili.addAll(this.getSettoriScialuppa());
-		
-		//salvo in settoriRaggiungibili tutti i settori raggiungibili dal settore partenza con una specifica portata
 		settoriRaggiungibili.addAll(this.settoriAdiacenti(settorePartenza));
 		settoriRaggiungibili.removeAll(settoriNonTransitabili);
 		portata--;
@@ -158,14 +152,6 @@ public class ControllerMappa
 			settoriRaggiungibili.addAll(getSettoriScialuppa());
 		if(settoriRaggiungibili.contains(mappa.getListaSettoriTotali().get(indiceSettoreDestinazione)))
 			return true;
-		
-		//stessa cosa della riga qui sopra: (penso)
-//		for(int i=0;i<settoriRaggiungibili.size();i++)
-//		{
-//			if(settoriRaggiungibili.get(i).getNome()==settoreDestinazione || settoriRaggiungibili.get(i).getNomeSupplementare()==settoreDestinazione)
-//				return true;
-//		}
-		
 		return false;
 	}
 	
@@ -210,51 +196,4 @@ public class ControllerMappa
 			return "pericoloso";
 		return "sicuro";
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg_26.Socket;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class ClientHandlerIn extends Thread
@@ -36,31 +37,35 @@ public class ClientHandlerIn extends Thread
 			if(socketIn.hasNextLine())
 			{
 				comando=socketIn.nextLine();
-//				System.out.println("Sono il server e ho ricevuto: "+comando);
 				this.gestore.aggiungiNomePersonale(comando);
 				break;
 			}
 		}
 		while(true)
 		{
-			if(socketIn.hasNextLine())
+			try
 			{
 				comando=socketIn.nextLine().toLowerCase();
 				if(comando.equals(""))
 					break;
-//				System.out.println("Sono il server e ho ricevuto: "+comando);
 				this.gestore.riceviComando(comando);
+			}
+			catch (IllegalStateException e)
+			{
+				System.out.println("errore AAA");
+			}
+			catch (NoSuchElementException e)
+			{
+				System.out.println("errore AAB");
+				if(gestore.eraInPartita(this.idClient))
+				{
+					System.out.println("� un casino");
+					this.gestore.rimuoviClient(this.idClient);
+				}
+				break;
 			}
 		}
 		socketIn.close();
-
-
-
 	}
-
-
-
-
-
 }
 

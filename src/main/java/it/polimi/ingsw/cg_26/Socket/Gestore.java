@@ -2,6 +2,8 @@ package it.polimi.ingsw.cg_26.Socket;
 
 import it.polimi.ingsw.cg_26.main.Main;
 import it.polimi.ingsw.cg_26.main.Main.Stato;
+import it.polimi.ingsw.cg_26.model.GameState;
+import it.polimi.ingsw.cg_26.model.Giocatore;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,14 +16,11 @@ public class Gestore
 	private Hashtable<Integer, Main> listaPartiteHash=new Hashtable<Integer, Main>();
 	private HashMap<Integer, ArrayList<ClientHandler>> listaPartite_Clients=new HashMap<Integer, ArrayList<ClientHandler>>();
 	private Hashtable<ClientHandler, Main> listaClients_Partita=new Hashtable<ClientHandler, Main>();
-	
 	private ArrayList<ClientHandler> listaClientsNonInPartite=new ArrayList<>();
 	private ArrayList<ClientHandler> listaCompletaClients=new ArrayList<>();
 	private ArrayList<Main> listaPartite=new ArrayList<>();
 	private ArrayList<ClientHandler> clients;
-	
 	private static int idPartita=0;
-//	private static String nomeMappa;
 	
 	public ClientHandler getClient(int idClient)
 	{
@@ -44,7 +43,6 @@ public class Gestore
 	{
 		clients=this.listaPartite_Clients.get(idPartita);
 		clients.add(client);
-//		this.listaPartite_Clients.put(this.getPartita(idPartita), clients);
 		this.listaPartite_Clients.put(idPartita, clients);
 		this.listaClients_Partita.put(client,this.getPartita(idPartita));
 	}
@@ -58,7 +56,6 @@ public class Gestore
 		listaPartite.add(main);
 		listaPartiteHash.put(idPartita++,main);
 		main.setStato(Stato.DISPONIBILE);
-//		listaPartite_Clients.put(main, clients);
 		listaPartite_Clients.put(main.getIdPartita(), clients);
 		listaClients_Partita.put(this.getClient(idClientCreatore),main);
 	}
@@ -66,11 +63,8 @@ public class Gestore
 	private void cercaEAggiungiClientAPartita(int idClient, String comando)
 	{
 		String messaggio="";
-		//controllo se esistono partite con quella mappa:
-		//se s�, allora lo aggiungo, altrimenti creo la partita e lo aggiungo in attesa di altri clients
 		if(this.listaPartite.isEmpty())
 		{
-			//creo nuova partita
 			this.creaNuovaPartita(comando,idClient);
 			messaggio="Fatto! "+this.getClient(idClient).getNomeClient()+", ti ho aggiunto alla partita appena creata.";
 			this.inviaMessaggioAClient(idClient, messaggio);
@@ -105,15 +99,12 @@ public class Gestore
 		{
 			e.printStackTrace();
 		}
-		
-//		this.inviaMessaggioBroadcast(comando);
 	}
 	
 	private synchronized void elaboraComando(String comando) throws IOException
 	{
 		int idClientCheInviaComando=this.estraiId(comando);
 		comando=this.rimuoviFirma(comando);
-		
 		if(this.listaClientsNonInPartite.contains(this.listaClientsHash.get(idClientCheInviaComando)))
 		{
 			this.cercaEAggiungiClientAPartita(idClientCheInviaComando, comando);
@@ -122,32 +113,63 @@ public class Gestore
 		else
 		{
 			Main main=listaClients_Partita.get(this.getClient(idClientCheInviaComando));
+			if(main.getStato().equals(Stato.FINITA))
+			{
+				this.inviaMessaggioAClient(idClientCheInviaComando, "La tua partita � terminata. Non puoi inserire altro.");
+				return;
+			}
 			if(comando.equals("inizia partita"))
 			{
-				//inizia la partita sse � possibile
-//				int numeroGiocatoriInPartita=listaPartite_Clients.get(listaClients_Partita.get(this.getClient(idClientCheInviaComando))).size();
 				if(listaPartite_Clients.get(main.getIdPartita()).size()>=2 && (main.getStato().equals(Stato.PIENA) || main.getStato().equals(Stato.DISPONIBILE)))
 				{
 					main.inzializzaPartita();
 					main.aggiungiGiocatori(this.listaPartite_Clients.get(main.getIdPartita()));
 					inviaMessaggioAClientsDiPartita(main.getIdPartita(),"Partita iniziata.");
-					this.inviaMessaggioAClient(main.getControllerPartita().giocatoreCorrente().getIdGiocatore(), "E' il tuo turno. Inserisci il tuo comando:");
-					this.inviaMessaggioAClientsDiPartitaEsclusoClient(main.getIdPartita(), main.getControllerPartita().giocatoreCorrente().getIdGiocatore(), "E' il turno di "+main.getControllerPartita().giocatoreCorrente().getNomeUtente()+".");
-//					main.iniziaPartita();
+					for(Giocatore giocatore : main.getModelPartita().getGiocatori())
+					{
+						this.inviaMessaggioAClient(giocatore.getIdGiocatore(), "Sei "+giocatore.getPersonaggio().name());
+					}
+					this.inviaMessaggioAClient(main.getControllerPartita().giocatoreCorrente().getIdGiocatore(), "E' il tuo turno. Inserisci il tuo comando:\n");
+					this.inviaMessaggioAClientsDiPartitaEsclusoClient(main.getIdPartita(), main.getControllerPartita().giocatoreCorrente().getIdGiocatore(), "E' il turno di "+main.getControllerPartita().giocatoreCorrente().getNomeUtente()+".\n");
+				}
+				else
+				{
+					this.inviaMessaggioAClient(idClientCheInviaComando, "Impossibile iniziare la partita.\n");
+					return;
 				}
 			}
 			else
 			{
-				//invio comando a controller partita
-				//prima faccio controllo se � turno del giocatore del client che ha inviato il comando? oppure controllo dopo
-				if(this.listaClients_Partita.get(this.getClient(idClientCheInviaComando)).getControllerPartita().giocatoreCorrente().getIdGiocatore()!=idClientCheInviaComando)
-					this.inviaMessaggioAClient(idClientCheInviaComando, "Non � il tuo turno.");
+				if(main.getStato().equals(Stato.DISPONIBILE) || main.getStato().equals(Stato.PIENA))
+				{
+					this.inviaMessaggioAClient(idClientCheInviaComando, "Attenzione: la tua partita non � ancora cominciata.\nL'unico comando che accetto � 'inizia partita' per iniziare.\n");
+					return;
+				}
+				if(this.listaClients_Partita.get(this.getClient(idClientCheInviaComando)).getControllerPartita().giocatoreCorrente().getIdGiocatore()!=idClientCheInviaComando && !(comando.startsWith("chat ")))
+					this.inviaMessaggioAClient(idClientCheInviaComando, "Non � il tuo turno.\n");
 				else
 				{
+					if(comando.startsWith("chat "))
+					{
+						comando=comando.substring(5);
+						this.inviaMessaggioAClient(idClientCheInviaComando, "Hai inviato: "+comando);
+						this.inviaMessaggioAClientsDiPartitaEsclusoClient(main.getIdPartita(), idClientCheInviaComando, this.getClient(idClientCheInviaComando).getNomeClient()+" scrive: "+comando);
+						return;
+					}
 					ArrayList<String> messaggi;
 					messaggi=main.avanzaPartita(comando);
 					this.inviaMessaggioAClient(idClientCheInviaComando, messaggi.get(0));
 					this.inviaMessaggioAClientsDiPartitaEsclusoClient(main.getIdPartita(), idClientCheInviaComando, messaggi.get(1));
+					if(messaggi.get(0).equals("Hai passato.\n"))
+					{
+						if(main.getModelPartita().getStato().equals(GameState.FINEGIOCO))
+						{
+							main.setStato(Stato.FINITA);
+							return;
+						}
+						this.inviaMessaggioAClient(main.getControllerPartita().giocatoreCorrente().getIdGiocatore(),"E' il tuo turno. Inserisci il tuo comando:\n");
+						this.inviaMessaggioAClientsDiPartitaEsclusoClient(main.getIdPartita(), main.getControllerPartita().giocatoreCorrente().getIdGiocatore(), "E' il turno di "+main.getControllerPartita().giocatoreCorrente().getNomeUtente()+".\n");
+					}
 				}
 			}
 		}
@@ -162,11 +184,9 @@ public class Gestore
 	{
 		int id;
 		int lunghezzaComando=comando.length();
-		
 		id=((comando.charAt(lunghezzaComando-3))-48)*100;
 		id+=((comando.charAt(lunghezzaComando-2))-48)*10;
 		id+=(comando.charAt(lunghezzaComando-1))-48;
-		
 		return id;
 	}
 	
@@ -181,6 +201,43 @@ public class Gestore
 		int idClientCheInviaComando=this.estraiId(comando);
 		comando=this.rimuoviFirma(comando);
 		this.listaClientsHash.get(idClientCheInviaComando).setNomeClient(comando);
+	}
+	
+	public boolean eraInPartita(int idClient)
+	{
+		if(this.listaClientsNonInPartite.contains((this.getClient(idClient))))
+		{
+			return false;
+		}
+		return true;
+	}
+	
+	public void rimuoviClient(int idClient)
+	{
+		String umanoAlieno="";
+		if(this.listaClients_Partita.get(this.getClient(idClient)).getStato().equals(Stato.DISPONIBILE) || this.listaClients_Partita.get(this.getClient(idClient)).getStato().equals(Stato.PIENA))
+		{
+			this.listaPartite_Clients.get(this.listaClients_Partita.get(this.getClient(idClient)).getIdPartita()).remove(this.getClient(idClient));
+			this.listaClients_Partita.get(this.getClient(idClient)).setStato(Stato.DISPONIBILE);
+			this.inviaMessaggioAClientsDiPartitaEsclusoClient(this.listaClients_Partita.get(this.getClient(idClient)).getIdPartita(),idClient,this.getClient(idClient).getNomeClient()+" si � disconnesso.\n");
+			return;
+		}
+		else if(this.listaClients_Partita.get(this.getClient(idClient)).getStato().equals(Stato.INIZIATA))
+		{
+			for(Giocatore giocatore : this.listaClients_Partita.get(this.getClient(idClient)).getModelPartita().getGiocatori())
+			{
+				if(giocatore.getIdGiocatore()==idClient)
+					umanoAlieno=giocatore.getPersonaggio().name();
+			}
+			Main main=this.listaClients_Partita.get(this.getClient(idClient));
+			main.getControllerPartita().getLog().azzeraLog(main.getModelPartita().getNumeroGiocatoreCorrente(), main.getModelPartita().getNumeroTurno());
+			main.eliminaClientDaPartita(idClient);
+			this.inviaMessaggioAClientsDiPartitaEsclusoClient(main.getIdPartita(),idClient,this.getClient(idClient).getNomeClient()+" si � disconnesso, quindi eliminato dalla partita. Era un "+umanoAlieno+"\n");
+			this.inviaMessaggioAClientsDiPartitaEsclusoClient(main.getIdPartita(),idClient,main.getControllerPartita().getLog().getLOG(main.getModelPartita().getNumeroGiocatoreCorrente(), main.getModelPartita().getNumeroTurno(), 5));
+			this.inviaMessaggioAClient(main.getControllerPartita().giocatoreCorrente().getIdGiocatore(),"E' il tuo turno. Inserisci il tuo comando:\n");
+			this.inviaMessaggioAClientsDiPartitaEsclusoClient(main.getIdPartita(), main.getControllerPartita().giocatoreCorrente().getIdGiocatore(), "E' il turno di "+main.getControllerPartita().giocatoreCorrente().getNomeUtente()+".\n");
+		}
+		return;
 	}
 	
 //	--------------------------------------------------------------------------------------------------
@@ -205,7 +262,7 @@ public class Gestore
 	
 	public void inviaMessaggioAClient(int idClient, String mex)
 	{
-		this.getClient(idClient).getClientHandlerOut().inviaMex(mex);;
+		this.getClient(idClient).getClientHandlerOut().inviaMex(mex);
 	}
 	
 	public void inviaMessaggioAClientsDiPartita(int idPartita, String mex)
@@ -215,55 +272,6 @@ public class Gestore
 			client.getClientHandlerOut().inviaMex(mex);
 		}
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	@Override
 	public int hashCode() {

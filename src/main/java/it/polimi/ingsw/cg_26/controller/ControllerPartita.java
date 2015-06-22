@@ -15,9 +15,7 @@ public class ControllerPartita
 	private ModelPartita partita;
 	private LOG log;
 	private ControllerAzioni controllerAzioni;
-//	private String mappa;
-//	private int numeroGiocatoreNelTurno=0;
-
+	
 	public ControllerPartita(ModelPartita partita)
 	{
 		this.partita=partita;
@@ -30,11 +28,6 @@ public class ControllerPartita
 	{
 		return log;
 	}
-	
-//	public int getNumeroGiocatoreNelTurno()
-//	{
-//		return numeroGiocatoreNelTurno;
-//	}
 	
 	public void addGiocatore(Giocatore g)
 	{
@@ -64,73 +57,32 @@ public class ControllerPartita
 	{
 		partita.setNumeroTurno((partita.getNumeroTurno())+1);
 	}
-//	
-//	public void iniziaPartita() throws IOException
-//	{
-//		this.assegnaRuoli();
-//		partita.setStato(GameState.RUNNING);
-//		System.out.print("PARTITA INIZIATA!");
-//		while(partita.getNumeroTurno()!=40 && !(partita.getStato().equals(GameState.FINEGIOCO)))
-//		{
-//			for(int i=0;i<partita.getGiocatori().size();i++)
-//			{
-//				partita.setNumeroGiocatoreCorrente(i);
-//				if(!this.giocatoreCorrente().getInVita())
-//					continue;
-//				while(this.giocatoreCorrente().getHaPassato()==false)
-//				{
-//					System.out.println("E' il turno del giocatore "+(i+1)+" "+this.giocatoreCorrente().getNomeUtente()+":");
-//					System.out.println("\tInserisci l'azione che vuoi compiere.");
-//					BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//					String comando=br.readLine();
-//					ControllerAzioni controllerAzioni=new ControllerAzioni(comando, this);
-//					controllerAzioni.agisci();
-//				}
-//				if(this.controllaFinePartita()==true)
-//					break;
-//				this.giocatoreCorrente().setHaPassato(false);
-//			}
-//			this.aggiornaTurno();
-//		}
-//		if(partita.getNumeroTurno()==40)
-//		{
-//			for(Giocatore giocatore : this.getPartita().getGiocatori())
-//				if(giocatore.getPersonaggio().equals(Personaggio.ALIENO))
-//					giocatore.setVittoria_sconfitta("vittoria");
-//				else
-//					if(giocatore.getPersonaggio().equals(Personaggio.UMANO) && giocatore.getInVita())
-//						giocatore.setVittoria_sconfitta("sconfitta");
-//		}
-//	}
-	
-
 	
 	public void avanzaPartita(String comando) throws IOException
 	{
 		if(partita.getNumeroTurno()!=40 && !(partita.getStato().equals(GameState.FINEGIOCO)))
 		{
-			if(this.partita.getNumeroGiocatoreCorrente()<partita.getGiocatori().size())//i++
-			{
-				partita.setNumeroGiocatoreCorrente(this.partita.getNumeroGiocatoreCorrente());
-//				if(this.giocatoreCorrente().getHaPassato()==false)
-//				{
-//					System.out.println("E' il turno del giocatore "+(this.partita.getNumeroGiocatoreCorrente()+1)+" "+this.giocatoreCorrente().getNomeUtente()+":");
-//					System.out.println("\tInserisci l'azione che vuoi compiere.");
-//					BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//					String comando=br.readLine();
-					controllerAzioni=new ControllerAzioni(comando, this);
-					controllerAzioni.agisci();
-					if(this.giocatoreCorrente().getHaPassato()==false)
-						return;
-//				}
-				if(this.controllaFinePartita()==true)
+				controllerAzioni=new ControllerAzioni(comando, this);
+				controllerAzioni.agisci();
+				if(this.giocatoreCorrente().getHaPassato()==false)
 					return;
-				this.giocatoreCorrente().setHaPassato(false);	
-				this.partita.aggiornaGiocatoreCorrente();
-//				if(this.partita.getNumeroGiocatoreCorrente()>=this.getPartita().getGiocatori().size())
-//					this.partita.getNumeroGiocatoreCorrente()=0;
-			}
-			this.aggiornaTurno();
+				if(this.controllaFinePartita())
+				{
+					this.terminaPartita();
+					return;
+				}
+				this.giocatoreCorrente().setHaPassato(false);
+				
+				int contatoreGiocatoriInGiocoDopoGiocatoreCorrente=0;
+				for(int i=this.partita.getNumeroGiocatoreCorrente();i<this.partita.getGiocatori().size()-1;i++)
+				{
+					if((this.partita.getNumeroGiocatoreCorrente()+1)==this.partita.getGiocatori().size())
+						break;
+					if(this.partita.getGiocatori().get(i+1).getInVita())
+						contatoreGiocatoriInGiocoDopoGiocatoreCorrente++;
+				}
+				if(contatoreGiocatoriInGiocoDopoGiocatoreCorrente==0)
+					this.aggiornaTurno();
 		}
 		if(partita.getNumeroTurno()==40)
 		{
@@ -140,17 +92,21 @@ public class ControllerPartita
 				else
 					if(giocatore.getPersonaggio().equals(Personaggio.UMANO) && giocatore.getInVita())
 						giocatore.setVittoria_sconfitta("sconfitta");
+			this.terminaPartita();
+		}
+		else
+		{
+			String nomeGiocatoreCheHaPassato=this.giocatoreCorrente().getNomeUtente();
+			this.partita.aggiornaGiocatoreCorrente();
+			this.log.setLOG(this.partita.getNumeroGiocatoreCorrente(), this.partita.getNumeroTurno(), 5, "Hai passato.\n");
+			this.log.setLOG(this.partita.getNumeroGiocatoreCorrente(), this.partita.getNumeroTurno(), 4, nomeGiocatoreCheHaPassato+" ha passato.\n");
+			
 		}
 	}
 	
 	public void inserisciSettoreDestinazione(String settore)
 	{
 		controllerAzioni.inserisciSettoreDestinazione(settore);
-	}
-	
-	public void scriviMessaggioChat(String messaggio)
-	{
-		controllerAzioni.scriviMessaggioChat(messaggio);
 	}
 	
 	public void inserisciCartaOggetto(String oggetto)
@@ -173,53 +129,15 @@ public class ControllerPartita
 		controllerAzioni.inserisciProprioSettore(settore);
 	}
 	
+	public void usaOscarta(String comando)
+	{
+		this.controllerAzioni.usaOscarta(comando);
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public void scartaOggetto(String comando)
+	{
+		this.controllerAzioni.scartaOggetto(comando);
+	}
 	
 	public ModelPartita getPartita()
 	{
@@ -228,16 +146,14 @@ public class ControllerPartita
 	
 	public boolean controllaFinePartita()
 	{
-		if(this.numeroUmaniInGioco()==0 || partita.getControllerMappa().numeroScialuppeBloccate()==4 || this.numeroAlieniInGioco()==0)
-		{
-			partita.setStato(GameState.FINEGIOCO);
+		if(this.numeroUmaniInGioco()==0 || partita.getControllerMappa().numeroScialuppeBloccate()==4)
 			return true;
-		}
 		return false;
 	}
 	
 	public void terminaPartita()
 	{
+		partita.setStato(GameState.FINEGIOCO);
 		for(Giocatore giocatore : partita.getGiocatori())
 		{
 			if(giocatore.getPersonaggio().equals(Personaggio.UMANO))
@@ -264,23 +180,30 @@ public class ControllerPartita
 					partita.addGiocatoreVincente(giocatore);
 			}	
 		}
+		this.stampaVincitoriEPerdenti();
 	}
 	
 	public void stampaVincitoriEPerdenti()
 	{
-		System.out.println("La partita � terminata.");
-		System.out.print("Ecco i vincitori: ");
+		this.log.setLOG(this.partita.getNumeroGiocatoreCorrente(), this.partita.getNumeroTurno(), 5, "La partita � terminata.\nEcco i vincitori:");
+		this.log.setLOG(this.partita.getNumeroGiocatoreCorrente(), this.partita.getNumeroTurno(), 4, "La partita � terminata.\nEcco i vincitori:");
 		for(Giocatore giocatore : this.getPartita().getGiocatoriVincenti())
-			System.out.print(giocatore.getNomeUtente()+" ");
-		System.out.println(".");
-		System.out.print("Ecco i perdenti: ");
+		{
+			this.log.setLOG(this.partita.getNumeroGiocatoreCorrente(), this.partita.getNumeroTurno(), 5, " "+giocatore.getNomeUtente()+"("+giocatore.getPersonaggio().name()+")");
+			this.log.setLOG(this.partita.getNumeroGiocatoreCorrente(), this.partita.getNumeroTurno(), 4, " "+giocatore.getNomeUtente()+"("+giocatore.getPersonaggio().name()+")");
+		}
+		this.log.setLOG(this.partita.getNumeroGiocatoreCorrente(), this.partita.getNumeroTurno(), 5, ".\nEcco i perdernti:");
+		this.log.setLOG(this.partita.getNumeroGiocatoreCorrente(), this.partita.getNumeroTurno(), 4, ".\nEcco i perdenti:");
 		for(Giocatore giocatore : this.getPartita().getGiocatoriPerdenti())
-			System.out.print(giocatore.getNomeUtente()+" ");
-		System.out.println(".");
+		{
+			this.log.setLOG(this.partita.getNumeroGiocatoreCorrente(), this.partita.getNumeroTurno(), 5, " "+giocatore.getNomeUtente()+"("+giocatore.getPersonaggio().name()+")");
+			this.log.setLOG(this.partita.getNumeroGiocatoreCorrente(), this.partita.getNumeroTurno(), 4, " "+giocatore.getNomeUtente()+"("+giocatore.getPersonaggio().name()+")");
+		}
+		this.log.setLOG(this.partita.getNumeroGiocatoreCorrente(), this.partita.getNumeroTurno(), 5, ".\n");
+		this.log.setLOG(this.partita.getNumeroGiocatoreCorrente(), this.partita.getNumeroTurno(), 4, ".\n");
 	}
 	
 //	--------------------------------------------------------------------------------------------------
-	//POSSIBILI METODI PER UNA EVENTUALE CLASSE CONTROLLERGIOCATORE ?!?!?!?!?
 	
 	public ArrayList<Giocatore> getGiocatoriInSettore(String settore)
 	{
@@ -346,50 +269,4 @@ public class ControllerPartita
 			return false;
 		return true;
 	}
-
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

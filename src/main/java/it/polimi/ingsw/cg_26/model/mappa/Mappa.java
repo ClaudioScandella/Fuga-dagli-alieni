@@ -17,15 +17,7 @@ public class Mappa
 	public Mappa(String nomeMappa)
 	{
 		this.nomeMappa = nomeMappa;
-		
-//		  /fuga_dagli_alieni/src/main/java/it/polimi/ingsw/cg_26/model/mappe/galilei.txt
-//		String percorsoMappa="fuga_dagli_alieni"+File.separatorChar+"src"+File.separatorChar+"main"+File.separatorChar+"java"+File.separatorChar+"it"+File.separatorChar+"polimi"+File.separatorChar+"ingsw"+File.separatorChar+"cg_26"+File.separatorChar+"model"+File.separatorChar+"mappe"+File.separatorChar+nomeMappa+".txt";
-//		String percorsoMappa="/fuga_dagli_alieni/src/main/java/it/polimi/ingsw/cg_26/model/mappe/"+nomeMappa+".txt";
-//		String percorsoMappa="C:\\Users\\Claudio\\Desktop\\galilei.txt";
-//		/src/main/java/it/polimi/ingsw/cg_26/fileMappe/
-		String percorsoMappa="src"+File.separatorChar+"main"+File.separatorChar+"java"+File.separatorChar+"it"+File.separatorChar+"polimi"+File.separatorChar+"ingsw"+File.separatorChar+"cg_26"+File.separatorChar+"fileMappe"+File.separatorChar+nomeMappa+".txt";
-		
-		//creo oggetto reader per leggere da file
+		String percorsoMappa="src"+File.separatorChar+"fileMappe"+File.separatorChar+nomeMappa+".txt";
 		FileReader reader=null;
 		try
 		{
@@ -33,11 +25,7 @@ public class Mappa
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
 		int carattereLetto=0;
-//		String coordinata="";
-		
-		//generatore di settori da A01 a W14 e li aggiunge a listSettore
 		for(char coordinataNumerica1='0';coordinataNumerica1!='2';coordinataNumerica1++)
 			for(char coordinataNumerica2='0';coordinataNumerica2!=':';coordinataNumerica2++)
 			{
@@ -45,11 +33,8 @@ public class Mappa
 				if(coordinataNumerica1=='1'&&coordinataNumerica2=='5') break;
 				for(char coordinataAlfabetica='A';coordinataAlfabetica!='X';coordinataAlfabetica++)
 				{
-					
-//					coordinata=""+coordinataNumerica1+coordinataNumerica2;
 					String nomeSettore=""+coordinataAlfabetica+coordinataNumerica1+coordinataNumerica2;
 					Settore settoreTemporaneo= null;
-					
 					try
 					{
 						carattereLetto=reader.read();
@@ -58,7 +43,6 @@ public class Mappa
 					{
 						e.printStackTrace();
 					}
-					
 					switch (carattereLetto)
 					{
 						case '0': settoreTemporaneo=new SettoreVuoto(nomeSettore, "Settore vuoto"); break;
@@ -74,7 +58,6 @@ public class Mappa
 					listaSettoriTotali.add(settoreTemporaneo);
 				}
 			}
-//		inserisce ogni settore in HashMap con rispettiva lista dei settori adiacenti
 		for(int indice=0;indice<listaSettoriTotali.size();indice++)
 		{
 			listaSettoriAdiacenti=new ArrayList<>();
@@ -94,7 +77,6 @@ public class Mappa
 			}
 			mappa.put(listaSettoriTotali.get(indice), listaSettoriAdiacenti);
 		}
-
 		try
 		{
 			reader.close();
@@ -118,27 +100,3 @@ public class Mappa
 		return listaSettoriTotali;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
