@@ -11,16 +11,31 @@ import it.polimi.ingsw.cg_26.model.mazzi.MazzoCarteSettore;
 
 import java.util.ArrayList;
 
+/**
+ * Contiene la classe ModelPartita, in cui si tiene traccia
+ * della mappa, dello stato di gioco, del turno, del numero del giocatore
+ * corrente e delle liste di giocatori (tutti i giocatori, giocatori vincenti,
+ * giocatori perdenti.
+ * Vengono inoltre create le mappe, i tre tipi di mazzi e i rispettivi controller.
+ *  
+ * @author Claudio e Patrizia
+ *
+ */
 public class ModelPartita {
 	
 	private int idPartita;
 	private String nomeMappa;
 	private ArrayList<Giocatore> giocatori;
-	private ArrayList<Giocatore> giocatoriFuoriGioco=new ArrayList<>();
+//	private ArrayList<Giocatore> giocatoriFuoriGioco=new ArrayList<>();
 	private ArrayList<Giocatore> giocatoriPerdenti=new ArrayList<>();
 	private ArrayList<Giocatore> giocatoriVincenti=new ArrayList<>();
 	private GameState stato;
 	private StatoAvanzamentoTurno statoAvanzamentoTurno;
+	/**
+	 * 
+	 * Indica se un giocatore deve pescare o meno una carta oggetto.
+	 *
+	 */
 	public enum StatoPescaOggetto {DEVE_PESCARE, NON_DEVE_PESCARE;}
 	private StatoPescaOggetto statoPescaOggetto=StatoPescaOggetto.NON_DEVE_PESCARE;
 	private int numeroTurno=1;
@@ -34,14 +49,23 @@ public class ModelPartita {
 	private MazzoCarteOggetto mazzoCarteOggetto;
 	private ControllerMazzoCarteOggetto controllerMazzoCarteOggetto;
 	
-//	--------------------------------------------------------------------------------------------------
+//	---COSTRUTTORE-----------------------------------------------------------------------------------------------
 
+	/**
+	 * Costruttore del ModelPartita. Inizializza una partita: assegna l'IdPartita
+	 * che gli viene passato come parametro, costruisce la mappa (del tipo
+	 * che gli viene passato in ingresso come parametro) e i tre mazzi di carte
+	 * con i rispettivi controller.
+	 * 
+	 * @param idPartita è l'intero che permette di identificare una partita
+	 * @param mappa è la stringa contenente il nome del tipo di mappa
+	 */
 	public ModelPartita(int idPartita, String mappa)
 	{
 		this.setStato(GameState.INIZIALIZZAZIONE);
 		this.statoAvanzamentoTurno=StatoAvanzamentoTurno.ATTESA_COMANDO;
 		giocatori=new ArrayList<>();
-		giocatoriFuoriGioco=new ArrayList<>();
+//		giocatoriFuoriGioco=new ArrayList<>();
 		this.idPartita=idPartita;
 		this.nomeMappa=mappa;
 		this.mappa=new Mappa(mappa);
@@ -54,7 +78,7 @@ public class ModelPartita {
 		controllerMazzoCarteOggetto=new ControllerMazzoCarteOggetto(mazzoCarteOggetto);
 	}
 	
-//	--------------------------------------------------------------------------------------------------
+//	---GETTER-----------------------------------------------------------------------------------------------
 	
 	public GameState getStato()
 	{
@@ -86,10 +110,10 @@ public class ModelPartita {
 		return giocatori;
 	}
 
-	public ArrayList<Giocatore> getGiocatoriFuoriGioco()
-	{
-		return giocatoriFuoriGioco;
-	}
+//	public ArrayList<Giocatore> getGiocatoriFuoriGioco()
+//	{
+//		return giocatoriFuoriGioco;
+//	}
 	
 	public ArrayList<Giocatore> getGiocatoriPerdenti()
 	{
@@ -131,7 +155,7 @@ public class ModelPartita {
 		return numeroGiocatoreCorrente;
 	}
 	
-//	--------------------------------------------------------------------------------------------------
+//	---SETTER-----------------------------------------------------------------------------------------------
 	
 	public void setStatoAvanzamentoTurno(StatoAvanzamentoTurno stato)
 	{
@@ -175,6 +199,10 @@ public class ModelPartita {
 	
 //	--------------------------------------------------------------------------------------------------
 	
+	/**
+	 * Aggiorna il numero del giocatore corrente tralasciando i numeri 
+	 * dei giocatori morti.
+	 */
 	public void aggiornaGiocatoreCorrente()
 	{
 		int contatore=0;

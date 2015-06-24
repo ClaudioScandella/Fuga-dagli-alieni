@@ -7,6 +7,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Contiene la classe Mappa, che permette di creare la mappa leggendo in un file
+ * di testo il tipo di settore da assegnare ad ogni coordinata.
+ * 
+ * @author Claudio e Patrizia
+ *
+ */
 public class Mappa
 {
 	private HashMap<Settore, ArrayList<Settore>> mappa=new HashMap<>();
@@ -14,6 +21,28 @@ public class Mappa
 	private ArrayList<Settore> listaSettoriAdiacenti;//usato per mettere in mappaGalilei la lista dei settori adiacenti ad una chiave
 	private String nomeMappa;
 
+	/** 
+	 * Costruisce una mappa del tipo passato in ingresso (galilei, galvani fermi) 
+	 * prendendo da un file di testo il tipo di settore da assegnare ad ogni 
+	 * coordinata.
+	 * Ogni coordinata (nomeSettore) è costituita da un carattere alfabetico e due caratteri 
+	 * numerici
+	 * Ogni carattere letto dal file di testo può essere:
+	 * - '0': identifica un settore vuoto
+	 * - '1': identifica un settore pericoloso
+	 * - '2': identifica un settore sicuro
+	 * - '3': identifica un settore partenza alieni
+	 * - '4': identifica un settore partenza umani
+	 * - '5': identifica un settore scialuppa1
+	 * - '6': identifica un settore scialuppa2
+	 * - '7': identifica un settore scialuppa3
+	 * - '8': identifica un settore scialuppa4
+	 * 
+	 * Assegna poi ad ogni settore una lista di settori vicini.
+	 * 
+	 * @param nomeMappa è la stringa contenente il nome del tipo di mappa che 
+	 * deve essere generata
+	 */
 	public Mappa(String nomeMappa)
 	{
 		this.nomeMappa = nomeMappa;
@@ -88,6 +117,7 @@ public class Mappa
 		}
 	}
 	
+	//GETTER
 	public HashMap<Settore, ArrayList<Settore>> getMappa()
 	{
 		return this.mappa;
@@ -96,7 +126,7 @@ public class Mappa
 	public String getNomeMappa() {
 		return nomeMappa;
 	}
-
+	
 	public ArrayList<Settore> getListaSettoriTotali() {
 		return listaSettoriTotali;
 	}

@@ -41,12 +41,18 @@ public class GiocatoreTest {
 		g1.setVittoria_sconfitta("vittoria");
 		g2.setVittoria_sconfitta("sconfitta");
 	}
-
+	
+	
 	@Test
 	public void testGiocatore() {
 		assertTrue(g1 instanceof Giocatore);
 	}
 
+	@Test 
+	public void testHaAttaccato(){
+		g1.setHaAttaccato(true);
+		assertTrue(g1.getHaAttaccato() == true);
+	}
 	
 	@Test
 	public void testGetPortata() {
@@ -140,6 +146,12 @@ public class GiocatoreTest {
 	public void testGetVittoria_sconfitta() {
 		assertTrue(g1.getVittoria_sconfitta() == "vittoria");
 		assertTrue(g2.getVittoria_sconfitta() == "sconfitta");
+	}
+	
+	@Test
+	public void testPuoAttaccare(){
+		g1.setPuoAttaccare(true);
+		assertTrue(g1.getPuoAttaccare());
 	}
 	
 	@Test
