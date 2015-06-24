@@ -1,12 +1,11 @@
 package it.polimi.ingsw.cg_26.controller;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-
+import static org.junit.Assert.assertTrue;
 import it.polimi.ingsw.cg_26.model.ModelPartita;
 import it.polimi.ingsw.cg_26.model.carte.CartaSettore;
 import it.polimi.ingsw.cg_26.model.carte.CartaSettore.TipoSettore;
+
+import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;

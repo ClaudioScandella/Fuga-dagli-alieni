@@ -1,10 +1,9 @@
 package it.polimi.ingsw.cg_26.model.mazzi;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import it.polimi.ingsw.cg_26.model.carte.CartaOggetto;
 import it.polimi.ingsw.cg_26.model.carte.CartaOggetto.TipoOggetto;
-import it.polimi.ingsw.cg_26.model.carte.CartaSettore;
-import it.polimi.ingsw.cg_26.model.carte.CartaSettore.TipoSettore;
 
 import java.util.ArrayList;
 

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg_26.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import it.polimi.ingsw.cg_26.controller.ControllerMappa;
 import it.polimi.ingsw.cg_26.controller.ControllerMazzoCarteOggetto;
 import it.polimi.ingsw.cg_26.controller.ControllerMazzoCarteScialuppa;

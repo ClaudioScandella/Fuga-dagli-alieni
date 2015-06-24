@@ -1,6 +1,9 @@
 package it.polimi.ingsw.cg_26.controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 import it.polimi.ingsw.cg_26.model.Giocatore.Personaggio;
 import it.polimi.ingsw.cg_26.model.mappa.Mappa;
 import it.polimi.ingsw.cg_26.model.mappa.Settore;
