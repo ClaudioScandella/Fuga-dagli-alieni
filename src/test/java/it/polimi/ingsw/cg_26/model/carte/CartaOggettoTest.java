@@ -15,6 +15,7 @@ public class CartaOggettoTest {
 		c1 = new CartaOggetto(TipoOggetto.DIFESA);
 	}
 
+	
 	@Test
 	public void testGetTipoOggetto() {
 		assertEquals(c1.getTipoOggetto(), TipoOggetto.DIFESA);
