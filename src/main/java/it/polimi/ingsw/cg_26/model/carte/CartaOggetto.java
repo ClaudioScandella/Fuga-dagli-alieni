@@ -1,15 +1,31 @@
 package it.polimi.ingsw.cg_26.model.carte;
 
+/**
+ * 
+ * Contiene la classe CartaOggetto, in cui è possibile creare carte oggetto di tipo:
+ * adrenalina, attacco, difesa, luci, sedativi o teletrasporto.
+ * 
+ * @author Claudio e Patrizia
+ *
+ */
 public class CartaOggetto
 {
+	/**
+	 * 
+	 * Le carte oggetto possono essere esclusivamente di tipo:
+	 * adrenalina, attacco, difesa, luci, sedativi, teletrasporto
+	 *
+	 */
 	public enum TipoOggetto{ADRENALINA, ATTACCO, DIFESA, LUCI, SEDATIVI, TELETRASPORTO;}
 	private TipoOggetto tipo;
 		
+	// COSTRUTTORE
 	public CartaOggetto(TipoOggetto tipo)
 	{
 		this.tipo=tipo;
 	}
 	
+	//GETTER
 	public TipoOggetto getTipoOggetto()
 	{
 		return tipo;

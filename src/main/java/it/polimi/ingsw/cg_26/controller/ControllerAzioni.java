@@ -89,8 +89,8 @@ public class ControllerAzioni
 					if(giocatore.possiedeCartaOggetto("DIFESA")==true && giocatore.getPersonaggio().equals(Personaggio.UMANO)==true)
 					{
 						giocatoreSalvatoConDifesa=giocatore;
-						this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, giocatore.getNomeUtente()+" si � salvato con la carta difesa, quindi � UMANO.\n");
-						this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, giocatore.getNomeUtente()+" si � salvato con la carta difesa, quindi � UMANO.\n");
+						this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, giocatore.getNomeUtente()+" si ï¿½ salvato con la carta difesa, quindi ï¿½ UMANO.\n");
+						this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, giocatore.getNomeUtente()+" si ï¿½ salvato con la carta difesa, quindi ï¿½ UMANO.\n");
 						CartaOggetto oggetto=giocatore.getCartaOggetto("DIFESA");
 						giocatore.scartaOggetto(oggetto);
 						partita.getPartita().getControllerMazzoCarteOggetto().aggiungiCartaAScartiOggetto(oggetto);
@@ -122,7 +122,7 @@ public class ControllerAzioni
 			else
 			{
 			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non hai ucciso nessuno.\n");
-			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, "Non � stato ucciso nessuno.\n");
+			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, "Non ï¿½ stato ucciso nessuno.\n");
 			}
 			if(this.partita.numeroUmaniInGioco()==0)
 				for(Giocatore giocatore : this.partita.getPartita().getGiocatori())
@@ -202,15 +202,15 @@ public class ControllerAzioni
 			{
 				if(partita.getPartita().getControllerMappa().getMappa().getListaSettoriTotali().get(partita.getPartita().getControllerMappa().convertitoreStringa_Indice(settore)).getBloccata()==true)
 				{
-					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "La scialuppa � bloccata.\n");
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "La scialuppa ï¿½ bloccata.\n");
 					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "E' il tuo turno. Inserisci il tuo comando.\n");
 					this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_COMANDO);
 					return;
 				}
 				if(partita.getPartita().getControllerMappa().verificaVittoria(settore, partita.giocatoreCorrente().getPosizione(), partita.giocatoreCorrente().getPortata(), partita.giocatoreCorrente().getPersonaggio())==true)
 				{
-					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Ora pesca la carta scialuppa. Se � verde allora riesci a fuggire, altrimenti devi andare verso una nuova scialuppa.\n");
-					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, this.partita.giocatoreCorrente().getNomeUtente()+" � arrivato alla scialuppa "+settore+". E' un UMANO!\n");
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Ora pesca la carta scialuppa. Se ï¿½ verde allora riesci a fuggire, altrimenti devi andare verso una nuova scialuppa.\n");
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, this.partita.giocatoreCorrente().getNomeUtente()+" ï¿½ arrivato alla scialuppa "+settore+". E' un UMANO!\n");
 					if(partita.getPartita().getControllerMazzoCarteScialuppa().pesca().getColore()==Colore.VERDE)
 					{
 						this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Hai pescato verde. HAI VINTO!\n");
@@ -231,8 +231,8 @@ public class ControllerAzioni
 						this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_COMANDO);
 						return;
 					}
-					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "La carta � rossa, non puoi fuggire da qui.\n");
-					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, "Ha pescato carta rossa. Non pu� fuggire e la sciluppa risulta bloccata per tutti.\n");
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "La carta ï¿½ rossa, non puoi fuggire da qui.\n");
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, "Ha pescato carta rossa. Non puï¿½ fuggire e la sciluppa risulta bloccata per tutti.\n");
 					partita.getPartita().getControllerMappa().getMappa().getListaSettoriTotali().get(partita.getPartita().getControllerMappa().convertitoreStringa_Indice(settore)).setBloccata(true);
 					partita.giocatoreCorrente().setPosizione(settore);
 					partita.giocatoreCorrente().setHaMosso(true);
@@ -251,8 +251,8 @@ public class ControllerAzioni
 				partita.giocatoreCorrente().setPuoPassare(true);
 				if(partita.giocatoreCorrente().getSedativi())
 				{
-					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non peschi carte settore perch� hai usato sedativi.\n");
-					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, this.partita.giocatoreCorrente().getNomeUtente()+" non pesca carte settore perch� ha usato sedativi.\n");
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non peschi carte settore perchï¿½ hai usato sedativi.\n");
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, this.partita.giocatoreCorrente().getNomeUtente()+" non pesca carte settore perchï¿½ ha usato sedativi.\n");
 				}
 				else if(partita.getPartita().getControllerMappa().settoreSicuro_Pericoloso(settore)=="pericoloso")
 				{

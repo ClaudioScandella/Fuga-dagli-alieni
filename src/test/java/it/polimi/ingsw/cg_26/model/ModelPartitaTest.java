@@ -6,6 +6,7 @@ import it.polimi.ingsw.cg_26.controller.ControllerMappa;
 import it.polimi.ingsw.cg_26.controller.ControllerMazzoCarteOggetto;
 import it.polimi.ingsw.cg_26.controller.ControllerMazzoCarteScialuppa;
 import it.polimi.ingsw.cg_26.controller.ControllerMazzoCarteSettore;
+import it.polimi.ingsw.cg_26.model.ModelPartita.StatoPescaOggetto;
 
 import java.util.ArrayList;
 
@@ -48,6 +49,18 @@ public class ModelPartitaTest {
 	public void testGetStato() {
 		model.setStato(GameState.RUNNING);
 		assertTrue(model.getStato() == GameState.RUNNING);
+	}
+	
+	@Test
+	public void testGetStatoAvanzamentoTurno(){
+		model.setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_CARTA);
+		assertTrue(model.getStatoAvanzamentoTurno() == StatoAvanzamentoTurno.ATTESA_CARTA);
+	}
+	
+	@Test
+	public void testGetStatoPescaOggetto(){
+		model.setStatoPescaOggetto(StatoPescaOggetto.DEVE_PESCARE);
+		assertTrue(model.getStatoPescaOggetto() == StatoPescaOggetto.DEVE_PESCARE);
 	}
 
 	@Test
