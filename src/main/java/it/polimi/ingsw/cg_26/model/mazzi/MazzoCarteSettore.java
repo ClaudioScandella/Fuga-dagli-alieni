@@ -1,9 +1,9 @@
 package it.polimi.ingsw.cg_26.model.mazzi;
 
-import java.util.ArrayList;
+import it.polimi.ingsw.cg_26.model.carte.CartaSettore;
+import it.polimi.ingsw.cg_26.model.carte.CartaSettore.TipoSettore;
 
-import model.carte.CartaSettore;
-import model.carte.CartaSettore.TipoSettore;
+import java.util.ArrayList;
 
 public class MazzoCarteSettore {
 

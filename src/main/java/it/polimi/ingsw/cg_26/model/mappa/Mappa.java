@@ -17,7 +17,8 @@ public class Mappa
 	public Mappa(String nomeMappa)
 	{
 		this.nomeMappa = nomeMappa;
-		String percorsoMappa="src"+File.separatorChar+"fileMappe"+File.separatorChar+nomeMappa+".txt";
+//		src/main/java/it/polimi/ingsw/cg_26/
+		String percorsoMappa="src"+File.separatorChar+"main"+File.separatorChar+"java"+File.separatorChar+"it"+File.separatorChar+"polimi"+File.separatorChar+"ingsw"+File.separatorChar+"cg_26"+File.separatorChar+"fileMappe"+File.separatorChar+nomeMappa+".txt";
 		FileReader reader=null;
 		try
 		{
