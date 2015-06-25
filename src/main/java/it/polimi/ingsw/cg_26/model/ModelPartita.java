@@ -12,7 +12,6 @@ import it.polimi.ingsw.cg_26.model.mazzi.MazzoCarteSettore;
 import java.util.ArrayList;
 
 /**
- * 
  * Contiene la classe ModelPartita, in cui si tiene traccia
  * della mappa, dello stato di gioco, del turno, del numero del giocatore
  * corrente e delle liste di giocatori (tutti i giocatori, giocatori vincenti,
@@ -58,13 +57,8 @@ public class ModelPartita {
 	 * che gli viene passato in ingresso come parametro) e i tre mazzi di carte
 	 * con i rispettivi controller.
 	 * 
-<<<<<<< HEAD
-	 * @param idPartita Ã¨ l'intero che permette di identificare una partita
-	 * @param mappa Ã¨ la stringa contenente il nome del tipo di mappa
-=======
 	 * @param idPartita è l'intero che permette di identificare una partita
 	 * @param mappa è la stringa contenente il nome del tipo di mappa
->>>>>>> refs/remotes/origin/master
 	 */
 	public ModelPartita(int idPartita, String mappa)
 	{
