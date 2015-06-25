@@ -98,8 +98,8 @@ public class ControllerPartita
 		{
 			String nomeGiocatoreCheHaPassato=this.giocatoreCorrente().getNomeUtente();
 			this.partita.aggiornaGiocatoreCorrente();
-			this.log.setLOG(this.partita.getNumeroGiocatoreCorrente(), this.partita.getNumeroTurno(), 5, "Hai passato.\n");
-			this.log.setLOG(this.partita.getNumeroGiocatoreCorrente(), this.partita.getNumeroTurno(), 4, nomeGiocatoreCheHaPassato+" ha passato.\n");
+			this.log.setLOG(this.partita.getNumeroGiocatoreCorrente(), this.partita.getNumeroTurno(), 5, "Hai passato.");
+			this.log.setLOG(this.partita.getNumeroGiocatoreCorrente(), this.partita.getNumeroTurno(), 4, nomeGiocatoreCheHaPassato+" ha passato.");
 			
 		}
 	}

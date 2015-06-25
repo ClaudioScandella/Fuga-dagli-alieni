@@ -38,6 +38,11 @@ public class ClientWriting implements Runnable
 			if(scanner.hasNextLine())
 			{
 				comando=scanner.nextLine();
+				if(comando.equals(""))
+				{
+					System.out.println("Nome non valido. Inserisci un nome diverso.\n");
+					continue;
+				}
 				comando=comando+this.aggiungiFirma();
 				socketOut.println(comando);
 				socketOut.flush();

@@ -45,6 +45,8 @@ public class Gestore
 		clients.add(client);
 		this.listaPartite_Clients.put(idPartita, clients);
 		this.listaClients_Partita.put(client,this.getPartita(idPartita));
+		if(this.listaPartite_Clients.get(idPartita).size()==8)
+			this.getPartita(idPartita).setStato(Stato.PIENA);
 	}
 	
 	public void creaNuovaPartita(String nomeMappa, int idClientCreatore)
@@ -129,12 +131,12 @@ public class Gestore
 					{
 						this.inviaMessaggioAClient(giocatore.getIdGiocatore(), "Sei "+giocatore.getPersonaggio().name());
 					}
-					this.inviaMessaggioAClient(main.getControllerPartita().giocatoreCorrente().getIdGiocatore(), "E' il tuo turno. Inserisci il tuo comando:\n");
-					this.inviaMessaggioAClientsDiPartitaEsclusoClient(main.getIdPartita(), main.getControllerPartita().giocatoreCorrente().getIdGiocatore(), "E' il turno di "+main.getControllerPartita().giocatoreCorrente().getNomeUtente()+".\n");
+					this.inviaMessaggioAClient(main.getControllerPartita().giocatoreCorrente().getIdGiocatore(), "E' il tuo turno. Inserisci il tuo comando:");
+					this.inviaMessaggioAClientsDiPartitaEsclusoClient(main.getIdPartita(), main.getControllerPartita().giocatoreCorrente().getIdGiocatore(), "E' il turno di "+main.getControllerPartita().giocatoreCorrente().getNomeUtente()+".");
 				}
 				else
 				{
-					this.inviaMessaggioAClient(idClientCheInviaComando, "Impossibile iniziare la partita.\n");
+					this.inviaMessaggioAClient(idClientCheInviaComando, "Impossibile iniziare la partita.");
 					return;
 				}
 			}
@@ -142,11 +144,11 @@ public class Gestore
 			{
 				if(main.getStato().equals(Stato.DISPONIBILE) || main.getStato().equals(Stato.PIENA))
 				{
-					this.inviaMessaggioAClient(idClientCheInviaComando, "Attenzione: la tua partita non � ancora cominciata.\nL'unico comando che accetto � 'inizia partita' per iniziare.\n");
+					this.inviaMessaggioAClient(idClientCheInviaComando, "Attenzione: la tua partita non � ancora cominciata.\nL'unico comando che accetto � 'inizia partita' per iniziare.");
 					return;
 				}
 				if(this.listaClients_Partita.get(this.getClient(idClientCheInviaComando)).getControllerPartita().giocatoreCorrente().getIdGiocatore()!=idClientCheInviaComando && !(comando.startsWith("chat ")))
-					this.inviaMessaggioAClient(idClientCheInviaComando, "Non � il tuo turno.\n");
+					this.inviaMessaggioAClient(idClientCheInviaComando, "Non � il tuo turno.");
 				else
 				{
 					if(comando.startsWith("chat "))
@@ -160,15 +162,15 @@ public class Gestore
 					messaggi=main.avanzaPartita(comando);
 					this.inviaMessaggioAClient(idClientCheInviaComando, messaggi.get(0));
 					this.inviaMessaggioAClientsDiPartitaEsclusoClient(main.getIdPartita(), idClientCheInviaComando, messaggi.get(1));
-					if(messaggi.get(0).equals("Hai passato.\n"))
+					if(messaggi.get(0).equals("Hai passato."))
 					{
 						if(main.getModelPartita().getStato().equals(GameState.FINEGIOCO))
 						{
 							main.setStato(Stato.FINITA);
 							return;
 						}
-						this.inviaMessaggioAClient(main.getControllerPartita().giocatoreCorrente().getIdGiocatore(),"E' il tuo turno. Inserisci il tuo comando:\n");
-						this.inviaMessaggioAClientsDiPartitaEsclusoClient(main.getIdPartita(), main.getControllerPartita().giocatoreCorrente().getIdGiocatore(), "E' il turno di "+main.getControllerPartita().giocatoreCorrente().getNomeUtente()+".\n");
+						this.inviaMessaggioAClient(main.getControllerPartita().giocatoreCorrente().getIdGiocatore(),"E' il tuo turno. Inserisci il tuo comando:");
+						this.inviaMessaggioAClientsDiPartitaEsclusoClient(main.getIdPartita(), main.getControllerPartita().giocatoreCorrente().getIdGiocatore(), "E' il turno di "+main.getControllerPartita().giocatoreCorrente().getNomeUtente()+".");
 					}
 				}
 			}
@@ -219,7 +221,7 @@ public class Gestore
 		{
 			this.listaPartite_Clients.get(this.listaClients_Partita.get(this.getClient(idClient)).getIdPartita()).remove(this.getClient(idClient));
 			this.listaClients_Partita.get(this.getClient(idClient)).setStato(Stato.DISPONIBILE);
-			this.inviaMessaggioAClientsDiPartitaEsclusoClient(this.listaClients_Partita.get(this.getClient(idClient)).getIdPartita(),idClient,this.getClient(idClient).getNomeClient()+" si � disconnesso.\n");
+			this.inviaMessaggioAClientsDiPartitaEsclusoClient(this.listaClients_Partita.get(this.getClient(idClient)).getIdPartita(),idClient,this.getClient(idClient).getNomeClient()+" si � disconnesso.");
 			return;
 		}
 		else if(this.listaClients_Partita.get(this.getClient(idClient)).getStato().equals(Stato.INIZIATA))
@@ -232,10 +234,10 @@ public class Gestore
 			Main main=this.listaClients_Partita.get(this.getClient(idClient));
 			main.getControllerPartita().getLog().azzeraLog(main.getModelPartita().getNumeroGiocatoreCorrente(), main.getModelPartita().getNumeroTurno());
 			main.eliminaClientDaPartita(idClient);
-			this.inviaMessaggioAClientsDiPartitaEsclusoClient(main.getIdPartita(),idClient,this.getClient(idClient).getNomeClient()+" si � disconnesso, quindi eliminato dalla partita. Era un "+umanoAlieno+"\n");
+			this.inviaMessaggioAClientsDiPartitaEsclusoClient(main.getIdPartita(),idClient,this.getClient(idClient).getNomeClient()+" si � disconnesso, quindi eliminato dalla partita. Era un "+umanoAlieno+"");
 			this.inviaMessaggioAClientsDiPartitaEsclusoClient(main.getIdPartita(),idClient,main.getControllerPartita().getLog().getLOG(main.getModelPartita().getNumeroGiocatoreCorrente(), main.getModelPartita().getNumeroTurno(), 5));
 			this.inviaMessaggioAClient(main.getControllerPartita().giocatoreCorrente().getIdGiocatore(),"E' il tuo turno. Inserisci il tuo comando:\n");
-			this.inviaMessaggioAClientsDiPartitaEsclusoClient(main.getIdPartita(), main.getControllerPartita().giocatoreCorrente().getIdGiocatore(), "E' il turno di "+main.getControllerPartita().giocatoreCorrente().getNomeUtente()+".\n");
+			this.inviaMessaggioAClientsDiPartitaEsclusoClient(main.getIdPartita(), main.getControllerPartita().giocatoreCorrente().getIdGiocatore(), "E' il turno di "+main.getControllerPartita().giocatoreCorrente().getNomeUtente()+".");
 		}
 		return;
 	}

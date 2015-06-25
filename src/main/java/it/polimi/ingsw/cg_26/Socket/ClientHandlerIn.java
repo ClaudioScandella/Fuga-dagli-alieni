@@ -46,7 +46,7 @@ public class ClientHandlerIn extends Thread
 			try
 			{
 				comando=socketIn.nextLine().toLowerCase();
-				if(comando.equals(""))
+				if(comando.equals("exit"))
 					break;
 				this.gestore.riceviComando(comando);
 			}

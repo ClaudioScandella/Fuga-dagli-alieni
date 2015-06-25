@@ -68,7 +68,7 @@ public class ControllerAzioni
 				break;
 			default:
 				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), 
-						this.partita.getPartita().getNumeroTurno(),5, "Non hai inserito un comando valido.\n");
+						this.partita.getPartita().getNumeroTurno(),5, "Non hai inserito un comando valido.");
 				break;
 		}
 	}
@@ -104,12 +104,12 @@ public class ControllerAzioni
 		case ATTACCO:
 			if(!partita.giocatoreCorrente().getPuoAttaccare())
 			{
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Attenzione sei un umano, puoi attaccare solo con la carta ATTACCO.\n");
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Attenzione sei un umano, puoi attaccare solo con la carta ATTACCO.");
 				return;
 			}
 			if(partita.giocatoreCorrente().getHaAttaccato())
 			{
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non puoi attaccare! Lo hai gia fatto in questo turno.\n");
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non puoi attaccare! Lo hai gia fatto in questo turno.");
 				return;
 			}
 			if(partita.giocatoreCorrente().getPersonaggio().equals(Personaggio.ALIENO))
@@ -117,11 +117,11 @@ public class ControllerAzioni
 				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Verifico se hai gia mosso e quindi puoi attaccare.\n");
 				if(partita.giocatoreCorrente().getHaMosso()==false)
 				{
-					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non puoi attaccare! Devi muovere prima di farlo.\n");
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non puoi attaccare! Devi muovere prima di farlo.");
 					return;
 				}
 				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "OK puoi attaccare.\n");
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, this.partita.giocatoreCorrente().getNomeUtente()+" ha attaccato in settore "+this.partita.giocatoreCorrente().getPosizione()+".\n");
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, this.partita.giocatoreCorrente().getNomeUtente()+" ha attaccato in settore "+this.partita.giocatoreCorrente().getPosizione()+".");
 			}
 			partita.giocatoreCorrente().setHaAttaccato(true);
 			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Verifico se hai ucciso qualcuno.\n");
@@ -132,16 +132,16 @@ public class ControllerAzioni
 			listaGiocatoriAttaccati.remove(partita.giocatoreCorrente());
 			if(listaGiocatoriAttaccati.size()>0)
 			{
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Hai ucciso qualcuno.\n");
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, this.partita.giocatoreCorrente().getNomeUtente()+" ha ucciso qualcuno.\n");
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Hai beccato qualcuno con l'attacco!\n");
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, this.partita.giocatoreCorrente().getNomeUtente()+" ha beccato qualcuno.\n");
 				partita.giocatoreCorrente().setHaUcciso(true);
 				for(Giocatore giocatore : listaGiocatoriAttaccati)
 				{
 					if(giocatore.possiedeCartaOggetto("DIFESA")==true && giocatore.getPersonaggio().equals(Personaggio.UMANO)==true)
 					{
 						giocatoreSalvatoConDifesa=giocatore;
-						this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, giocatore.getNomeUtente()+" si � salvato con la carta difesa, quindi � UMANO.\n");
-						this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, giocatore.getNomeUtente()+" si � salvato con la carta difesa, quindi � UMANO.\n");
+						this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, giocatore.getNomeUtente()+" si è salvato con la carta difesa, quindi è UMANO.\n");
+						this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, giocatore.getNomeUtente()+" si è salvato con la carta difesa, quindi è UMANO.\n");
 						CartaOggetto oggetto=giocatore.getCartaOggetto("DIFESA");
 						giocatore.scartaOggetto(oggetto);
 						partita.getPartita().getControllerMazzoCarteOggetto().aggiungiCartaAScartiOggetto(oggetto);
@@ -160,66 +160,74 @@ public class ControllerAzioni
 					}
 				}
 				listaGiocatoriAttaccati.remove(giocatoreSalvatoConDifesa);
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Hai ucciso:");
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, "Sono stati uccisi:");
-				for(Giocatore giocatore : listaGiocatoriAttaccati)
+				if(listaGiocatoriAttaccati.size()>0)
 				{
-					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, " "+giocatore.getNomeUtente()+"("+giocatore.getPersonaggio().name()+")");
-					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, " "+giocatore.getNomeUtente()+"("+giocatore.getPersonaggio().name()+")");
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Hai ucciso:");
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, "Sono stati uccisi:");
+					for(Giocatore giocatore : listaGiocatoriAttaccati)
+					{
+						this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, " "+giocatore.getNomeUtente()+"("+giocatore.getPersonaggio().name()+")");
+						this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, " "+giocatore.getNomeUtente()+"("+giocatore.getPersonaggio().name()+")");
+					}
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, ".");
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, ".");
 				}
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, ".\n");
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, ".\n");
+				else
+				{
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Quindi non hai ucciso nessuno.");
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, "Quindi non è stato ucciso nessuno.");
+				}
 			}
 			else
 			{
-			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non hai ucciso nessuno.\n");
-			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, "Non � stato ucciso nessuno.\n");
+			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non hai ucciso nessuno.");
+			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, "Non è stato ucciso nessuno.");
 			}
 			if(this.partita.numeroUmaniInGioco()==0)
 				for(Giocatore giocatore : this.partita.getPartita().getGiocatori())
 					if(giocatore.getPersonaggio().equals(Personaggio.ALIENO))
 						giocatore.setVittoria_sconfitta("vittoria");
-			else
-				if(this.partita.numeroAlieniInGioco()==0)
-					for(Giocatore gamer : this.partita.getPartita().getGiocatori())
-						if(gamer.getPersonaggio().equals(Personaggio.UMANO) && gamer.getInVita())
-							gamer.setVittoria_sconfitta("vittoria");
+//			else
+//				if(this.partita.numeroAlieniInGioco()==0)
+//					for(Giocatore gamer : this.partita.getPartita().getGiocatori())
+//						if(gamer.getPersonaggio().equals(Personaggio.UMANO) && gamer.getInVita())
+//							gamer.setVittoria_sconfitta("vittoria");
 			return ;
 		case MOSSA:
 			if(partita.giocatoreCorrente().getHaMosso()==true)
 			{
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non puoi muovere! Hai gia mosso in questo turno.\n");
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "E' il tuo turno. Inserisci il tuo comando.\n");
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non puoi muovere! Hai gia mosso in questo turno.");
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "E' il tuo turno. Inserisci il tuo comando.");
 
 				return;
 			}
 			this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_SETTORE_DESTINAZIONE);
-			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Inserisci settore destinazione.\n");
+			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Inserisci settore destinazione.");
 			break;
 		case CARTA:
 			if(partita.giocatoreCorrente().getPersonaggio()==Personaggio.ALIENO)
 			{
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Attenzione! Sei un alieno! Solo gli umani possono usare le carte oggetto.\n");
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Attenzione! Sei un alieno! Solo gli umani possono usare le carte oggetto.");
 				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Ti mostro comunque le carte che possiedi: "+this.partita.giocatoreCorrente().stampaCarteOggetto()+".\n");
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "E' il tuo turno. Inserisci il tuo comando.\n");
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "E' il tuo turno. Inserisci il tuo comando.");
 				break;
 			}
 			else
 			{
 				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Ti mostro le carte che possiedi: "+this.partita.giocatoreCorrente().stampaCarteOggetto()+".\n");
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Scrivi il nome dell'oggetto che vuoi usare. Non puoi usare carta difesa.\n");
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Scrivi il nome dell'oggetto che vuoi usare. Non puoi usare carta difesa.");
 				this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_CARTA);
 			}
 			break;
 		case PASSO:
 			if(this.partita.getPartita().getStatoPescaOggetto().equals(StatoPescaOggetto.DEVE_PESCARE))
 			{
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Devi prima pescare un oggetto.\n");
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Devi prima pescare un oggetto.");
 				return;
 			}
 			if(partita.giocatoreCorrente().getPuoPassare()==false)
 			{
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non puoi passare! Devi prima muovere.\n");
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non puoi passare! Devi prima muovere.");
 				return;
 			}
 			else
@@ -238,7 +246,11 @@ public class ControllerAzioni
 			this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_COMANDO);
 			return;
 		case OGGETTO:
-			this.pescaOggetto();
+			if(this.partita.getPartita().getStatoPescaOggetto().equals(StatoPescaOggetto.DEVE_PESCARE))
+				this.pescaOggetto();
+			else
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non puoi pescare un oggetto.");
+			this.partita.getPartita().setStatoPescaOggetto(StatoPescaOggetto.NON_DEVE_PESCARE);
 			break;
 		}
 		return;
@@ -274,15 +286,15 @@ public class ControllerAzioni
 			{
 				if(partita.getPartita().getControllerMappa().getMappa().getListaSettoriTotali().get(partita.getPartita().getControllerMappa().convertitoreStringa_Indice(settore)).getBloccata()==true)
 				{
-					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "La scialuppa � bloccata.\n");
-					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "E' il tuo turno. Inserisci il tuo comando.\n");
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "La scialuppa è bloccata.");
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "E' il tuo turno. Inserisci il tuo comando.");
 					this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_COMANDO);
 					return;
 				}
 				if(partita.getPartita().getControllerMappa().verificaVittoria(settore, partita.giocatoreCorrente().getPosizione(), partita.giocatoreCorrente().getPortata(), partita.giocatoreCorrente().getPersonaggio())==true)
 				{
-					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Ora pesca la carta scialuppa. Se � verde allora riesci a fuggire, altrimenti devi andare verso una nuova scialuppa.\n");
-					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, this.partita.giocatoreCorrente().getNomeUtente()+" � arrivato alla scialuppa "+settore+". E' un UMANO!\n");
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Ora pesca la carta scialuppa. Se è verde allora riesci a fuggire, altrimenti devi andare verso una nuova scialuppa.\n");
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, this.partita.giocatoreCorrente().getNomeUtente()+" è arrivato alla scialuppa "+settore+". E' un UMANO!\n");
 					if(partita.getPartita().getControllerMazzoCarteScialuppa().pesca().getColore()==Colore.VERDE)
 					{
 						this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Hai pescato verde. HAI VINTO!\n");
@@ -299,17 +311,17 @@ public class ControllerAzioni
 							this.partita.giocatoreCorrente().scartaOggetto(oggetto);
 							partita.getPartita().getControllerMazzoCarteOggetto().aggiungiCartaAScartiOggetto(oggetto);
 						}
-						this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "E' il tuo turno. Inserisci il tuo comando.\n");
+						this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "E' il tuo turno. Inserisci il tuo comando.");
 						this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_COMANDO);
 						return;
 					}
-					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "La carta � rossa, non puoi fuggire da qui.\n");
-					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, "Ha pescato carta rossa. Non pu� fuggire e la sciluppa risulta bloccata per tutti.\n");
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "La carta è rossa, non puoi fuggire da qui.\n");
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, "Ha pescato carta rossa. Non può fuggire e la sciluppa risulta bloccata per tutti.");
 					partita.getPartita().getControllerMappa().getMappa().getListaSettoriTotali().get(partita.getPartita().getControllerMappa().convertitoreStringa_Indice(settore)).setBloccata(true);
 					partita.giocatoreCorrente().setPosizione(settore);
 					partita.giocatoreCorrente().setHaMosso(true);
 					partita.giocatoreCorrente().setPuoPassare(true);
-					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "E' il tuo turno. Inserisci il tuo comando.\n");
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "E' il tuo turno. Inserisci il tuo comando.");
 					this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_COMANDO);
 					return;
 				}
@@ -323,8 +335,8 @@ public class ControllerAzioni
 				partita.giocatoreCorrente().setPuoPassare(true);
 				if(partita.giocatoreCorrente().getSedativi())
 				{
-					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non peschi carte settore perch� hai usato sedativi.\n");
-					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, this.partita.giocatoreCorrente().getNomeUtente()+" non pesca carte settore perch� ha usato sedativi.\n");
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non peschi carte settore perchè hai usato sedativi.\n");
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, this.partita.giocatoreCorrente().getNomeUtente()+" non pesca carte settore perchè ha usato sedativi.");
 				}
 				else if(partita.getPartita().getControllerMappa().settoreSicuro_Pericoloso(settore)=="pericoloso")
 				{
@@ -335,14 +347,17 @@ public class ControllerAzioni
 						{
 							if(controllerEffettoCarteSettore.pescaEdEseguiEffettoCarta())
 							{
-								this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "La carta settore conteneva un oggetto. Ricordati di pescarlo prima di passare.\n");
+								this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "La carta settore conteneva un oggetto. Ricordati di pescarlo prima di passare.");
 								this.partita.getPartita().setStatoPescaOggetto(StatoPescaOggetto.DEVE_PESCARE);
-								return;
+								if(this.partita.getPartita().getStatoAvanzamentoTurno().equals(StatoAvanzamentoTurno.ATTESA_PROPRIO_SETTORE) || this.partita.getPartita().getStatoAvanzamentoTurno().equals(StatoAvanzamentoTurno.ATTESA_SETTORE_RUMORE))
+										return;
 							}
 							else
 							{
 								this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Carta senza oggetto.\n");
-								this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, "Carta senza oggetto.\n");
+								this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, "Carta senza oggetto.");
+								if(this.partita.getPartita().getStatoAvanzamentoTurno().equals(StatoAvanzamentoTurno.ATTESA_PROPRIO_SETTORE) || this.partita.getPartita().getStatoAvanzamentoTurno().equals(StatoAvanzamentoTurno.ATTESA_SETTORE_RUMORE))
+									return;
 							}
 						}
 						catch (IOException e)
@@ -352,16 +367,16 @@ public class ControllerAzioni
 				}
 				else
 				{
-					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non peschi nessuna carta.\n");
-					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, "Non viene pescata nessuna carta.\n");
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non peschi nessuna carta\n.");
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, "Non viene pescata nessuna carta.");
 				}
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "E' il tuo turno. Inserisci il tuo comando.\n");
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "E' il tuo turno. Inserisci il tuo comando.");
 				this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_COMANDO);
 				return;
 			}	
 		}
-		this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Input non valido.\n");
-		this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Inserisci settore destinazione.\n");
+		this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Input non valido.");
+		this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Inserisci settore destinazione:");
 	}
 	
 	/**
@@ -379,12 +394,12 @@ public class ControllerAzioni
 			if(oggetto.toLowerCase().equals("difesa"))
 			{
 				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Attenzione! La carta difesa si attiva solo automaticamente quando vieni attaccato e solo se sei umano.\n");
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "E' il tuo turno. Inserisci il tuo comando.\n");
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "E' il tuo turno. Inserisci il tuo comando.");
 				this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_COMANDO);
 				return;
 			}
 			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Hai deciso di usare la carta "+oggetto.toLowerCase()+".\n");
-			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, this.partita.giocatoreCorrente().getNomeUtente()+" usa la carta oggetto "+oggetto.toLowerCase()+". E' un UMANO!\n");
+			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, this.partita.giocatoreCorrente().getNomeUtente()+" usa la carta oggetto "+oggetto.toLowerCase()+". E' un UMANO!");
 			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Aziono gli effetti della carta.\n");
 			controllerEffettoCarteOggetto=new ControllerEffettoCarteOggetto(oggetto.toUpperCase(),partita);
 			CartaOggetto cOggetto=partita.giocatoreCorrente().getCartaOggetto(oggetto.toUpperCase());
@@ -420,8 +435,8 @@ public class ControllerAzioni
 			partita.getPartita().getControllerMazzoCarteOggetto().rigeneraMazzo();
 			if(partita.getPartita().getControllerMazzoCarteOggetto().numeroCarteOggettoNelMazzo()==0)
 			{
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Mazzo oggetti vuoto: nessuna carta pescata.\n");
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, "Mazzo oggetti vuoto: nessuna carta pescata.\n");
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Mazzo oggetti vuoto: nessuna carta pescata.");
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, "Mazzo oggetti vuoto: nessuna carta pescata.");
 				this.partita.getPartita().setStatoPescaOggetto(StatoPescaOggetto.NON_DEVE_PESCARE);
 				return;
 			}
@@ -430,13 +445,13 @@ public class ControllerAzioni
 		}
 		CartaOggetto cartaOggetto=partita.getPartita().getControllerMazzoCarteOggetto().pescaCartaOggetto();
 		partita.giocatoreCorrente().setCartaOggetto(cartaOggetto);
-		this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Carta pescata: "+cartaOggetto.getTipoOggetto().name()+".\n");
-		this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, this.partita.giocatoreCorrente().getNomeUtente()+" ha pescato una carta oggetto.\n");
+		this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Carta pescata: "+cartaOggetto.getTipoOggetto().name()+".");
+		this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, this.partita.giocatoreCorrente().getNomeUtente()+" ha pescato una carta oggetto.");
 		this.partita.getPartita().setStatoPescaOggetto(StatoPescaOggetto.NON_DEVE_PESCARE);
 		if(partita.giocatoreCorrente().getCarteOggetto().size()==4)
 		{
-			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Attenzione! Hai 4 oggetti, usane o scartane uno.\n");
-			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "\"uso\" per usare; \"scarta\" per scartare\n");
+			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "\nAttenzione! Hai 4 oggetti, usane o scartane uno.\n");
+			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "'uso' per usare; 'scarta' per scartare.");
 			this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_USA_O_SCARTA);
 		}
 	}
@@ -489,6 +504,7 @@ public class ControllerAzioni
 	 */
 	public void usaOscarta(String comando)
 	{
+		this.controllerEffettoCarteSettore=new ControllerEffettoCarteSettore(this.partita);
 		this.controllerEffettoCarteSettore.usaOscarta(comando);
 	}
 	

@@ -52,6 +52,7 @@ public class ControllerEffettoCarteOggetto
 			break;
 		case "LUCI":
 			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Scrivi il settore centrale tra quelli che vuoi illuminare.\n");
+			this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_SETTORE_LUCI);
 			break;
 		case "SEDATIVI":
 			if(partita.giocatoreCorrente().getHaMosso()==true)
