@@ -90,6 +90,10 @@ public class ModelPartita {
 		return this.statoAvanzamentoTurno;
 	}
 	
+	public MazzoCarteSettore getMazzoCarteSettore(){
+		return this.mazzoCarteSettore;
+	}
+	
 	public StatoPescaOggetto getStatoPescaOggetto()
 	{
 		return this.statoPescaOggetto;
