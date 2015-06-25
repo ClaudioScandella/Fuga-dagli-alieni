@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import it.polimi.ingsw.cg_26.model.Giocatore;
 import it.polimi.ingsw.cg_26.model.Giocatore.Personaggio;
 import it.polimi.ingsw.cg_26.model.ModelPartita;
+import it.polimi.ingsw.cg_26.model.StatoAvanzamentoTurno;
 import it.polimi.ingsw.cg_26.model.carte.CartaOggetto;
 import it.polimi.ingsw.cg_26.model.carte.CartaOggetto.TipoOggetto;
 
@@ -49,36 +50,63 @@ public class ControllerEffettoCarteOggettoTest {
 
 	@Test
 	public void testEseguiEffettoCarta() throws IOException {
-		//adrenalina
+		//ADRENALINA
+			//haMosso==true
+		controllerPartita.giocatoreCorrente().setHaMosso(true);
 		controller1.eseguiEffettoCarta(c1);
-		assertTrue(g1.getPortata() == 2);
+		assertTrue(controllerPartita.giocatoreCorrente().getPortata() == 1);
+			//haMosso==false
+		controllerPartita.giocatoreCorrente().setHaMosso(false);
+		controller1.eseguiEffettoCarta(c1);
+		assertTrue(controllerPartita.giocatoreCorrente().getPortata() == 2);
 		
-//		//attacco
+		//ATTACCO
+			//haMosso==true 
+		controllerPartita.giocatoreCorrente().setHaMosso(true);
+		controllerPartita.giocatoreCorrente().setHaAttaccato(false);
+		controllerPartita.giocatoreCorrente().setPuoAttaccare(false);
 		controller2.eseguiEffettoCarta(c2);
-		g1.setHaMosso(true);
-		g1.setPuoAttaccare(true);
-		controller2.eseguiEffettoCarta(c2);
-		assertTrue(g1.getHaAttaccato() == true);
+		assertTrue(controllerPartita.giocatoreCorrente().getPuoAttaccare() == true);
+		assertTrue(controllerPartita.giocatoreCorrente().getHaAttaccato() == true);
 
+			//haMosso==false
+		controllerPartita.giocatoreCorrente().setHaMosso(false);
+		controllerPartita.giocatoreCorrente().setHaAttaccato(false);
+		controllerPartita.giocatoreCorrente().setPuoAttaccare(false);
+		controller2.eseguiEffettoCarta(c2);
+		assertTrue(controllerPartita.giocatoreCorrente().getPuoAttaccare() == false);
 		
-//		//luci
+//		//LUCi
 //		controller3.eseguiEffettoCarta(c3);
 		
 		
-		//sedativi
+		//SEDATIVI
+			//haMosso==true
 		g1.setHaMosso(true);
 		controller4.eseguiEffettoCarta(c4);
 		assertFalse(g1.getSedativi());
+			//haMosso==false - sedativi true
 		g1.setHaMosso(false);
 		controller4.eseguiEffettoCarta(c4);
 		assertTrue(g1.getSedativi());
 		
 		
-		//teletrasporto
+		//TELETRASPORTO
 		controller5.eseguiEffettoCarta(c5);
 		assertEquals(g1.getPosizione(), partita.getControllerMappa().getPartenzaUmani());
-		
+			
+	}
 	
+	@Test
+	public void testInserisciSettoreLuci(){
+			//il settore non esiste
+		partita.setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_USA_O_SCARTA);
+		controller3.inserisciSettoreLuci("D15");
+		assertEquals(partita.getStatoAvanzamentoTurno(), StatoAvanzamentoTurno.ATTESA_USA_O_SCARTA);					
+			//il settore esiste
+		partita.setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_USA_O_SCARTA);
+		controller3.inserisciSettoreLuci("P08");
+		assertEquals(partita.getStatoAvanzamentoTurno(), StatoAvanzamentoTurno.ATTESA_COMANDO);	
 	}
 
 }
