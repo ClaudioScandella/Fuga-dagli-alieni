@@ -56,6 +56,9 @@ public class GiocatoreTest {
 	
 	@Test
 	public void testGetPortata() {
+		g1.setPortata(1);
+		g2.setPortata(2);
+		g3.setPortata(3);
 		assertTrue(g1.getPortata() == 1);
 		assertTrue(g2.getPortata() == 2);
 		assertTrue(g3.getPortata() == 3);

@@ -103,7 +103,7 @@ public class ControllerEffettoCarteSettoreTest {
 		partita.setNumeroGiocatoreCorrente(0);
 		assertTrue(controllerPartita.giocatoreCorrente().getPersonaggio() == Personaggio.UMANO);
 		controller.usaOscarta("uso");
-		assertEquals(partita.getStatoAvanzamentoTurno(), StatoAvanzamentoTurno.ATTESA_CARTA);
+		assertEquals(partita.getStatoAvanzamentoTurno(), StatoAvanzamentoTurno.ATTESA_CARTA_USO);
 			//comando "usa" effettuato da alieno
 		partita.setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_USA_O_SCARTA);
 		partita.setNumeroGiocatoreCorrente(1);
