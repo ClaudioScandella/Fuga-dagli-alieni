@@ -4,13 +4,11 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 
-import it.polimi.ingsw.cg_26.main.Main;
 import it.polimi.ingsw.cg_26.model.GameState;
 import it.polimi.ingsw.cg_26.model.Giocatore;
 import it.polimi.ingsw.cg_26.model.Giocatore.Personaggio;
 import it.polimi.ingsw.cg_26.model.ModelPartita;
 import it.polimi.ingsw.cg_26.model.ModelPartita.StatoPescaOggetto;
-import it.polimi.ingsw.cg_26.model.StatoAvanzamentoTurno;
 import it.polimi.ingsw.cg_26.model.carte.CartaOggetto;
 import it.polimi.ingsw.cg_26.model.carte.CartaOggetto.TipoOggetto;
 
@@ -22,8 +20,6 @@ public class ControllerPartitaTest {
 	private ModelPartita partita = new ModelPartita(1234, "galilei");
 	private ControllerPartita controller = new ControllerPartita(partita);
 	private Giocatore g1, g2;
-	private LOG log;
-	private ControllerEffettoCarteSettore controllerEffettoCarteSettore;
 
 	@Before
 	public void setUp() throws Exception {
@@ -34,7 +30,6 @@ public class ControllerPartitaTest {
 		controller.assegnaRuoli();
 		partita.setNumeroGiocatoreCorrente(0);
 		partita.setNumeroTurno(2);
-		log = new LOG();
 	}
 
 	@Test
@@ -103,44 +98,6 @@ public class ControllerPartitaTest {
 		controller.inserisciCartaOggetto("sedativi");
 		assertTrue(controller.giocatoreCorrente().getSedativi() == true);
 	}
-
-//	@Test
-//	public void testInserisciSettoreLuci() throws IOException {
-//		controller.avanzaPartita("mossa");
-//		partita.setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_SETTORE_LUCI);
-//		controller.inserisciSettoreLuci("N02");
-//		assertTrue(partita.getStatoAvanzamentoTurno() == StatoAvanzamentoTurno.ATTESA_COMANDO);
-//	}
-
-//	@Test
-//	public void testInserisciSettoreRumoreAScelta() throws IOException {
-//		controller.avanzaPartita("mossa");
-//		controller.inserisciSettoreDestinazione("P08");
-//		partita.setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_SETTORE_RUMORE);
-//		controller.inserisciSettoreRumoreAScelta("P08");
-//		assertTrue(partita.getStatoAvanzamentoTurno() == StatoAvanzamentoTurno.ATTESA_COMANDO);	}
-
-//	@Test
-//	public void testInserisciProprioSettore() throws IOException {
-//		controller.avanzaPartita("mossa");
-//		partita.setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_SETTORE_RUMORE);
-//		controller.giocatoreCorrente().setPosizione("N02");
-//		controller.inserisciSettoreLuci("N02");
-//		assertTrue(partita.getStatoAvanzamentoTurno() == StatoAvanzamentoTurno.ATTESA_COMANDO);	}
-
-	@Test
-	public void testUsaOscarta() {
-		
-	}
-
-
-//	@Test
-//	public void testScartaOggetto() throws IOException {
-//		controller.avanzaPartita("carta");
-//		controller.giocatoreCorrente().setCartaOggetto(new CartaOggetto(TipoOggetto.LUCI));
-//		controller.scartaOggetto("luci");
-//		assertFalse(controller.giocatoreCorrente().possiedeCartaOggetto("luci"));
-//	}
 
 	@Test
 	public void testGetPartita() {

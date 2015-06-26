@@ -1,7 +1,6 @@
 package it.polimi.ingsw.cg_26.controller;
 
 import static org.junit.Assert.*;
-import it.polimi.ingsw.cg_26.model.Giocatore;
 
 import org.junit.Before;
 import org.junit.Test;

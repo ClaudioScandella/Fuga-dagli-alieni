@@ -17,7 +17,7 @@ import org.junit.Test;
 
 public class ControllerAzioniTest {
 	
-	private ControllerAzioni controllerAzioni0, controllerAzioni1, controllerAzioni2,
+	private ControllerAzioni controllerAzioni1, controllerAzioni2,
 		controllerAzioni3, controllerAzioni4, controllerAzioni5;
 	private ControllerPartita controllerPartita;
 	private ModelPartita partita;

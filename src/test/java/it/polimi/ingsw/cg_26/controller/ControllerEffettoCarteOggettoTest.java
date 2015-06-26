@@ -76,8 +76,9 @@ public class ControllerEffettoCarteOggettoTest {
 		controller2.eseguiEffettoCarta(c2);
 		assertTrue(controllerPartita.giocatoreCorrente().getPuoAttaccare() == false);
 		
-//		//LUCi
-//		controller3.eseguiEffettoCarta(c3);
+		//LUCI
+		controller3.eseguiEffettoCarta(c3);
+		assertEquals(partita.getStatoAvanzamentoTurno(), StatoAvanzamentoTurno.ATTESA_COMANDO);
 		
 		
 		//SEDATIVI

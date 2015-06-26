@@ -28,7 +28,7 @@ public class Client
 		Thread clientWriting=new Thread(new ClientWriting(socket,this.id));
 		clientReading.start();
 		clientWriting.start();
-		System.out.println("Il mio id � "+this.id);
+		System.out.println("Il mio id è "+this.id);
 	}
 
 	public void setID(int id)

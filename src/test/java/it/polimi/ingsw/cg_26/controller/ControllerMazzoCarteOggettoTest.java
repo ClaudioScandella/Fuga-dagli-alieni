@@ -61,7 +61,7 @@ public class ControllerMazzoCarteOggettoTest {
 	@Test
 	public void testPescaCartaOggetto() {
 		int num = mazzo1.getMazzoCarteOggetto().size();
-		CartaOggetto c = controllerMazzo1.pescaCartaOggetto();
+		controllerMazzo1.pescaCartaOggetto();
 		assertEquals(mazzo1.getMazzoCarteOggetto().size(), num-1);
 	}
 
