@@ -168,7 +168,7 @@ public class ControllerAzioni
 							if(giocatore.getPersonaggio().equals(Personaggio.UMANO))
 							{
 								partita.giocatoreCorrente().setHaUcciso(true);
-								this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Ora che hai ucciso");
+								this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Ora che hai ucciso puoi muovere di 3 settori alla volta.");
 								break;
 							}
 						}
