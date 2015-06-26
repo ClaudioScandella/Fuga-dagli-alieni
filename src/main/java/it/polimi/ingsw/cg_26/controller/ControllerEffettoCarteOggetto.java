@@ -8,17 +8,47 @@ import it.polimi.ingsw.cg_26.model.mappa.Settore;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Contiene la classe ControllerEffettoCarteOggetto, che permette di gestire
+ * ed eseguire gli effetti delle carte oggetto.
+ * 
+ * @author Claudio e Patrizia
+ *
+ */
 public class ControllerEffettoCarteOggetto
 {
 	private ControllerPartita partita;
 	private String tipoCarta="";
 
+	//COSTRUTTORE
 	public ControllerEffettoCarteOggetto(String tipoCarta, ControllerPartita partita)
 	{
 		this.partita=partita;
 		this.tipoCarta=tipoCarta;
 	}
 
+	/**
+	 * Esegue gli effetti della CartaOggetto passata in ingresso.
+	 * - se il tipo della carta è ADREANALINA: se il giocatore ha già effettuato una mossa,
+	 * ritorna. Se invece il giocatore deve ancora effettuare la mossa, 
+	 * attribuisce il valore 2 al parametro portata del giocatore.
+	 * - se il tipo della carta è ATTACCO: verifica che il giocatore abbia già effettuato 
+	 * una mossa e pone il parametro puoAttaccare a true. Crea poi un ControllerAzioni e 
+	 * chiama il metodo agisci(), che si occuperà di effettuare l'attacco.
+	 * - se il tipo della carta è LUCI: pone lo statoAvanzamentoTurno ad ATTESA_SETTORE_LUCI.
+	 * - se il tipo della carta è SEDATIVI: verifica che il giocatore non abbia ancora effettuato
+	 * una mossa e mette a true il parametro sedativi del giocatore.
+	 * - se il tipo della carta è TELETRASPORTO: cambia la posizione attuale del giocatore e lo
+	 * "teletrasporta" nel settore di partenza degli umani (infatti gli alieni non possono usare 
+	 * carte oggetto).
+	 * 
+	 * Dopodiché scarta la carta oggetto passata in ingresso (la elimina dalla lista delle carte
+	 * oggetto possedute dal giocatore) e la aggiunge alla lista degli scarti 
+	 * del mazzo di carte oggetto.
+	 * 
+	 * @param oggetto CartaOggetto da usare
+	 * @throws IOException
+	 */
 	public void eseguiEffettoCarta(CartaOggetto oggetto) throws IOException
 	{
 		switch(tipoCarta)
@@ -68,7 +98,6 @@ public class ControllerEffettoCarteOggetto
 		case "TELETRASPORTO":
 			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, this.partita.giocatoreCorrente().getNomeUtente()+" usa la carta oggetto teletrasporto.\n");
 			partita.giocatoreCorrente().setPosizione(partita.getPartita().getControllerMappa().getPartenzaUmani());
-			partita.giocatoreCorrente().scartaOggetto(oggetto);
 			this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_COMANDO);
 			break;
 		default:
@@ -82,6 +111,14 @@ public class ControllerEffettoCarteOggetto
 		return ;
 	}
 	
+	/**
+	 * Per prima cosa controlla che la stringa passata in ingresso, contenente le coordinate,
+	 * corrisponda ad un settore esistente. Se è così, crea un arraylist listaSettoriDaIlluminare,
+	 * in cui inserisce il settore considerato e tutti i settori adiacenti ad esso.
+	 * Controlla la posizione di tutti i giocatori e stampa i giocatori presenti in ognuno 
+	 * dei settori appartenenti alla listaSettoriDaIlluminare
+	 * @param settore
+	 */
 	public void inserisciSettoreLuci(String settore)
 	{
 		if(partita.getPartita().getControllerMappa().verificaEsistenzaSettore(settore)==false)

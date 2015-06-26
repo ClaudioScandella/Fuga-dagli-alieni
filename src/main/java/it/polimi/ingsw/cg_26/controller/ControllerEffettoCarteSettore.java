@@ -6,16 +6,39 @@ import it.polimi.ingsw.cg_26.model.carte.CartaOggetto;
 import it.polimi.ingsw.cg_26.model.carte.CartaSettore;
 
 import java.io.IOException;
-
+/**
+ * Contiene la classe ControllerEffettoCarteSettore, che permette di gestire
+ * ed eseguire gli effetti delle carte settore.
+ * 
+ * @author Claudio e Patrizia
+ *
+ */
 public class ControllerEffettoCarteSettore
 {
 	private ControllerPartita partita;
 	
+	//COSTRUTTORE
 	public ControllerEffettoCarteSettore(ControllerPartita partita)
 	{
 		this.partita=partita;
 	}
 	
+	/**
+	 * Pesca una carta dal mazzo di carte settore e ne esegue gli effetti.
+	 * Il metodo ritorna true se la carta contiene un oggetto (e quindi il
+	 * giocatore dovrà pescare una carta oggetto) altrimenti false.
+	 * 
+	 * - se il tipo di carta settore è SILENZIO: pone lo statoAvanzamentoTurno della 
+	 * partita ad ATTESA_COMANDO
+	 * - se il tipo di carta settore è RUMOREaSCELTA: pone lo statoAvanzamentoTurno 
+	 * della partita ad ATTESA_SETTORE_RUMORE
+	 * - se il tipo di carta settore è RUMOREproprioSETTORE: pone lo
+	 * statoAvanzamentoTurno ad ATTESA_PROPRIO_SETTORE.
+	 * 
+	 * @return true: carta settore pescata con oggetto
+	 * 		   false: carta settore pescata senza oggetto
+	 * @throws IOException
+	 */
 	public boolean pescaEdEseguiEffettoCarta() throws IOException
 	{
 		if(partita.getPartita().getControllerMazzoCarteSettore().numeroCarteSettoreNelMazzo()==0)
@@ -42,6 +65,12 @@ public class ControllerEffettoCarteSettore
 		}
 	}
 	
+	/**
+	 * Controlla che le coordinate passate in ingresso come stringa corrispondano
+	 * ad un settore esistente e aggiona il log e lo statoAvanzamentoTurno.
+	 * 
+	 * @param settore in cui il giocatore vuole far rumore
+	 */
 	public void inserisciSettoreRumoreAScelta(String settore)
 	{
 		settore=settore.toUpperCase();
@@ -58,6 +87,13 @@ public class ControllerEffettoCarteSettore
 			}
 	}
 	
+	/**
+	 * Controlla che le coordinate passate in ingresso come stringa corrispondano
+	 * effettivamente al settore in cui si trova il giocatore, poi aggiorna log e 
+	 * statoAvanzamentoTurno.
+	 * 
+	 * @param settore in cui il giocatore si trova
+	 */
 	public void inserisciProprioSettore(String settore)
 	{
 		settore=settore.toUpperCase();
@@ -73,6 +109,14 @@ public class ControllerEffettoCarteSettore
 		}
 	}
 	
+	/**
+	 * Se il comando passato in ingresso come stringa è "uso", per prima cosa
+	 * controlla che il giocatore non sia alieno e crea un ControllerAzioni
+	 * avente come azione "carta" e chiama il metodo agisci().
+	 * Se il comando è "scarta" cambia lo statoAvanzamentoTurno in ATTESA_CARTA_DA_SCARTARE.
+	 * 
+	 * @param comando "usa" o "scarta"
+	 */
 	public void usaOscarta(String comando)
 	{
 		if(comando.equals("uso"))
@@ -103,6 +147,13 @@ public class ControllerEffettoCarteSettore
 			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Comando non valido.");
 	}
 
+	/**
+	 * Controlla che il giocatore corrente possieda la carta oggetto indicata dal parametro
+	 * in ingresso. In caso affermativo scarta tale carta (la elimina dalla lista di
+	 * carte oggetto possedute dal giocatore) e la ggiunge agli scarti.
+	 * 
+	 * @param comando tipo di carta oggetto
+	 */
 	public void scartaOggetto(String comando)
 	{
 		if(partita.giocatoreCorrente().possiedeCartaOggetto(comando.toUpperCase()))

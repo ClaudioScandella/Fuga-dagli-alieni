@@ -96,16 +96,26 @@ public class ControllerEffettoCarteSettoreTest {
 		assertFalse(partita.getStatoAvanzamentoTurno() == StatoAvanzamentoTurno.ATTESA_COMANDO);
 	}
 	
-//	@Test
-//	public void usaOscartaTest(){
-//			//comando "usa" effettuato da umano
-//			//comando "usa" effettuato da alieno
-//			//comando "scarta"
-//		partita.setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_USA_O_SCARTA);
-//		controller.usaOscarta("scarta");
-//		assertFalse(partita.getStatoAvanzamentoTurno() == StatoAvanzamentoTurno.ATTESA_CARTA_DA_SCARTARE);
-//		
-//	}
+	@Test
+	public void usaOscartaTest(){
+			//comando "usa" effettuato da umano
+		partita.setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_USA_O_SCARTA);
+		partita.setNumeroGiocatoreCorrente(0);
+		assertTrue(controllerPartita.giocatoreCorrente().getPersonaggio() == Personaggio.UMANO);
+		controller.usaOscarta("uso");
+		assertEquals(partita.getStatoAvanzamentoTurno(), StatoAvanzamentoTurno.ATTESA_CARTA);
+			//comando "usa" effettuato da alieno
+		partita.setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_USA_O_SCARTA);
+		partita.setNumeroGiocatoreCorrente(1);
+		assertTrue(controllerPartita.giocatoreCorrente().getPersonaggio() == Personaggio.ALIENO);
+		controller.usaOscarta("uso");
+		assertTrue(partita.getStatoAvanzamentoTurno() == StatoAvanzamentoTurno.ATTESA_USA_O_SCARTA);
+			//comando "scarta"
+		partita.setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_USA_O_SCARTA);
+		controller.usaOscarta("scarta");
+		assertTrue(partita.getStatoAvanzamentoTurno() == StatoAvanzamentoTurno.ATTESA_CARTA_DA_SCARTARE);
+		
+	}
 
 	@Test
 	public void testScartaOggetto(){
