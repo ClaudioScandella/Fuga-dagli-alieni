@@ -22,6 +22,8 @@ public class ControllerPartitaTest {
 	private ModelPartita partita = new ModelPartita(1234, "galilei");
 	private ControllerPartita controller = new ControllerPartita(partita);
 	private Giocatore g1, g2;
+	private LOG log;
+	private ControllerEffettoCarteSettore controllerEffettoCarteSettore;
 
 	@Before
 	public void setUp() throws Exception {
@@ -32,6 +34,7 @@ public class ControllerPartitaTest {
 		controller.assegnaRuoli();
 		partita.setNumeroGiocatoreCorrente(0);
 		partita.setNumeroTurno(2);
+		log = new LOG();
 	}
 
 	@Test
@@ -66,70 +69,82 @@ public class ControllerPartitaTest {
 			//se il turno è 40
 		partita.setNumeroTurno(40);
 		controller.avanzaPartita("carta");
-		assertTrue(g1.getVittoria_sconfitta() == "vittoria" || g1.getVittoria_sconfitta() == "sconfitta");
+		assertTrue(g1.getVittoria_sconfitta() == "vittoria" || g1.getVittoria_sconfitta() == "sconfitta");	
 			//se il turno non è 40
-				//se il comando è "passa": ha passato == true
+				//se il comando è "passa"
 		partita.setNumeroTurno(15);
-		controller.giocatoreCorrente().setHaPassato(false);
 		controller.giocatoreCorrente().setPuoPassare(true);
 		partita.setStatoPescaOggetto(StatoPescaOggetto.NON_DEVE_PESCARE);
-		controller.avanzaPartita("passo");
-		assertTrue(controller.giocatoreCorrente().getHaPassato() == false);
-				//se haPassato==true && controllaFinePartita == false
+		controller.avanzaPartita("passa");
+		assertTrue(controller.giocatoreCorrente().getHaPassato() == false);		
+				//se il comando  non è "passa" 
+		int n = partita.getNumeroGiocatoreCorrente();
 		partita.setNumeroTurno(15);
-		controller.giocatoreCorrente().setHaPassato(true);
+		controller.giocatoreCorrente().setPuoPassare(true);
+		partita.setStatoPescaOggetto(StatoPescaOggetto.NON_DEVE_PESCARE);
+		controller.avanzaPartita("carta");
+		assertTrue(controller.giocatoreCorrente().getPuoPassare() == true);
+		assertFalse(n == partita.getNumeroGiocatoreCorrente() );
 	
 	}
 
-/*	@Test
-	public void testInserisciSettoreDestinazione() {
+	@Test
+	public void testInserisciSettoreDestinazione() throws IOException {
+		controller.avanzaPartita("mossa");
 		controller.giocatoreCorrente().setPosizione("P08");
 		controller.inserisciSettoreDestinazione("O09");
 		assertTrue(controller.giocatoreCorrente().getPosizione() == "O09");
 	}
 
 	@Test
-	public void testInserisciCartaOggetto() {
+	public void testInserisciCartaOggetto() throws IOException {
+		controller.avanzaPartita("carta");
 		controller.giocatoreCorrente().setCartaOggetto(new CartaOggetto(TipoOggetto.SEDATIVI));
 		controller.inserisciCartaOggetto("sedativi");
 		assertTrue(controller.giocatoreCorrente().getSedativi() == true);
 	}
 
-	@Test
-	public void testInserisciSettoreLuci() {
-		partita.setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_SETTORE_LUCI);
-		controller.inserisciSettoreLuci("N02");
-		assertTrue(partita.getStatoAvanzamentoTurno() == StatoAvanzamentoTurno.ATTESA_COMANDO);
-	}
-
-	@Test
-	public void testInserisciSettoreRumoreAScelta() {
-		partita.setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_SETTORE_RUMORE);
-		controller.inserisciSettoreRumoreAScelta("N02");
-		assertTrue(partita.getStatoAvanzamentoTurno() == StatoAvanzamentoTurno.ATTESA_COMANDO);	}
-
-	@Test
-	public void testInserisciProprioSettore() {
-		partita.setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_SETTORE_RUMORE);
-		controller.giocatoreCorrente().setPosizione("N02");
-		controller.inserisciSettoreLuci("N02");
-		assertTrue(partita.getStatoAvanzamentoTurno() == StatoAvanzamentoTurno.ATTESA_COMANDO);	}
-
 //	@Test
-//	public void testUsaOscarta() {
-//		fail("Not yet implemented");
+//	public void testInserisciSettoreLuci() throws IOException {
+//		controller.avanzaPartita("mossa");
+//		partita.setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_SETTORE_LUCI);
+//		controller.inserisciSettoreLuci("N02");
+//		assertTrue(partita.getStatoAvanzamentoTurno() == StatoAvanzamentoTurno.ATTESA_COMANDO);
 //	}
 
+//	@Test
+//	public void testInserisciSettoreRumoreAScelta() throws IOException {
+//		controller.avanzaPartita("mossa");
+//		controller.inserisciSettoreDestinazione("P08");
+//		partita.setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_SETTORE_RUMORE);
+//		controller.inserisciSettoreRumoreAScelta("P08");
+//		assertTrue(partita.getStatoAvanzamentoTurno() == StatoAvanzamentoTurno.ATTESA_COMANDO);	}
+
+//	@Test
+//	public void testInserisciProprioSettore() throws IOException {
+//		controller.avanzaPartita("mossa");
+//		partita.setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_SETTORE_RUMORE);
+//		controller.giocatoreCorrente().setPosizione("N02");
+//		controller.inserisciSettoreLuci("N02");
+//		assertTrue(partita.getStatoAvanzamentoTurno() == StatoAvanzamentoTurno.ATTESA_COMANDO);	}
 
 	@Test
-	public void testScartaOggetto() {
-		controller.giocatoreCorrente().setCartaOggetto(new CartaOggetto(TipoOggetto.LUCI));
-		controller.scartaOggetto("LUCI");
-		assertFalse(controller.giocatoreCorrente().possiedeCartaOggetto("LUCI"));
+	public void testUsaOscarta() {
+		
 	}
-*/
+
+
+//	@Test
+//	public void testScartaOggetto() throws IOException {
+//		controller.avanzaPartita("carta");
+//		controller.giocatoreCorrente().setCartaOggetto(new CartaOggetto(TipoOggetto.LUCI));
+//		controller.scartaOggetto("luci");
+//		assertFalse(controller.giocatoreCorrente().possiedeCartaOggetto("luci"));
+//	}
+
 	@Test
 	public void testGetPartita() {
+		
 		assertTrue(controller.getPartita() instanceof ModelPartita);
 	}
 
