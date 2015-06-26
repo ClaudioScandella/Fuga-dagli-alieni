@@ -15,7 +15,7 @@ public class MazzoCarteScialuppaTest {
 
 	@Test
 	public void testGetMazzoCarteScialuppa() {
-		assertTrue(m1.getMazzoCarteScialuppa().size() == 8);
+		assertTrue(m1.getMazzoCarteScialuppa().size() == 6);
 	}
 
 }
