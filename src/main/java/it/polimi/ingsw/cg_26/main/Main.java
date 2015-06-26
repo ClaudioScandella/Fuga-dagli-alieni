@@ -20,13 +20,14 @@ public class Main
 	public enum Stato {DISPONIBILE, PIENA, INIZIATA, FINITA;}
 	private Stato stato;
 
+	//COSTRUTTORE
 	public Main(int idPartita, String nomeMappa)
 	{
 		this.idPartita=idPartita;
 		this.nomeMappa=nomeMappa;
 	}
 	
-//	--------------------------------------------------------------------------------------------------
+//	---GETTER-----------------------------------------------------------------------------------------------
 	
 	public int getIdPartita()
 	{
