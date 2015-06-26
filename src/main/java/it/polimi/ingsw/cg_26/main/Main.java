@@ -112,6 +112,11 @@ public class Main
 		case ATTESA_USA_O_SCARTA:
 			this.controllerPartita.usaOscarta(comando);
 			break;
+		case ATTESA_CARTA_USO:
+			this.controllerPartita.inserisciCartaOggetto(comando);
+			break;
+		default:
+			break;
 		}
 		mexPrivato=this.generaMexPrivato();
 		mexPubblico=this.generaMexPubblico();
@@ -159,6 +164,7 @@ public class Main
 			if(this.controllerPartita.controllaFinePartita())
 			{
 				this.controllerPartita.terminaPartita();
+				this.stato=Stato.FINITA;
 				return;
 			}
 			int contatoreGiocatoriInGiocoDopoGiocatoreCorrente=0;

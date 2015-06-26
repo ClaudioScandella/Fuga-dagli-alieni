@@ -216,7 +216,8 @@ public class ControllerAzioni
 			{
 				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Ti mostro le carte che possiedi: "+this.partita.giocatoreCorrente().stampaCarteOggetto()+".\n");
 				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Scrivi il nome dell'oggetto che vuoi usare. Non puoi usare carta difesa.");
-				this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_CARTA);
+				this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_CARTA_USO);
+				A;
 			}
 			break;
 		case PASSO:
@@ -246,10 +247,10 @@ public class ControllerAzioni
 			this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_COMANDO);
 			return;
 		case OGGETTO:
-			if(this.partita.getPartita().getStatoPescaOggetto().equals(StatoPescaOggetto.DEVE_PESCARE))
+//			if(this.partita.getPartita().getStatoPescaOggetto().equals(StatoPescaOggetto.DEVE_PESCARE))
 				this.pescaOggetto();
-			else
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non puoi pescare un oggetto.");
+//			else
+//				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non puoi pescare un oggetto.");
 			this.partita.getPartita().setStatoPescaOggetto(StatoPescaOggetto.NON_DEVE_PESCARE);
 			break;
 		}
@@ -367,7 +368,7 @@ public class ControllerAzioni
 				}
 				else
 				{
-					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non peschi nessuna carta\n.");
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non peschi nessuna carta.\n");
 					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, "Non viene pescata nessuna carta.");
 				}
 				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "E' il tuo turno. Inserisci il tuo comando.");
@@ -394,13 +395,20 @@ public class ControllerAzioni
 			if(oggetto.toLowerCase().equals("difesa"))
 			{
 				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Attenzione! La carta difesa si attiva solo automaticamente quando vieni attaccato e solo se sei umano.\n");
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "E' il tuo turno. Inserisci il tuo comando.");
-				this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_COMANDO);
+				if(this.partita.getPartita().getStatoAvanzamentoTurno().equals(StatoAvanzamentoTurno.ATTESA_CARTA_USO))
+				{
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Inserisci carta da usare.");
+				}
+				else
+				{
+					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "E' il tuo turno. Inserisci il tuo comando.");
+					this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_COMANDO);
+				}
 				return;
 			}
 			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Hai deciso di usare la carta "+oggetto.toLowerCase()+".\n");
-			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, this.partita.giocatoreCorrente().getNomeUtente()+" usa la carta oggetto "+oggetto.toLowerCase()+". E' un UMANO!");
-			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Aziono gli effetti della carta.\n");
+//			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, this.partita.giocatoreCorrente().getNomeUtente()+" usa la carta oggetto "+oggetto.toLowerCase()+". E' un UMANO!");
+//			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Aziono gli effetti della carta.\n");
 			controllerEffettoCarteOggetto=new ControllerEffettoCarteOggetto(oggetto.toUpperCase(),partita);
 			CartaOggetto cOggetto=partita.giocatoreCorrente().getCartaOggetto(oggetto.toUpperCase());
 			try
@@ -414,7 +422,12 @@ public class ControllerAzioni
 		}
 		else
 			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non hai o non esiste quella carta.\n");
-		this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_COMANDO);
+		if(this.partita.getPartita().getStatoAvanzamentoTurno().equals(StatoAvanzamentoTurno.ATTESA_CARTA_USO))
+		{
+			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Inserisci carta da usare.");
+		}
+		else
+			this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_COMANDO);
 	}
 	
 	/**
@@ -460,7 +473,7 @@ public class ControllerAzioni
 	 * Chiama il metodo inserisciSettoreLuci() del controllerEffettoCarteOggetto,
 	 * che si occuperà di illuminare il settore passatogli.
 	 * 
-	 * @param settore è il settore che si vuole illuminare.
+	 * @param settore è il settore centrale tra quelli che si vogliono illuminare.
 	 */
 	public void inserisciSettoreLuci(String settore)
 	{

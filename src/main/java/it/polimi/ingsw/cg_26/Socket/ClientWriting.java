@@ -56,7 +56,7 @@ public class ClientWriting implements Runnable
 			{
 				comando=scanner.nextLine();
 				comando=comando.toLowerCase();
-				if(comando.equals("galilei") || comando.equals("fermi") || comando.equals("galvani"))
+				if(comando.equals("galilei") || comando.equals("fermi") || comando.equals("galvani") || comando.equals("mini"))
 				{
 					comando=comando+this.aggiungiFirma();
 					socketOut.println(comando);
@@ -74,11 +74,22 @@ public class ClientWriting implements Runnable
 				comando=scanner.nextLine();
 				if(comando!=null)
 				{
+					if(comando.equals("exit"))
+						break;
 					comando=comando+this.aggiungiFirma();
 					socketOut.println(comando.toLowerCase());
 					socketOut.flush();
 				}
 			}
+		}
+		scanner.close();
+		try
+		{
+			socket.close();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
 		}
 	}
 	

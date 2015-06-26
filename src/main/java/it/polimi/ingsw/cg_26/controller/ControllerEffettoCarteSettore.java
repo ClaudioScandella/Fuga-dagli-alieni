@@ -82,14 +82,21 @@ public class ControllerEffettoCarteSettore
 				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Sei un alieno. Sei obbligato a scartare.");
 				return;
 			}
-			ControllerAzioni controllerAzioni=new ControllerAzioni("carta", this.partita);
-			try
+			if(this.partita.giocatoreCorrente().possiedeCartaOggetto("TELETRASPORTO") || this.partita.giocatoreCorrente().possiedeCartaOggetto("LUCI") || this.partita.giocatoreCorrente().possiedeCartaOggetto("ATTACCO"))
 			{
-				controllerAzioni.agisci();
+				ControllerAzioni controllerAzioni=new ControllerAzioni("carta", this.partita);
+				try
+				{
+					controllerAzioni.agisci();
+				}
+				catch (IOException e)
+				{
+					e.printStackTrace();
+				}
 			}
-			catch (IOException e)
+			else
 			{
-				e.printStackTrace();
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non possiedi alcuna carta utilizzabile dopo aver mosso.\nDevi per forza scartare qualcosa.");
 			}
 			return;
 		}
@@ -116,6 +123,6 @@ public class ControllerEffettoCarteSettore
 			return;
 		}
 		else
-			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non possiedi l'oggetto.");
+			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non possiedi l'oggetto.\nScrivi il nome dell'oggetto che vuoi scartare.");
 	}
 }

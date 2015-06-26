@@ -34,7 +34,7 @@ public class ClientReading implements Runnable
 			if(socketIn.hasNextLine())
 			{
 				comando=socketIn.nextLine();
-				if(comando.equals("esci"))
+				if(comando.equals("exit"))
 					break;
 				System.out.println(comando);
 			}

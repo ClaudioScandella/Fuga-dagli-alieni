@@ -24,6 +24,11 @@ public class ControllerEffettoCarteOggetto
 		switch(tipoCarta)
 		{
 		case "ADRENALINA":
+			if(this.partita.getPartita().getStatoAvanzamentoTurno().equals(StatoAvanzamentoTurno.ATTESA_CARTA_USO))
+			{
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non puoi usare ADRENALINA.");
+				return;
+			}
 			if(partita.giocatoreCorrente().getHaMosso()==true)
 			{
 				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Hai gia mosso! Dovevi usare questa carta prima di muovere.\n");
@@ -55,6 +60,11 @@ public class ControllerEffettoCarteOggetto
 			this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_SETTORE_LUCI);
 			break;
 		case "SEDATIVI":
+			if(this.partita.getPartita().getStatoAvanzamentoTurno().equals(StatoAvanzamentoTurno.ATTESA_CARTA_USO))
+			{
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non puoi usare SEDATIVI.");
+				return;
+			}
 			if(partita.giocatoreCorrente().getHaMosso()==true)
 			{
 				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Hai gia mosso. Dovevi usare questa carta prima di muovere.\n");
@@ -68,7 +78,6 @@ public class ControllerEffettoCarteOggetto
 		case "TELETRASPORTO":
 			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, this.partita.giocatoreCorrente().getNomeUtente()+" usa la carta oggetto teletrasporto.\n");
 			partita.giocatoreCorrente().setPosizione(partita.getPartita().getControllerMappa().getPartenzaUmani());
-			partita.giocatoreCorrente().scartaOggetto(oggetto);
 			this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_COMANDO);
 			break;
 		default:
@@ -76,6 +85,7 @@ public class ControllerEffettoCarteOggetto
 			this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_COMANDO);
 			return;
 		}
+		this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, this.partita.giocatoreCorrente().getNomeUtente()+" usa la carta oggetto "+tipoCarta.toLowerCase()+". E' un UMANO!");
 		partita.giocatoreCorrente().scartaOggetto(oggetto);
 		partita.getPartita().getControllerMazzoCarteOggetto().aggiungiCartaAScartiOggetto(oggetto);
 		this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_COMANDO);
