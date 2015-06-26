@@ -59,7 +59,7 @@ public class ClientHandlerIn extends Thread
 				System.out.println("errore AAB");
 				if(gestore.eraInPartita(this.idClient))
 				{
-					System.out.println("� un casino");
+					System.out.println("è un casino");
 					this.gestore.rimuoviClient(this.idClient);
 				}
 				break;

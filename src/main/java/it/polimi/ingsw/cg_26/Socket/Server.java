@@ -18,7 +18,7 @@ public class Server
 		while(true)
 		{
 			socket=serverSocket.accept();
-			System.out.println("Si � aggiunto Client con id "+this.idClient);
+			System.out.println("Si è aggiunto Client con id "+this.idClient);
 			gestore.aggiungiClient(new ClientHandler(socket,idClient++,gestore));
 		}
 	}

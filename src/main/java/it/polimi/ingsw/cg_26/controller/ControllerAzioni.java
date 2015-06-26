@@ -109,12 +109,12 @@ public class ControllerAzioni
 			}
 			if(partita.giocatoreCorrente().getHaAttaccato())
 			{
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non puoi attaccare! Lo hai gia fatto in questo turno.");
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non puoi attaccare! Lo hai già fatto in questo turno.");
 				return;
 			}
 			if(partita.giocatoreCorrente().getPersonaggio().equals(Personaggio.ALIENO))
 			{
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Verifico se hai gia mosso e quindi puoi attaccare.\n");
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Verifico se hai già mosso e quindi puoi attaccare.\n");
 				if(partita.giocatoreCorrente().getHaMosso()==false)
 				{
 					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non puoi attaccare! Devi muovere prima di farlo.");
@@ -132,8 +132,8 @@ public class ControllerAzioni
 			listaGiocatoriAttaccati.remove(partita.giocatoreCorrente());
 			if(listaGiocatoriAttaccati.size()>0)
 			{
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Hai beccato qualcuno con l'attacco!\n");
-				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, this.partita.giocatoreCorrente().getNomeUtente()+" ha beccato qualcuno.\n");
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Hai scovato qualcuno con l'attacco!\n");
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, this.partita.giocatoreCorrente().getNomeUtente()+" ha scovato qualcuno.\n");
 				partita.giocatoreCorrente().setHaUcciso(true);
 				for(Giocatore giocatore : listaGiocatoriAttaccati)
 				{
