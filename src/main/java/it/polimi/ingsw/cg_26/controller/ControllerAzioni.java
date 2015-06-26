@@ -134,7 +134,6 @@ public class ControllerAzioni
 			{
 				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Hai scovato qualcuno con l'attacco!\n");
 				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, this.partita.giocatoreCorrente().getNomeUtente()+" ha scovato qualcuno.\n");
-				partita.giocatoreCorrente().setHaUcciso(true);
 				for(Giocatore giocatore : listaGiocatoriAttaccati)
 				{
 					if(giocatore.possiedeCartaOggetto("DIFESA")==true && giocatore.getPersonaggio().equals(Personaggio.UMANO)==true)
@@ -162,6 +161,18 @@ public class ControllerAzioni
 				listaGiocatoriAttaccati.remove(giocatoreSalvatoConDifesa);
 				if(listaGiocatoriAttaccati.size()>0)
 				{
+					if(this.partita.giocatoreCorrente().getPersonaggio().equals(Personaggio.ALIENO))
+					{
+						for(Giocatore giocatore : listaGiocatoriAttaccati)
+						{
+							if(giocatore.getPersonaggio().equals(Personaggio.UMANO))
+							{
+								partita.giocatoreCorrente().setHaUcciso(true);
+								this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Ora che hai ucciso");
+								break;
+							}
+						}
+					}
 					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Hai ucciso:");
 					this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, "Sono stati uccisi:");
 					for(Giocatore giocatore : listaGiocatoriAttaccati)
