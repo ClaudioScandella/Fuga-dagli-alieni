@@ -1,25 +1,21 @@
 package it.polimi.ingsw.cg_26.model.mappa;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
 public class MappaTest {
 	
 	Mappa mappa=new Mappa("galilei");
-	Mappa mappa1=new Mappa("galilei");
 
 	@Test
 	public void testMappa() {
-		assertNotEquals(new Mappa("galilei"),new Mappa("galilei"));
+		assertTrue(mappa instanceof Mappa);
 	}
 
 	@Test
 	public void testGetMappa() {
-		
-		assertEquals(mappa.getMappa(),mappa1.getMappa());
+		assertEquals(mappa.getMappa().size(), 322);
 	}
 
 	@Test
@@ -30,8 +26,10 @@ public class MappaTest {
 
 	@Test
 	public void testGetListaSettoriTotali() {
-		assertEquals(mappa.getListaSettoriTotali(),mappa1.getListaSettoriTotali());
-	}
-
+		
+		assertEquals(mappa.getListaSettoriTotali().size(), 322 );
+	
+		}
 }
+
 
