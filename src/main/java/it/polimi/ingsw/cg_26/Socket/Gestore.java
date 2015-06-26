@@ -162,13 +162,13 @@ public class Gestore
 					messaggi=main.avanzaPartita(comando);
 					this.inviaMessaggioAClient(idClientCheInviaComando, messaggi.get(0));
 					this.inviaMessaggioAClientsDiPartitaEsclusoClient(main.getIdPartita(), idClientCheInviaComando, messaggi.get(1));
+					if(main.getModelPartita().getStato().equals(GameState.FINEGIOCO))
+					{
+						main.setStato(Stato.FINITA);
+						return;
+					}
 					if(messaggi.get(0).equals("Hai passato."))
 					{
-						if(main.getModelPartita().getStato().equals(GameState.FINEGIOCO))
-						{
-							main.setStato(Stato.FINITA);
-							return;
-						}
 						this.inviaMessaggioAClient(main.getControllerPartita().giocatoreCorrente().getIdGiocatore(),"E' il tuo turno. Inserisci il tuo comando:");
 						this.inviaMessaggioAClientsDiPartitaEsclusoClient(main.getIdPartita(), main.getControllerPartita().giocatoreCorrente().getIdGiocatore(), "E' il turno di "+main.getControllerPartita().giocatoreCorrente().getNomeUtente()+".");
 					}

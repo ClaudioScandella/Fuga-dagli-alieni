@@ -187,11 +187,6 @@ public class ControllerAzioni
 				for(Giocatore giocatore : this.partita.getPartita().getGiocatori())
 					if(giocatore.getPersonaggio().equals(Personaggio.ALIENO))
 						giocatore.setVittoria_sconfitta("vittoria");
-//			else
-//				if(this.partita.numeroAlieniInGioco()==0)
-//					for(Giocatore gamer : this.partita.getPartita().getGiocatori())
-//						if(gamer.getPersonaggio().equals(Personaggio.UMANO) && gamer.getInVita())
-//							gamer.setVittoria_sconfitta("vittoria");
 			return ;
 		case MOSSA:
 			if(partita.giocatoreCorrente().getHaMosso()==true)
@@ -216,8 +211,10 @@ public class ControllerAzioni
 			{
 				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Ti mostro le carte che possiedi: "+this.partita.giocatoreCorrente().stampaCarteOggetto()+".\n");
 				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Scrivi il nome dell'oggetto che vuoi usare. Non puoi usare carta difesa.");
-				this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_CARTA_USO);
-				A;
+				if(this.partita.getPartita().getStatoAvanzamentoTurno().equals(StatoAvanzamentoTurno.ATTESA_USA_O_SCARTA))
+					this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_CARTA_USO);
+				else
+					this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_CARTA);
 			}
 			break;
 		case PASSO:
@@ -247,10 +244,10 @@ public class ControllerAzioni
 			this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_COMANDO);
 			return;
 		case OGGETTO:
-//			if(this.partita.getPartita().getStatoPescaOggetto().equals(StatoPescaOggetto.DEVE_PESCARE))
+			if(this.partita.getPartita().getStatoPescaOggetto().equals(StatoPescaOggetto.DEVE_PESCARE))
 				this.pescaOggetto();
-//			else
-//				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non puoi pescare un oggetto.");
+			else
+				this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Non puoi pescare un oggetto.");
 			this.partita.getPartita().setStatoPescaOggetto(StatoPescaOggetto.NON_DEVE_PESCARE);
 			break;
 		}
@@ -302,6 +299,10 @@ public class ControllerAzioni
 						this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 4, "Ha pescato verde. Ha vinto.\n");
 						partita.giocatoreCorrente().setInVita(false);
 						partita.giocatoreCorrente().setVittoria_sconfitta("vittoria");
+						if(this.partita.numeroUmaniInGioco()==0)
+							for(Giocatore giocatore : this.partita.getPartita().getGiocatori())
+								if(giocatore.getPersonaggio().equals(Personaggio.ALIENO))
+									giocatore.setVittoria_sconfitta("sconfitta");
 						partita.giocatoreCorrente().setPosizione(null);
 						partita.getPartita().getControllerMappa().getMappa().getListaSettoriTotali().get(partita.getPartita().getControllerMappa().convertitoreStringa_Indice(settore)).setBloccata(true);
 						partita.giocatoreCorrente().setHaMosso(true);
@@ -427,7 +428,10 @@ public class ControllerAzioni
 			this.partita.getLog().setLOG(this.partita.getPartita().getNumeroGiocatoreCorrente(), this.partita.getPartita().getNumeroTurno(), 5, "Inserisci carta da usare.");
 		}
 		else
-			this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_COMANDO);
+			if(this.partita.getPartita().getStatoAvanzamentoTurno().equals(StatoAvanzamentoTurno.ATTESA_SETTORE_LUCI))
+				return;
+			else
+				this.partita.getPartita().setStatoAvanzamentoTurno(StatoAvanzamentoTurno.ATTESA_COMANDO);
 	}
 	
 	/**

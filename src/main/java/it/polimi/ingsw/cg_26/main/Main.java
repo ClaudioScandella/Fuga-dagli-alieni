@@ -5,6 +5,7 @@ import it.polimi.ingsw.cg_26.controller.ControllerPartita;
 import it.polimi.ingsw.cg_26.model.Giocatore;
 import it.polimi.ingsw.cg_26.model.Giocatore.Personaggio;
 import it.polimi.ingsw.cg_26.model.ModelPartita;
+import it.polimi.ingsw.cg_26.model.ModelPartita.StatoPescaOggetto;
 import it.polimi.ingsw.cg_26.model.StatoAvanzamentoTurno;
 import it.polimi.ingsw.cg_26.model.carte.CartaOggetto;
 
@@ -153,6 +154,7 @@ public class Main
 		}
 		if(this.controllerPartita.giocatoreCorrente().getIdGiocatore()==idClient)
 		{
+			this.modelPartita.setStatoPescaOggetto(StatoPescaOggetto.NON_DEVE_PESCARE);
 			giocatore.setVittoria_sconfitta("sconfitta");
 			giocatore.setInVita(false);
 			while(giocatore.getCarteOggetto().size()>0)

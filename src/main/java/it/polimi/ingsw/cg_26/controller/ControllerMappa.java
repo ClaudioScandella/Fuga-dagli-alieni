@@ -184,11 +184,12 @@ public class ControllerMappa
 	 */
 	public boolean verificaEsistenzaSettore(String settore)
 	{
+		settore=settore.toUpperCase();
 		if(settore.length()!=3)
 		{
 			for(int i=0;i<mappa.getListaSettoriTotali().size();i++)
 			{
-				if(settore==mappa.getListaSettoriTotali().get(i).getNomeSupplementare())
+				if(settore.equals(mappa.getListaSettoriTotali().get(i).getNomeSupplementare()/*.toUpperCase()*/))
 					return true;
 			}
 		}
@@ -271,6 +272,7 @@ public class ControllerMappa
 	 */
 	public ArrayList<Settore> settoriAdiacenti(String settore)
 	{
+		settore=settore.toUpperCase();
 		if(this.verificaEsistenzaSettore(settore))
 		{
 			int indiceSettore=this.convertitoreStringa_Indice(settore);
@@ -289,6 +291,7 @@ public class ControllerMappa
 	 */
 	public int convertitoreStringa_Indice(String nome)
 	{
+		nome=nome.toUpperCase();
 		int lettera=nome.charAt(0)-65;
 		int numero=((nome.charAt(1)-48)*10+nome.charAt(2)-48)-1;
 		int indiceSettore=lettera+(numero*23);
@@ -343,7 +346,7 @@ public class ControllerMappa
 	public String settoreSicuro_Pericoloso(String nomeSettore)
 	{
 		int indiceNomeSettore=this.convertitoreStringa_Indice(nomeSettore);
-		if(this.mappa.getListaSettoriTotali().get(indiceNomeSettore).getNomeSupplementare()=="Settore pericoloso")
+		if(this.mappa.getListaSettoriTotali().get(indiceNomeSettore).getNomeSupplementare().equals("Settore pericoloso"))
 			return "pericoloso";
 		return "sicuro";
 	}

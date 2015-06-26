@@ -147,7 +147,12 @@ public class ControllerPartita
 	public boolean controllaFinePartita()
 	{
 		if(this.numeroUmaniInGioco()==0 || partita.getControllerMappa().numeroScialuppeBloccate()==4)
+		{
+			for(Giocatore giocatore : this.getPartita().getGiocatori())
+				if(giocatore.getPersonaggio().equals(Personaggio.UMANO) && giocatore.getInVita()==true)
+					giocatore.setVittoria_sconfitta("sconfitta");
 			return true;
+		}
 		return false;
 	}
 	
@@ -173,20 +178,23 @@ public class ControllerPartita
 			}
 		}
 		else
-		{
 			for(Giocatore giocatore : partita.getGiocatori())
 			{
 				if(giocatore.getPersonaggio().equals(Personaggio.ALIENO))
-					partita.addGiocatoreVincente(giocatore);
-			}	
-		}
+				{
+					if(giocatore.getVittoria_sconfitta()=="sconfitta")
+						partita.addGiocatorePerdente(giocatore);
+					else
+						partita.addGiocatoreVincente(giocatore);
+				}
+			}
 		this.stampaVincitoriEPerdenti();
 	}
 	
 	public void stampaVincitoriEPerdenti()
 	{
-		this.log.setLOG(this.partita.getNumeroGiocatoreCorrente(), this.partita.getNumeroTurno(), 5, "La partita � terminata.\nEcco i vincitori:");
-		this.log.setLOG(this.partita.getNumeroGiocatoreCorrente(), this.partita.getNumeroTurno(), 4, "La partita � terminata.\nEcco i vincitori:");
+		this.log.setLOG(this.partita.getNumeroGiocatoreCorrente(), this.partita.getNumeroTurno(), 5, "La partita è terminata.\nEcco i vincitori:");
+		this.log.setLOG(this.partita.getNumeroGiocatoreCorrente(), this.partita.getNumeroTurno(), 4, "La partita è terminata.\nEcco i vincitori:");
 		for(Giocatore giocatore : this.getPartita().getGiocatoriVincenti())
 		{
 			this.log.setLOG(this.partita.getNumeroGiocatoreCorrente(), this.partita.getNumeroTurno(), 5, " "+giocatore.getNomeUtente()+"("+giocatore.getPersonaggio().name()+")");
