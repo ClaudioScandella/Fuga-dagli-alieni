@@ -10,6 +10,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+/**
+ * 
+ * @author Claudio e Patrizia
+ *
+ */
 public class ControllerPartita
 {
 	private ModelPartita partita;

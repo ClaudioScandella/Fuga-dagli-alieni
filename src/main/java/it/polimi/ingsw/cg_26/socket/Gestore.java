@@ -1,4 +1,4 @@
-package it.polimi.ingsw.cg_26.Socket;
+package it.polimi.ingsw.cg_26.socket;
 
 import it.polimi.ingsw.cg_26.main.Main;
 import it.polimi.ingsw.cg_26.main.Main.Stato;

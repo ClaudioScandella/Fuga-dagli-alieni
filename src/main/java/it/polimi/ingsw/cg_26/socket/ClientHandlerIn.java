@@ -1,4 +1,4 @@
-package it.polimi.ingsw.cg_26.Socket;
+package it.polimi.ingsw.cg_26.socket;
 
 import java.io.IOException;
 import java.net.Socket;
